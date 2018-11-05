@@ -1,0 +1,34 @@
+<!-- VP nomination form -->
+
+<script>
+
+  // when page loads,
+  document.addEventListener("DOMContentLoaded", function(){
+
+  	// save contents of form fields to variables
+  	var fullName = document.getElementById('tfa_7').value;
+		var email = document.getElementById('tfa_11').value;
+		var phone = document.getElementById('tfa_10').value;
+
+  	// listen for change to the 'I am nominating...' field
+      document.getElementById('tfa_4').addEventListener('change', function() {
+        var nominee = document.querySelector('input[id="tfa_4"]:checked').value;
+        console.log(nominee);
+
+        // if user is nominating themself,
+        if (nominee = "myself") {
+        	// set the value of the nominee name, email, and phone fields
+        	document.getElementById('tfa_13').value = fullName;
+        	document.getElementById('tfa_15').value = phone;
+        	document.getElementById('tfa_16').value = email;
+        }
+
+      });
+
+  });
+
+</script>
+
+<style>
+
+</style>
