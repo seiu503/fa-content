@@ -20,10 +20,19 @@
 		hiddenButton.setAttribute("class", "js-modal invisible");
 		document.body.insertBefore(hiddenButton, document.body.firstChild);
 
-  	// check if contact ID is prepopulated from query params
+  	// find field ID for contact id field
   	var urlParams = new URLSearchParams(window.location.search);
+  	var urlParamsArray = []
+  	for(var key of urlParams.keys()) {
+		  urlParamsArray.push(key);
+		}
+		var contactIDFieldID = urlParamsArray[0];
+		console.log(`contactIDFieldID: ${contactIDFieldID}`);
+
+		// check if contact ID is prepopulated from query params
   	// **** **** replace with field id for contact ID **** **** //
-		var contactID = urlParams.get('tfa_509');
+		var contactID = urlParams.get(contactIDFieldID);
+		console.log(contactID);
 
   	// check if FA found a single SF contact
   	// and was able to populate the fullName field
@@ -40,18 +49,20 @@
   		return path.replace(/\D/g,'');
   	}
 
-  	// save references to the form ID and title
+
+  	// save references to the form ID, title, and contact ID field ID
   	// for submitting to the next form to generate the prefill link
   	const formID = getFormIdFromPathname(window.location.pathname);
   	const formTitle = document.getElementsByClassName("wFormTitle")[0].innerHTML;
   	console.log(formTitle);
 
   	// generate the link request URL
-  	const requestURLWithQueryParams = 'https://seiu503.tfaforms.net/133?tfa_5=' + formID + '&tfa_6=' + encodeURIComponent(formTitle);
+  	const requestURLWithQueryParams = 'https://seiu503.tfaforms.net/133?tfa_5=' + formID + '&tfa_8=' + contactIDFieldID + '&tfa_6=' + encodeURIComponent(formTitle);
+  	console.log(`requestURLWithQueryParams: ${requestURLWithQueryParams}`);
 
   	// append link to linkInfo display div
   	// // **** **** replace with field id for empty link info div **** **** //
-  	const linkInfo = document.getElementById('tfa_511');
+  	const linkInfo = document.getElementById('linkInfo');
   	const linkHtml = '<a class="custom-link-text" href="' + requestURLWithQueryParams + '">I&#39;m not '+ fullName + ', get me my own link</a>';
 
   	linkInfo.innerHTML += linkHtml;
