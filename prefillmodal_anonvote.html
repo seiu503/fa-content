@@ -4,7 +4,7 @@
 	var birthdateMatch = false;
 	var alreadyVoted = false;
 	var userEnteredDOBComplete = false;
-	var salesforceDOB, votedTimestampData, votedIPData;
+	var salesforceDOB, votedTimestamp, votedIP;
 
   // when page loads,
   document.addEventListener("DOMContentLoaded", function(){
@@ -106,23 +106,19 @@
 	  // toggle visibility of 'sorry you already voted' message
 	  function sorryAlreadyVotedToggle() {
 	  	console.log('sorryAlreadyVotedToggle');
-	  	if (votedTimestamp.value || votedIP.value) {
+	  	if (votedTimestamp || votedIP) {
 	  		console.log(`votedTimestamp: ${votedTimestamp}`);
 	  		console.log(`votedIP: ${votedIP}`);
 	  		// if there is a timestamp or IP address in the already voted fields,
 	  		// hide the ballot, display error blocks and information about the
 	  		// vote that was already collected.
-	  		votedTimestampData = votedTimestamp.value;
-	  		votedIPData = votedIP.value;
 	  		ballot.style.display = 'none';
 	  		sorryDOB.style.display = 'none';
 	  		sorryAlreadyVoted.style.display = 'block';
 	  		sorryVotedInfo.style.display = 'block';
-	  		pleaseContact.style.display = 'block';
-	  		sorryVotedInfo.innerHTML = `${votedTimestampData}, from IP address ${votedIPData}`;
+	  		pleaseContact.style.display = 'none';
+	  		sorryVotedInfo.innerHTML = `${votedTimestamp}, from IP address ${votedIP}. Please contact xxxxx if you have any questions about this election.`;
 	  	} else {
-	  		console.log('no timestamp or IP found, has not voted yet, display ballot;')
-	  		console.log(ballot);
 	  		// hide error messages and display ballot
 	  		sorryDOB.style.display = 'none';
 	  		pleaseContact.style.display = 'none';
