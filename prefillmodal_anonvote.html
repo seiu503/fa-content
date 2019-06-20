@@ -2,54 +2,136 @@
 
 <script>
 	var birthdateMatch = false;
-	var salesforceDOB;
-
-	// generate concatenated birthdate string to match against SF
-  // and set the value of the hidden birthdate field
-  function updateBirthdateString() {
-  	return new Promise(function(resolve, reject) {
-  		var mm = document.getElementById('tfa_301').value;
-      var dd = document.getElementById('tfa_302').value;
-      var yyyy = document.getElementById('tfa_303').value;
-
-      var fullBirthdate = mm + '/' + dd + '/' + yyyy;
-      document.getElementById('tfa_304').value = fullBirthdate;
-      resolve(fullBirthdate);
-  	});
-
-  }
-
-  // compare user-entered birthdate with dob prefilled from salesforce
-  // set birthdate match field value
-  function compareBirthdates(userEntered, sfDOB) {
-  	const userEnteredDate = new Date(userEntered);
-  	console.log(`userEnteredDate: ${userEnteredDate}`);
-  	const sfDOBdate = new Date(sfDOB);
-  	console.log(`sfDOBdate: ${sfDOBdate}`);
-  	if (userEnteredDate == sfDOBdate) {
-  		birthdateMatch = true;
-  	}
-  	document.getElementById('tfa_318').value = birthdateMatch;
-  	console.log(birthdateMatch);
-  	console.log(document.getElementById('tfa_318').value;
-  }
-
-
+	var alreadyVoted = false;
+	var userEnteredDOBComplete = false;
+	var salesforceDOB, votedTimestampData, votedIPData;
 
   // when page loads,
   document.addEventListener("DOMContentLoaded", function(){
 
-  	// set salesforceDOB and alreadyVoted variables from prefill
-  	salesforceDOB = document.getElementById('tfa_317').value;
-  	console.log(`salesforceDOB: ${salesforceDOB}`);
-  	votedTimestamp =
-  	votedIP =
+	  // set salesforceDOB and alreadyVoted variables from prefill
+		salesforceDOB = document.getElementById('tfa_317').value;
+		votedTimestamp = document.getElementById('tfa_319').value;
+		votedIP = document.getElementById('tfa_320').value;
+		console.log(`salesforceDOB: ${salesforceDOB}`);
+		console.log(`votedTimestamp: ${votedTimestamp}`);
+		console.log(`votedIP: ${votedIP}`);
 
-  	// save hidden fields to variables for later display/hiding
+  	// save fields and sections to variables for later display/hiding
+  	var submitButton = document.getElementById('374-A');
+  	var dobValidation = document.getElementById('dob-validation');
+  	var continueButton = document.getElementById('continue');
   	var sorryDOB = document.getElementById('sorry-dob');
   	var sorryAlreadyVoted = document.getElementById('sorry-already-voted');
   	var sorryVotedInfo = document.getElementById('sorry-voted-info');
   	var pleaseContact = document.getElementById('please-contact');
+  	var ballot = document.getElementById('tfa_310');
+  	console.log(ballot);
+  	var dobEntry = document.getElementById('tfa_300');
+
+  	// hide submit button until we've confirmed eligibility to vote
+  	submitButton.style.display = 'none';
+
+  	// when continue button is clicked,
+    // update the birthdate string
+    continueButton.addEventListener('click', function() {
+      updateBirthdateString();
+      });
+
+	  // generate concatenated birthdate string to match against SF
+	  // and set the value of the hidden birthdate field
+	  function updateBirthdateString() {
+	  		var mm = document.getElementById('tfa_301').value;
+	      var dd = document.getElementById('tfa_302').value;
+	      var yyyy = document.getElementById('tfa_303').value;
+
+	      var fullBirthdate = mm + '/' + dd + '/' + yyyy;
+	      if (fullBirthdate.length === 10) {
+	      	userEnteredDOBComplete = true;
+	      	salesforceDOB = document.getElementById('tfa_317').value;
+	      	document.getElementById('tfa_304').value = fullBirthdate;
+	      	dobEntry.style.display = 'none';
+	      	dobValidation.style.display = 'none';
+	      	continueButton.style.display = 'none';
+        	compareBirthdates(fullBirthdate, salesforceDOB);
+        	sorryDOBtoggle();
+	      } else {
+	      	userEnteredDOBComplete = false;
+	      	dobValidation.style.display = 'block';
+	      }
+
+	  }
+
+	  // compare user-entered birthdate with dob prefilled from salesforce
+	  // set birthdate match field value
+	  function compareBirthdates(userEntered, sfDOB) {
+	  	console.log(`userEntered: ${userEntered}`);
+	  	const userEnteredDate = new Date(userEntered).toDateString();
+	  	console.log(`userEnteredDate: ${userEnteredDate}`);
+	  	const sfDOBdate = new Date(sfDOB).toDateString();
+	  	console.log(`sfDOBdate: ${sfDOBdate}`);
+	  	if (userEnteredDate === sfDOBdate) {
+	  		birthdateMatch = true;
+	  		console.log(birthdateMatch);
+	  	}
+	  	document.getElementById('tfa_318').value = birthdateMatch;
+	  	console.log(birthdateMatch);
+	  	console.log(document.getElementById('tfa_318').value);
+	  }
+
+  	function toggleDOBEnter() {
+
+  	}
+
+  	// toggle visibility of 'sorry your birthdate doesn't match' message
+	  function sorryDOBtoggle() {
+	  	if (birthdateMatch) {
+	  		// if birthdate matches, hide all error messages and
+	  		// check if alraedy voted before displaying ballot
+	  		sorryDOB.style.display = 'none';
+	  		sorryAlreadyVoted.style.display = 'none';
+	  		sorryVotedInfo.style.display = 'none';
+	  		pleaseContact.style.display = 'none';
+	  		sorryAlreadyVotedToggle();
+	  	} else {
+	  		// if not, hide ballot and display error messages
+	  		sorryDOB.style.display = 'block';
+	  		pleaseContact.style.display = 'block';
+	  		sorryAlreadyVoted.style.display = 'none';
+	  		sorryVotedInfo.style.display = 'none';
+	  		ballot.style.display = 'none';
+	  	}
+	  }
+
+	  // toggle visibility of 'sorry you already voted' message
+	  function sorryAlreadyVotedToggle() {
+	  	console.log('sorryAlreadyVotedToggle');
+	  	if (votedTimestamp.value || votedIP.value) {
+	  		console.log(`votedTimestamp: ${votedTimestamp}`);
+	  		console.log(`votedIP: ${votedIP}`);
+	  		// if there is a timestamp or IP address in the already voted fields,
+	  		// hide the ballot, display error blocks and information about the
+	  		// vote that was already collected.
+	  		votedTimestampData = votedTimestamp.value;
+	  		votedIPData = votedIP.value;
+	  		ballot.style.display = 'none';
+	  		sorryDOB.style.display = 'none';
+	  		sorryAlreadyVoted.style.display = 'block';
+	  		sorryVotedInfo.style.display = 'block';
+	  		pleaseContact.style.display = 'block';
+	  		sorryVotedInfo.innerHTML = `${votedTimestampData}, from IP address ${votedIPData}`;
+	  	} else {
+	  		console.log('no timestamp or IP found, has not voted yet, display ballot;')
+	  		console.log(ballot);
+	  		// hide error messages and display ballot
+	  		sorryDOB.style.display = 'none';
+	  		pleaseContact.style.display = 'none';
+	  		sorryAlreadyVoted.style.display = 'none';
+	  		sorryVotedInfo.style.display = 'none';
+	  		ballot.setAttribute( 'style', 'display: block !important' );
+	  		submitButton.setAttribute( 'style', 'display: block !important' );
+	  	}
+	  }
 
   	// replace with id for display name field
   	var fullName = document.getElementById('tfa_298').value;
@@ -100,33 +182,16 @@
 
   	linkInfo.innerHTML += linkHtml;
 
-  	// when any of the birthdate fields are changed,
-    // update the birthdate string, compare dates, and
-    // show/hide relevant error message or ballot form
-      document.getElementById('tfa_301').addEventListener('change', function() {
-        updateBirthdateString().then(function(fullBirthdate){
-        	salesforceDOB = document.getElementById('tfa_317').value;
-        	compareBirthdates(fullBirthdate, salesforceDOB);
-        });
-      });
-      document.getElementById('tfa_302').addEventListener('change', function() {
-        updateBirthdateString().then(function(fullBirthdate){
-        	salesforceDOB = document.getElementById('tfa_317').value;
-        	compareBirthdates(fullBirthdate, salesforceDOB);
-        });
-      });
-      document.getElementById('tfa_303').addEventListener('change', function() {
-        updateBirthdateString().then(function(fullBirthdate){
-        	salesforceDOB = document.getElementById('tfa_317').value;
-        	compareBirthdates(fullBirthdate, salesforceDOB);
-        });
-      });
-
   });
 
 </script>
 
 <style>
+
+.error {
+	color: #FF0000;
+}
+
 /*	fullname display */
 #tfa_298 {
 		border: 0;
@@ -137,6 +202,11 @@
 		margin: auto;
 		padding: 10px 0;
 	}
+
+/* check birthdate button */
+#continue {
+	font-size: 1.2em;
+}
 
 /*	add spacing for explanatory text above buttons */
 /*  substitute id for the id of the full name div plus `-DA` */
