@@ -68,6 +68,7 @@
 	  	console.log(`userEntered: ${userEntered}`);
 	  	const userEnteredDate = new Date(userEntered).toDateString();
 	  	console.log(`userEnteredDate: ${userEnteredDate}`);
+	  	console.log(`sfDOB: ${sfDOB}`);
 	  	const sfDOBdate = new Date(sfDOB).toDateString();
 	  	console.log(`sfDOBdate: ${sfDOBdate}`);
 	  	if (userEnteredDate === sfDOBdate) {
@@ -169,7 +170,11 @@
   	console.log(formTitle);
 
   	// generate the link request URL
-  	const requestURLWithQueryParams = 'https://seiu503.tfaforms.net/133?tfa_5=' + formID + '&tfa_6=' + encodeURIComponent(formTitle);
+  	// the tfa_8 parameter sets the contact ID field ID for this form
+  	// to pass it to the link request form
+  	// in this case it's tfa_297
+  	// but this needs to be updated when code is reused on another fomr
+  	const requestURLWithQueryParams = 'https://seiu503.tfaforms.net/133?tfa_5=' + formID + '&tfa_6=' + encodeURIComponent(formTitle) + '&tfa_8=tfa_297';
   	console.log(requestURLWithQueryParams);
 
   	// append link to linkInfo display div
