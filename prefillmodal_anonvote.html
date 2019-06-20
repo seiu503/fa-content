@@ -1,0 +1,308 @@
+
+
+<script>
+	var birthdateMatch = false;
+	var salesforceDOB;
+
+	// generate concatenated birthdate string to match against SF
+  // and set the value of the hidden birthdate field
+  function updateBirthdateString() {
+  	return new Promise(function(resolve, reject) {
+  		var mm = document.getElementById('tfa_301').value;
+      var dd = document.getElementById('tfa_302').value;
+      var yyyy = document.getElementById('tfa_303').value;
+
+      var fullBirthdate = mm + '/' + dd + '/' + yyyy;
+      document.getElementById('tfa_304').value = fullBirthdate;
+      resolve(fullBirthdate);
+  	});
+
+  }
+
+  // compare user-entered birthdate with dob prefilled from salesforce
+  // set birthdate match field value
+  function compareBirthdates(userEntered, sfDOB) {
+  	const userEnteredDate = new Date(userEntered);
+  	console.log(`userEnteredDate: ${userEnteredDate}`);
+  	const sfDOBdate = new Date(sfDOB);
+  	console.log(`sfDOBdate: ${sfDOBdate}`);
+  	if (userEnteredDate == sfDOBdate) {
+  		birthdateMatch = true;
+  	}
+  	document.getElementById('tfa_318').value = birthdateMatch;
+  	console.log(birthdateMatch);
+  	console.log(document.getElementById('tfa_318').value;
+  }
+
+
+
+  // when page loads,
+  document.addEventListener("DOMContentLoaded", function(){
+
+  	// set salesforceDOB and alreadyVoted variables from prefill
+  	salesforceDOB = document.getElementById('tfa_317').value;
+  	console.log(`salesforceDOB: ${salesforceDOB}`);
+  	votedTimestamp =
+  	votedIP =
+
+  	// save hidden fields to variables for later display/hiding
+  	var sorryDOB = document.getElementById('sorry-dob');
+  	var sorryAlreadyVoted = document.getElementById('sorry-already-voted');
+  	var sorryVotedInfo = document.getElementById('sorry-voted-info');
+  	var pleaseContact = document.getElementById('please-contact');
+
+  	// replace with id for display name field
+  	var fullName = document.getElementById('tfa_298').value;
+
+		// append hidden button to DOM
+		var hiddenButton = document.createElement('button');
+    hiddenButton.setAttribute("id", "hiddenButton");
+		hiddenButton.setAttribute("data-modal-prefix-class", "simple-animated");
+		// replace the content-id with the ID for the wrapper that holds the modal text and hidden link div
+		hiddenButton.setAttribute("data-modal-content-id", "tfa_295");
+		hiddenButton.setAttribute("data-modal-title", "Are you " + fullName + "?");
+		hiddenButton.setAttribute("data-modal-close-text", "Yes, I'm " + fullName);
+		hiddenButton.setAttribute("data-modal-close-title", "Yes, I'm " + fullName);
+		hiddenButton.setAttribute("class", "js-modal invisible");
+		document.body.insertBefore(hiddenButton, document.body.firstChild);
+
+  	// check if contact ID is prepopulated from query params
+  	var urlParams = new URLSearchParams(window.location.search);
+		var contactID = urlParams.get('tfa_297');
+
+  	// check if FA found a single SF contact
+  	// and was able to populate the fullName field
+  	// if contact ID and fullName both exist, simulate a click on the
+  	// hidden button to trigger the modal opening
+  	if (contactID && fullName) {
+  		document.getElementById("hiddenButton").click();
+  	}
+
+  	// save the form ID (from window.location.pathname) to a variable
+  	// for generating the request URL
+	 	const getFormIdFromPathname = (path) => {
+  		return path.replace(/\D/g,'');
+  	}
+
+  	// save references to the form ID and title
+  	// for submitting to the next form to generate the prefill link
+  	const formID = getFormIdFromPathname(window.location.pathname);
+  	const formTitle = document.getElementsByClassName("wFormTitle")[0].innerHTML;
+  	console.log(formTitle);
+
+  	// generate the link request URL
+  	const requestURLWithQueryParams = 'https://seiu503.tfaforms.net/133?tfa_5=' + formID + '&tfa_6=' + encodeURIComponent(formTitle);
+  	console.log(requestURLWithQueryParams);
+
+  	// append link to linkInfo display div
+  	const linkInfo = document.getElementById('linkInfo');
+  	const linkHtml = '<a class="custom-link-text" href="' + requestURLWithQueryParams + '">I&#39;m not '+ fullName + ', get me my own link</a>';
+
+  	linkInfo.innerHTML += linkHtml;
+
+  	// when any of the birthdate fields are changed,
+    // update the birthdate string, compare dates, and
+    // show/hide relevant error message or ballot form
+      document.getElementById('tfa_301').addEventListener('change', function() {
+        updateBirthdateString().then(function(fullBirthdate){
+        	salesforceDOB = document.getElementById('tfa_317').value;
+        	compareBirthdates(fullBirthdate, salesforceDOB);
+        });
+      });
+      document.getElementById('tfa_302').addEventListener('change', function() {
+        updateBirthdateString().then(function(fullBirthdate){
+        	salesforceDOB = document.getElementById('tfa_317').value;
+        	compareBirthdates(fullBirthdate, salesforceDOB);
+        });
+      });
+      document.getElementById('tfa_303').addEventListener('change', function() {
+        updateBirthdateString().then(function(fullBirthdate){
+        	salesforceDOB = document.getElementById('tfa_317').value;
+        	compareBirthdates(fullBirthdate, salesforceDOB);
+        });
+      });
+
+  });
+
+</script>
+
+<style>
+/*	fullname display */
+#tfa_298 {
+		border: 0;
+		font-size: 1.2em;
+		font-weight: bold;
+		background: transparent;
+		text-align: center;
+		margin: auto;
+		padding: 10px 0;
+	}
+
+/*	add spacing for explanatory text above buttons */
+/*  substitute id for the id of the full name div plus `-DA` */
+
+	#tfa_298-DA {
+		margin-bottom: 30px;
+	}
+
+	dialog {
+	  display: block;
+	  border: 0;
+	}
+	/* screenreader only style */
+	.invisible {
+		position: absolute;
+    top: -1000;
+    left: -1000;
+    height: 1px;
+    width: 1px;
+    text-align: left;
+    overflow: hidden;
+	}
+	/* removes scroll when modal is opened */
+	.no-scroll {
+	  overflow: hidden;
+	}
+	/* overlay covers everything */
+	.simple-modal-overlay,
+	.simple-animated-modal-overlay {
+	  position: fixed;
+	  top: 0;
+	  bottom: 0;
+	  right: 0;
+	  left: 0;
+	  background: #fff;
+	  opacity: .8;
+	  z-index: 666;
+	  cursor: pointer;
+	}
+	.simple-modal-overlay[data-background-click="disabled"],
+	.simple-animated-modal-overlay[data-background-click="disabled"] {
+	  cursor: auto;
+	}
+	.simple-animated-modal-overlay  {
+	  animation: fadewhite ease .5s 1 normal ;
+	}
+
+	@keyframes fadewhite {
+	  0% {
+	    opacity: 0;
+	  }
+	  100% {
+	    opacity: .8;
+	  }
+	}
+	/* modal */
+	.simple-modal,
+	.simple-animated-modal {
+		font-family: "Open Sans", sans-serif;
+	  position: fixed;
+	  left: 15%;
+	  top: 5%;
+	  width: 70%;
+	  max-height: 98vh;
+	  border: 2px solid #fc9802;
+	  background: #f4f2c8;
+	  z-index: 667;
+	  padding: 2em 2em 6em 2em;
+	  right: auto;
+	  overflow: hidden;
+	}
+
+	.simple-animated-modal__content {
+		text-align: center;
+	}
+/* "Yes, I'm (name)" button */
+	.simple-modal-close,
+	.simple-animated-modal-close,
+	.custom-link-text {
+	  position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin: 1.6em auto .4em auto;
+    background-color: #2f9d26;
+    font-weight: normal;
+    font-size: 1em;
+    color: rgb(254, 254, 255);
+    box-shadow: none;
+    padding: 1em 2em;
+    border-radius: 0.25em;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    transition: all 0.25s linear 0s;
+    cursor: pointer;
+	}
+	.simple-modal-close:focus,
+	.simple-modal-close:hover,
+	.simple-modal-close:active {
+	  outline: 1px dotted #fff;
+	}
+	.simple-animated-modal-close:hover,
+	.simple-animated-modal-close:active,
+	.simple-modal-close:hover,
+	.simple-modal-close:active {
+	  background-color: #44dc38;
+	}
+	/* "No, I'm not (name), get me a new link" button */
+	.custom-link-text {
+		position: static;
+		bottom: auto;
+		left: auto;
+		transform: none;
+		margin: auto;
+		background-color: #aa0627;
+		text-decoration: none;
+	}
+	.custom-link-text:hover,
+	.custom-link-text:focus {
+		background-color: #e00834;
+	}
+
+	.simple-animated-modal {
+	  animation: apparition ease .5s 1 normal ;
+	}
+
+	@keyframes apparition {
+	  0% {
+	    opacity: 0;
+	    max-height: 0;
+	    width: 0;
+	    left: 50%;
+	  }
+	  100% {
+	    opacity: 1;
+	    max-height: 100%;
+	    width: 70%;
+	    left: 15%;
+	  }
+	}
+
+	/* tablet */
+	@media (max-width: 55.625em) {
+
+	  .simple-modal,
+	  .simple-animated-modal {
+	    left: 5%;
+	    top: 5%;
+	    height: 90%;
+	    width: 90%;
+	  }
+
+	}
+
+	/* mobile */
+	@media (max-width: 44.375em) {
+
+	  .simple-modal,
+	  .simple-animated-modal {
+	    left: 1%;
+	    top: 1%;
+	    width: 98%;
+	    height: 98%;
+	  }
+
+	}
+</style>
