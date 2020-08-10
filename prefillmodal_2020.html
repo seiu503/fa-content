@@ -6,7 +6,7 @@
 
   	// **** **** replace with field id for fullname **** **** //
   	var fullName = document.getElementById('tfa_523').value;
-  	console.log(fullName);
+  	console.log(`Full Name: ${fullName}`);
 
 		// append hidden button to DOM
 		var hiddenButton = document.createElement('button');
@@ -46,7 +46,9 @@
   	if (contactID && fullName && !redirect) {
   		console.log('modal open');
   		document.getElementById("hiddenButton").click();
-  	}
+  	} else {
+    	console.log(`contactID: ${contactID}, fullName: ${fullName}`);
+    }
 
   	// save the form ID (from window.location.pathname) to a variable
   	// for generating the request URL
