@@ -75,6 +75,24 @@
 
   	linkInfo.innerHTML += linkHtml;
 
+  	// photo upload display/hide logic
+  	const localsThatAllowPhotos = [ 1, 83, 96, 97, 98, 99, 109, 123, 137, 170, 200, 333, 393, 415, 440, 459, 471, 575, 585, 603, 629, 690, 730, 733, 735, 839, 858, 963, 999 ];
+
+  	// find sublocal number from pretill
+  	const subLocalNumberFromPrefill = document.getElementById('tfa_548').value;
+  	console.log(`subLocalNumberFromPrefill: ${subLocalNumberFromPrefill}`);
+
+  	// check if that number is in the array of sublocals that allow photos
+  	if (!localsThatAllowPhotos.includes(parseInt(subLocalNumberFromPrefill))) {
+  		// if it's not, hide the photo upload field
+  		console.log(`sublocals ${subLocalNumberFromPrefill} does not allow photos`);
+  		const photoUploadField = document.getElementById('tfa_549');
+  		const photoUploadFieldLabel = document.getElementById('tfa_549-L');
+  		photoUploadField.style.display = 'none';
+  		photoUploadFieldLabel.style.display = 'none';
+  	}
+
+
   });
 
 </script>
