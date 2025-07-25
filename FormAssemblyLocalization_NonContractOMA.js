@@ -12,13 +12,14 @@ window.addEventListener("load", function() {
 	var formEl = document.getElementById("803");
 	var firstName = document.getElementById("tfa_1-L"); 
 	var lastName = document.getElementById("tfa_2-L");
-	var birthDate = document.getElementById("tfa_113-L"); 
+	var birthDate = document.getElementById("tfa_134-L"); 
+	var mmPlaceholder = document.getElementById("tfa_156").options[0];
+	var ddPlaceholder = document.getElementById("tfa_157").options[0];
+	var yyyyPlaceholder = document.getElementById("tfa_158").options[0];
 	var preferredLanguage = document.getElementById("tfa_91-L"); 
 	var employer = document.getElementById("tfa_22-L"); 
 	var facility = document.getElementById("tfa_6-L");
 	var facilityPlaceholder = document.getElementById("tfa_6").options[0];
-	console.log('facilityPlaceholder');
-	console.log(facilityPlaceholder);
 	var employerNote = document.getElementById("tfa_127-HTML"); 
 	var address = document.getElementById("tfa_32-L"); 
 	var addressNote = document.getElementById("tfa_32-HH");
@@ -52,7 +53,12 @@ window.addEventListener("load", function() {
 		//
 		firstName.innerHTML = "First Name";
 		lastName.innerHTML = "Last Name";
-		birthDate.innerHTML = "Birth Date";
+		birthDate.innerHTML = `Birth Date`;
+		birthDate.classList.add("reqMark");
+		birthDate.style.cssText += 'font-size:inherit!important;font-style:inherit!important;';
+		mmPlaceholder.innerHTML = "Month";
+		ddPlaceholder.innerHTML = "Day";
+		yyyyPlaceholder.innerHTML = "Year";
 		preferredLanguage.innerHTML = "Preferred language";
 		employer.innerHTML = "Employer";
 		facility.innerHTML = "Facility";
@@ -81,41 +87,46 @@ window.addEventListener("load", function() {
 	//
 	// Spanish:
 	else if (getLang.startsWith("es")) {
-	console.log("Processing es-ES");
-	//
-	document.title = "Formulario de membresía del SEIU 503";
-	valueFormTitle.innerHTML = "Formulario de membresía del SEIU 503";
-	valueSubmitButton.defaultValue = "Enviar";
-	//
-	firstName.innerHTML = "Primer nombre";
-	lastName.innerHTML = "Apellido";
-	birthDate.innerHTML = "Fecha de nacimiento";
-	preferredLanguage.innerHTML = "Idioma preferido";
-	employer.innerHTML = "Empleador";
-	facility.innerHTML = "Instalación";
-	facilityPlaceholder.innerHTML = "Seleccione..."
-	employerNote.innerHTML = `<p>Nota: Este formulario es SOLO para trabajadores de Sapphire Gracelen Terrace o Cedar Crossings. Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`;
-	address.innerHTML = "Calle particular";
-	addressNote.innerHTML = "Ingrese su dirección física aquí, no un apartado postal (P.O. Box).";
-	city.innerHTML = "Ciudad";
-	state.innerHTML = "Estado";
-	zip.innerHTML = "Código postal";
-	email.innerHTML = "Correo electrónico particular";
-	emailNote.innerHTML = "Use su correo electrónico particular, si tiene uno, ya que algunos empleadores limitan la comunicación de la unión a través del correo electrónico del trabajo. Si no tiene un correo electrónico personal, puede usar el correo electrónico del trabajo. Si no tiene una dirección de correo electrónico, llámenos al 1.844.503.7348 para registrarse por teléfono.";
-	phone.innerHTML = "Mejor teléfono";
-	phoneNote.innerHTML = "† Al proporcionar mi número de teléfono, entiendo que la Unión Internacional de Empleados de Servicios (SEIU, por sus siglas en inglés), sus uniones locales y sus afiliados pueden usar tecnologías automatizadas para llamarme y/o para enviar mensajes de texto a mi celular periódicamente. SEIU nunca cobrará por las alertas de mensaje de texto. Pueden aplicar tarifas por el envío de mensaje y el uso de datos para dichas alertas. Responda con la palabra STOP para dejar de recibir mensajes; responda con la palabra HELP para obtener más información.";
-	smsOptOut.innerHTML = "No deseo recibir alertas por mensaje de texto";
-	smsOptOutCheckbox.innerHTML = "Optar por no participar";
-	membershipAuth.innerHTML = "Autorización de membresía";
-	membershipAuthCheckbox.innerHTML = "Solicito y acepto voluntariamente la membresía en SEIU Local 503 y sus sucesores o cesionarios (en conjunto “Local 503”). Esto significa que recibiré los beneficios y cumpliré las obligaciones derivadas de la membresía que se estipulan en la Constitución y los Estatutos de Local 503 y de la Unión Internacional de Empleados de Servicios. Autorizo a Local 503 para que actúe como mi representante en las negociaciones colectivas relativas a salarios, beneficios y demás términos/condiciones laborales que lleve a cabo con mi empleador, y como mi representante exclusivo en los casos que la ley lo permita. Mi membresía será permanente, a menos que renuncie a la misma por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503). Sé que la membresía de la unión es voluntaria y no es una condición laboral, y que puedo rechazar la opción de unirme sin que esto implique represalias.";
-	duesAuth.innerHTML = "Autorización de aportes/deducción de cuotas";
-	duesAuthCheckbox.innerHTML = "Solicito y autorizo voluntariamente que mi empleador deduzca de mis ganancias, y le pague a Local 503 y a sus sucesores y cesionarios (en conjunto “Local 503”), un monto equivalente a las cuotas ordinarias de Local 503 y demás cargos y avalúos que sean aplicables a los miembros de Local 503. Esta autorización para deducir las cuotas seguirá vigente a menos que yo la revoque por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503) en un plazo de 15 días antes o después de (1) la fecha de aniversario de este acuerdo o (2) la fecha de terminación del Contrato Colectivo de Trabajo correspondiente celebrado entre la unión y mi empleador (“los márgenes estipulados”). Esta autorización se renovará automáticamente cada año, incluso en caso de que renuncie a mi membresía, salvo que yo la revoque durante uno de los márgenes estipulados y de acuerdo con las políticas de Local 503. Esta autorización es voluntaria y no es una condición laboral, así que puedo rechazarla sin que esto suponga represalias. Comprendo que todos(as) los(as) miembros se benefician de los compromisos que todos(as) asumen porque ayudan a crear una unión fuerte que es capaz de planear a futuro.";
-	duesNote.innerHTML = "<strong>Nota: Su membresía no se activará y no se deducirán ningunas cuotas de su cheque hasta que negocie y vote para aprobar su primer contrato de unión con su empleador.</strong>"
-	polOptOut.innerHTML = "Seleccione esta casilla si quiere que una parte de las cuotas se invierta en el poder político para mejorar el fondo para becas de SEIU 503.";
-	polOptOutCheckbox.innerHTML = "Optar por no participar del poder político de los trabajadores";
-	signature.innerHTML = "Su nombre legal completo";
-	signatureNote.innerHTML = "Ingrese su nombre legal completo. Esto servirá como su firma.";
-	}
+		console.log("Processing es-ES");
+		//
+		document.title = "Formulario de membresía del SEIU 503";
+		valueFormTitle.innerHTML = "Formulario de membresía del SEIU 503";
+		valueSubmitButton.defaultValue = "Enviar";
+		//
+		firstName.innerHTML = "Primer nombre";
+		lastName.innerHTML = "Apellido";
+		birthDate.innerHTML = `Fecha de nacimiento`;
+		birthDate.classList.add("reqMark");
+		birthDate.style.cssText += 'font-size:inherit!important;font-style:inherit!important;';
+		mmPlaceholder.innerHTML = "Mes";
+		ddPlaceholder.innerHTML = "Día";
+		yyyyPlaceholder.innerHTML = "Año";
+		preferredLanguage.innerHTML = "Idioma preferido";
+		employer.innerHTML = "Empleador";
+		facility.innerHTML = "Instalación";
+		facilityPlaceholder.innerHTML = "Seleccione..."
+		employerNote.innerHTML = `<p>Nota: Este formulario es SOLO para trabajadores de Sapphire Gracelen Terrace o Cedar Crossings. Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`;
+		address.innerHTML = "Calle particular";
+		addressNote.innerHTML = "Ingrese su dirección física aquí, no un apartado postal (P.O. Box).";
+		city.innerHTML = "Ciudad";
+		state.innerHTML = "Estado";
+		zip.innerHTML = "Código postal";
+		email.innerHTML = "Correo electrónico particular";
+		emailNote.innerHTML = "Use su correo electrónico particular, si tiene uno, ya que algunos empleadores limitan la comunicación de la unión a través del correo electrónico del trabajo. Si no tiene un correo electrónico personal, puede usar el correo electrónico del trabajo. Si no tiene una dirección de correo electrónico, llámenos al 1.844.503.7348 para registrarse por teléfono.";
+		phone.innerHTML = "Mejor teléfono";
+		phoneNote.innerHTML = "† Al proporcionar mi número de teléfono, entiendo que la Unión Internacional de Empleados de Servicios (SEIU, por sus siglas en inglés), sus uniones locales y sus afiliados pueden usar tecnologías automatizadas para llamarme y/o para enviar mensajes de texto a mi celular periódicamente. SEIU nunca cobrará por las alertas de mensaje de texto. Pueden aplicar tarifas por el envío de mensaje y el uso de datos para dichas alertas. Responda con la palabra STOP para dejar de recibir mensajes; responda con la palabra HELP para obtener más información.";
+		smsOptOut.innerHTML = "No deseo recibir alertas por mensaje de texto";
+		smsOptOutCheckbox.innerHTML = "Optar por no participar";
+		membershipAuth.innerHTML = "Autorización de membresía";
+		membershipAuthCheckbox.innerHTML = "Solicito y acepto voluntariamente la membresía en SEIU Local 503 y sus sucesores o cesionarios (en conjunto “Local 503”). Esto significa que recibiré los beneficios y cumpliré las obligaciones derivadas de la membresía que se estipulan en la Constitución y los Estatutos de Local 503 y de la Unión Internacional de Empleados de Servicios. Autorizo a Local 503 para que actúe como mi representante en las negociaciones colectivas relativas a salarios, beneficios y demás términos/condiciones laborales que lleve a cabo con mi empleador, y como mi representante exclusivo en los casos que la ley lo permita. Mi membresía será permanente, a menos que renuncie a la misma por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503). Sé que la membresía de la unión es voluntaria y no es una condición laboral, y que puedo rechazar la opción de unirme sin que esto implique represalias.";
+		duesAuth.innerHTML = "Autorización de aportes/deducción de cuotas";
+		duesAuthCheckbox.innerHTML = "Solicito y autorizo voluntariamente que mi empleador deduzca de mis ganancias, y le pague a Local 503 y a sus sucesores y cesionarios (en conjunto “Local 503”), un monto equivalente a las cuotas ordinarias de Local 503 y demás cargos y avalúos que sean aplicables a los miembros de Local 503. Esta autorización para deducir las cuotas seguirá vigente a menos que yo la revoque por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503) en un plazo de 15 días antes o después de (1) la fecha de aniversario de este acuerdo o (2) la fecha de terminación del Contrato Colectivo de Trabajo correspondiente celebrado entre la unión y mi empleador (“los márgenes estipulados”). Esta autorización se renovará automáticamente cada año, incluso en caso de que renuncie a mi membresía, salvo que yo la revoque durante uno de los márgenes estipulados y de acuerdo con las políticas de Local 503. Esta autorización es voluntaria y no es una condición laboral, así que puedo rechazarla sin que esto suponga represalias. Comprendo que todos(as) los(as) miembros se benefician de los compromisos que todos(as) asumen porque ayudan a crear una unión fuerte que es capaz de planear a futuro.";
+		duesNote.innerHTML = "<strong>Nota: Su membresía no se activará y no se deducirán ningunas cuotas de su cheque hasta que negocie y vote para aprobar su primer contrato de unión con su empleador.</strong>"
+		polOptOut.innerHTML = "Seleccione esta casilla si quiere que una parte de las cuotas se invierta en el poder político para mejorar el fondo para becas de SEIU 503.";
+		polOptOutCheckbox.innerHTML = "Optar por no participar del poder político de los trabajadores";
+		signature.innerHTML = "Su nombre legal completo";
+		signatureNote.innerHTML = "Ingrese su nombre legal completo. Esto servirá como su firma.";
+		}
 	//
 	else {
 	console.log("Processing ** unknown **")
@@ -143,12 +154,15 @@ window.addEventListener("load", function() {
 		    }
 		  });
 		}
-		replaceTextInDOM("This field is required.", "Requerido");
-		replaceTextInDOM("This does not appear to be a valid email address.", "Dirección de correo electrónico no válida");
-		replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Ingrese un código postal válido de 5 dígitos");
-		replaceTextInDOM("This does not appear to be a valid date.", "Ingrese una fecha válida.");
-		replaceTextInDOM("Please enter a valid phone number", "Ingrese un número de teléfono válido");
-		replaceTextInDOM("This date must be between", "La fecha debe ser entre");
+
+		if (getLang.startsWith("es")) {
+			replaceTextInDOM("This field is required.", "Requerido");
+			replaceTextInDOM("This does not appear to be a valid email address.", "Dirección de correo electrónico no válida");
+			replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Ingrese un código postal válido de 5 dígitos");
+			replaceTextInDOM("This does not appear to be a valid date.", "Ingrese una fecha válida.");
+			replaceTextInDOM("Please enter a valid phone number", "Ingrese un número de teléfono válido");
+			replaceTextInDOM("This date must be between", "La fecha debe ser entre");
+		}
 
 	})
 
