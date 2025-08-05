@@ -1,0 +1,114 @@
+<style>
+
+  .wFormContainer .wForm .wFormTitle {
+    color: #2C0940 !important;
+  } 
+
+  h2.gform_title {
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    font-size: 2em;
+  }
+  #tfa_32-L {
+    text-align: left;
+  }
+
+  .wFormContainer .wForm .wFormTitle {
+    background-color: white;
+  }
+
+  #tfa_17-HTML {
+    text-align: center;
+  }
+
+  #tfa_105-L {
+    text-wrap: wrap;
+    text-align: left;
+    max-width: 90%;
+    font-size: 1em;
+  line-height: 1.3em;
+  padding-left: 0;
+  }
+
+  #tfa_1-D, #tfa_2-D, #tfa_3-D, #tfa_4-D,
+    #tfa_22-D, #tfa_6-D, #tfa_7-D, #tfa_91-D {
+        width: 49% !important
+    }
+
+  #tfa_32 {
+    width: 98.5% !important;
+  }
+
+  #tfa_90 {
+    width: 98.5%;
+  display: flex;
+  justify-content: space-between;
+  }
+
+  /* Authorization checkbox labels (legal language) */
+  #tfa_379-L, #tfa_380-L, #tfa_382-L, #capeLL2 {
+    font-size: 13.6px;
+    color: rgb(68, 68, 68);
+    line-height: normal;
+  }
+
+  /* Authorization checkboxes */
+  #tfa_379-L:before,
+  #tfa_380-L:before,
+  #tfa_382-L:before {
+    margin-right: 6px;
+    width: 14px;
+    height: 14px;
+    top: -2px;
+  }
+
+  #tfa_379-L:after,
+  #tfa_380-L:after,
+  #tfa_382-L:after {
+    left: 3px;
+    top: 6px;
+  }
+
+  /* checkbox backgrounds checked */
+  .wFormContainer .wForm .inputWrapper input[type="checkbox"]:checked~.label:before {
+    background: #531078;
+  }
+  
+
+    #tfa_1-D .inputWrapper, #tfa_2-D .inputWrapper, #tfa_3-D .inputWrapper, #tfa_4-D .inputWrapper,
+    #tfa_22-D .inputWrapper, #tfa_6-D .inputWrapper, #tfa_7-D .inputWrapper, #tfa_91-D .inputWrapper,
+    #tfa_32-D .inputWrapper, #tfa_34-D .inputWrapper, #tfa_35-D .inputWrapper, #tfa_39-D .inputWrapper, #tfa_32  .inputWrapper{
+        display: block !important;
+    }
+
+  @media only screen and (max-width: 600px)  {
+    #tfa_1-D, #tfa_2-D, #tfa_3-D, #tfa_4-D,
+    #tfa_22-D, #tfa_6-D, #tfa_7-D, #tfa_91-D,
+    #tfa_32-D, #tfa_34-D, #tfa_35-D, #tfa_39-D, #tfa_32 {
+        width: 100% !important
+    }
+    #tfa_90 {
+      display: block;
+      width: 100%;
+    }
+  }
+  
+
+.wFormContainer .actions .primaryAction, #primaryAction {
+ background-color: #531078 !important;
+}
+
+  #791-A:hover {
+    background-color: #531078 !important;
+  }
+
+  form#801 {
+    @media only screen and (max-width: 480px)  {
+    .wFormContainer .wForm form {
+      padding: 0 important;
+    }
+  }
+
+
+  </style>
