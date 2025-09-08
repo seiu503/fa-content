@@ -47,9 +47,9 @@
   }
 
   /* Authorization checkbox labels (legal language) */
-  #tfa_379-L, #tfa_380-L, #tfa_382-L, #capeLL2 {
-    font-size: 13.6px;
-    color: rgb(68, 68, 68);
+  #tfa_379-L, #tfa_380-L, #tfa_382-L, #capeLL2, #tfa_383-HTML {
+    font-size: 13.6px !important;
+    color: rgb(68, 68, 68) !important;
     line-height: normal;
   }
 
