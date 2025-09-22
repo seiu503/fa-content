@@ -19,6 +19,7 @@ window.addEventListener("load", function() {
 	var preferredLanguage = document.getElementById("tfa_91-L"); 
 	var employer = document.getElementById("tfa_22-L"); 
 	var facility = document.getElementById("tfa_6-L");
+	var jobTitle = document.getElementById("tfa_385-L");
 	var facilityPlaceholder = document.getElementById("tfa_6").options[0];
 	var employerNote = document.getElementById("tfa_127-HTML"); 
 	var address = document.getElementById("tfa_32-L"); 
@@ -33,14 +34,14 @@ window.addEventListener("load", function() {
 	var smsOptOut = document.getElementById("tfa_114-L");
 	var smsOptOutCheckbox = document.getElementById("tfa_115-L");
 	var membershipAuth = document.getElementById("tfa_116-L"); 
-	var membershipAuthCheckbox = document.getElementById("tfa_117-L"); 
-	var duesAuth = document.getElementById("tfa_120-L"); 
-	var duesAuthCheckbox = document.getElementById("tfa_121-L"); 
+	var membershipAuthCheckbox = document.getElementById("tfa_379-L"); 
+	var duesAuth = document.getElementById("tfa_355-L"); 
+	var duesAuthCheckbox = document.getElementById("tfa_380-L"); 
 	var duesNote = document.getElementById("tfa_128-HTML");
 	var polOptOut = document.getElementById("tfa_122-L"); 
 	var polOptOutCheckbox = document.getElementById("tfa_123-L"); 
-	var signature = document.getElementById("tfa_124-L");
-	var signatureNote = document.getElementById("tfa_124-HH");
+	var signature = document.getElementById("tfa_386-L");
+	var signatureNote = document.getElementById("tfa_386-HH");
 
 	//
 	// US English:
@@ -62,6 +63,7 @@ window.addEventListener("load", function() {
 		preferredLanguage.innerHTML = "Preferred language";
 		employer.innerHTML = "Employer";
 		facility.innerHTML = "Facility";
+		jobTitle.innerHTML = "Job Title";
 		employerNote.innerHTML = `<p>Note: This form is ONLY for workers at Sapphire Gracelen Terrace or Cedar Crossings. If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
 		address.innerHTML = "Address";
 		addressNote.innerHTML = "Please enter your physical street address here, not a P.O. box.";
@@ -104,6 +106,7 @@ window.addEventListener("load", function() {
 		preferredLanguage.innerHTML = "Idioma preferido";
 		employer.innerHTML = "Empleador";
 		facility.innerHTML = "Instalación";
+		jobTitle.innerHTML = "Clasificación";
 		facilityPlaceholder.innerHTML = "Seleccione..."
 		employerNote.innerHTML = `<p>Nota: Este formulario es SOLO para trabajadores de Sapphire Gracelen Terrace o Cedar Crossings. Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`;
 		address.innerHTML = "Calle particular";
