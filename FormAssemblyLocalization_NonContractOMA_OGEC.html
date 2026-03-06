@@ -122,7 +122,7 @@
 
 
 		// CHANGE THIS FOR EACH FORM ************************ //
-		var formEl = document.getElementById("811");
+		var formEl = document.getElementById("816");
 		// CHANGE THIS FOR EACH FORM ************************ //
 
 		// Extract the value of the language the browser is set to:
@@ -137,8 +137,8 @@
 
 
 
-		var prefillWarning1 = document.getElementById("tfa_330-DB"); // span inside this is 'This form is customized especially for'
-		var prefillWarning2 = document.getElementById("tfa_330-DA"); // span inside this is 'If this is not you, do not complete this form!'
+		// var prefillWarning1 = document.getElementById("tfa_330-DB"); // span inside this is 'This form is customized especially for'
+		// var prefillWarning2 = document.getElementById("tfa_330-DA"); // span inside this is 'If this is not you, do not complete this form!'
 		var firstName = document.getElementById("tfa_1-L"); 
 		var lastName = document.getElementById("tfa_2-L");
 		var birthDate = document.getElementById("tfa_134-L"); 
@@ -147,9 +147,7 @@
 		var yyyyPlaceholder = document.getElementById("tfa_158").options[0];
 		var preferredLanguage = document.getElementById("tfa_91-L"); 
 		var employer = document.getElementById("tfa_22-L"); 
-		// var worksite = document.getElementById("tfa_6-L");
 		var jobTitle = document.getElementById("tfa_385-L");
-		// var worksitePlaceholder = document.getElementById("tfa_6").options[0];
 		var employerNote = document.getElementById("tfa_127-HTML"); 
 		var address = document.getElementById("tfa_32-L"); 
 		var addressNote = document.getElementById("tfa_32-HH");
@@ -185,8 +183,8 @@
 			valueFormTitle.innerHTML = "SEIU 503 Union Authorization and Membership Application";
 			valueSubmitButton.defaultValue = "Submit";
 			//
-			prefillWarning1.innerText = 'This form is customized especially for'
-		    prefillWarning2.innerText = 'If this is not you, do not complete this form!'
+			// prefillWarning1.innerText = 'This form is customized especially for'
+		  //   prefillWarning2.innerText = 'If this is not you, do not complete this form!'
 			firstName.innerHTML = "First Name";
 			lastName.innerHTML = "Last Name";
 			birthDate.innerHTML = `Birth Date`;
@@ -197,9 +195,9 @@
 			yyyyPlaceholder.innerHTML = "Year";
 			preferredLanguage.innerHTML = "Preferred language";
 			employer.innerHTML = "Employer";
-			// facility.innerHTML = "Facility";
+			facility.innerHTML = "Facility";
 			jobTitle.innerHTML = "Job Title";
-			employerNote.innerHTML = `<p>Note: This form is ONLY for workers at Oregon Department of Energy (DOE). If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
+			employerNote.innerHTML = `<p>Note: This form is ONLY for workers at Oregon Government Ethics Commission (OGEC). If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
 			address.innerHTML = "Address";
 			addressNote.innerHTML = "Please enter your physical street address here, not a P.O. box.";
 			city.innerHTML = "City";
@@ -214,8 +212,8 @@
 			duesNote.innerHTML = "Note: Your membership will not activate, and no dues will be deducted from your check, until you negotiate and vote to approve your first union contract with your employer.";
 			polOptOut.innerHTML = "Check the box below if you would like the portion of dues spent on political power to go toward SEIU 503’s scholarship fund.";
 			polOptOutCheckbox.innerHTML = "Opt out of worker political power";
+			signatureHint.innerHTML = "Enter your full legal name. This will act as your signature."
 			signature.innerHTML = "Signature";
-			signatureHint.innerHTML = "Enter your full legal name. This will act as your signature.";
 			membershipAuthTitle.innerHTML = "Membership and Union Representation Authorization";
 			membershipAuthLL.innerHTML = "I request and voluntarily accept membership in SEIU Local 503 and its successors or assigns (collectively “Local 503”). This means I will receive the benefits and abide by the obligations of membership set forth in both Local 503’s and the Service Employees International Union’s Constitutions and Bylaws. I authorize Local 503 to act as my representative in collective bargaining over wages, benefits, and other terms/conditions of employment with my employer, and as my exclusive representative where authorized by law. My membership will be continuous, unless I resign by providing notice to Local 503 via U.S. mail (or other method if permitted by Local 503 policies). I know that union membership is voluntary and not a condition of employment, and that I can decline to join without reprisal. I understand that my signature may be used to obtain certification of SEIU Local 503, OPEU as the exclusive bargaining representative, without an election."
 			duesAuthTitle.innerHTML = "Dues Deduction / Checkoff Authorization";
@@ -231,8 +229,8 @@
 			valueFormTitle.innerHTML = "Autorización de representación y formulario de membresía del SEIU 503";
 			valueSubmitButton.defaultValue = "Enviar";
 			//
-			prefillWarning1.innerHTML = `<span style="font-size: 13.6px;">Este formulario está personalizado especialmente para</span>`
-		    prefillWarning2.innerHTML = `<span style="font-weight: 700; font-size: 13.6px;">¡Si no es usted, no complete este formulario!</span>`
+			// prefillWarning1.innerHTML = `<span style="font-size: 13.6px;">Este formulario está personalizado especialmente para</span>`
+		  //   prefillWarning2.innerHTML = `<span style="font-weight: 700; font-size: 13.6px;">¡Si no es usted, no complete este formulario!</span>`
 			firstName.innerHTML = "Primer nombre";
 			lastName.innerHTML = "Apellido";
 			birthDate.innerHTML = `Fecha de nacimiento`;
@@ -243,10 +241,8 @@
 			yyyyPlaceholder.innerHTML = "Año";
 			preferredLanguage.innerHTML = "Idioma preferido";
 			employer.innerHTML = "Empleador";
-			// worksite.innerHTML = "Sito de Trabajo";
 			jobTitle.innerHTML = "Clasificación";
-			// worksitePlaceholder.innerHTML = "Seleccione..."
-			employerNote.innerHTML = `<p>Nota: Este formulario es SOLO para trabajadores del Departamento de Energía de Oregon (DOE). Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`;
+			employerNote.innerHTML = `<p>Nota: Este formulario es SOLO para trabajadores de la Comisión de Ética del Gobierno de Oregón (OGEC). Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`;
 			address.innerHTML = "Calle particular";
 			addressNote.innerHTML = "Ingrese su dirección física aquí, no un apartado postal (P.O. Box).";
 			city.innerHTML = "Ciudad";
@@ -261,7 +257,7 @@
 			duesNote.innerHTML = "<strong>Nota: Su membresía no se activará y no se deducirán ningunas cuotas de su cheque hasta que negocie y vote para aprobar su primer contrato de unión con su empleador.</strong>"
 			polOptOut.innerHTML = "Seleccione esta casilla si quiere que una parte de las cuotas se invierta en el poder político para mejorar el fondo para becas de SEIU 503.";
 			polOptOutCheckbox.innerHTML = "Optar por no participar del poder político de los trabajadores";
-			signature.innerHTML = "Firma";
+			signature.innerHTML = "Firma.";
 			signatureHint.innerHTML = "Ingrese su nombre legal completo. Esto servirá como su firma.";
 			membershipAuthTitle.innerHTML = "Autorización de membresía y representación de unión";
 			membershipAuthLL.innerHTML = "Solicito y acepto voluntariamente la membresía en SEIU Local 503 y sus sucesores o cesionarios (en conjunto “Local 503”). Esto significa que recibiré los beneficios y cumpliré las obligaciones derivadas de la membresía que se estipulan en la Constitución y los Estatutos de Local 503 y de la Unión Internacional de Empleados de Servicios. Autorizo a Local 503 para que actúe como mi representante en las negociaciones colectivas relativas a salarios, beneficios y demás términos/condiciones laborales que lleve a cabo con mi empleador, y como mi representante exclusivo en los casos que la ley lo permita. Mi membresía será permanente, a menos que renuncie a la misma por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503). Sé que la membresía de la unión es voluntaria y no es una condición laboral, y que puedo rechazar la opción de unirme sin que esto implique represalias. Entiendo que mi firma puede usarse para obtener la certificación de SEIU Local 503, OPEU como representante exclusivo de negociación, sin necesidad de elección."
@@ -313,55 +309,6 @@
 </script>
 
 
-
-<script>
-  // PREFILL MODAL	
-  // when page loads,
-  document.addEventListener("DOMContentLoaded", function(){
-
-  	var fullName = document.getElementById('tfa_330').value.substring(0,40);
-
-  	// Extract the value of the language the browser is set to:
-		const getLang = navigator.language;
-		console.log("getLang = ", getLang);
-		const spanish = getLang.startsWith("es");
-
-		// append hidden button to DOM
-		var hiddenButton = document.createElement('button');
-    hiddenButton.setAttribute("id", "hiddenButton");
-		hiddenButton.setAttribute("data-modal-prefix-class", "simple-animated");
-		hiddenButton.setAttribute("data-modal-content-id", "tfa_327"); // FA fieldset containing the modal elements
-		hiddenButton.setAttribute("data-modal-title", `${spanish ? '¿Es Ud.' : 'Are you'} ${fullName}?`);
-		hiddenButton.setAttribute("data-modal-close-text", `${spanish ? 'Sí, soy' : "Yes, I'm"} ${fullName}`);
-		hiddenButton.setAttribute("data-modal-close-title", `${spanish ? 'Sí, soy' : "Yes, I'm"} ${fullName}`);
-		hiddenButton.setAttribute("class", "js-modal invisible");
-		document.body.insertBefore(hiddenButton, document.body.firstChild);
-
-  	// check if CA ID is prepopulated from query params
-  	var urlParams = new URLSearchParams(window.location.search);
-		var CA_ID = urlParams.get('tfa_326');
-
-  	// check if FA found a single SF CA
-  	// and was able to populate the fullName field
-  	// if CA ID and fullName both exist, simulate a click on the
-  	// hidden button to trigger the modal opening
-  	if (CA_ID && fullName) {
-  		document.getElementById("hiddenButton").click();
-  	}
-
-  	// append link to linkInfo display div
-  	const linkInfo = document.getElementById('tfa_331');
-  	const linkHtml = `<button type="reset" class="custom-link-text js-modal-close">${spanish ? 'No soy' : "I'm not"} ${fullName}</button>`;
-
-  	linkInfo.addEventListener('click', function() {
-  		window.location.href = window.location.origin + window.location.pathname; // strip query params
-  	})
-
-  	linkInfo.innerHTML += linkHtml;
-
-  });
-
-</script>
 
 <style>
 	/*	PREFILL MODAL */
