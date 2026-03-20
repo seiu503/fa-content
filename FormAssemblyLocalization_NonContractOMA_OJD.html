@@ -145,7 +145,6 @@
 		var ddPlaceholder = document.getElementById("tfa_157").options[0];
 		var yyyyPlaceholder = document.getElementById("tfa_158").options[0];
 		var preferredLanguage = document.getElementById("tfa_91-L"); 
-		var employer = document.getElementById("tfa_22-L"); 
 		var worksite = document.getElementById("tfa_388-L");
 		var jobTitle = document.getElementById("tfa_385-L");
 		var worksitePlaceholder = document.getElementById("tfa_388").options[0];
@@ -168,16 +167,73 @@
 		var polOptOut = document.getElementById("tfa_122-L"); 
 		var polOptOutCheckbox = document.getElementById("tfa_123-L"); 
 		var signature = document.getElementById("tfa_386-L");
+		var signatureHint = document.getElementById("tfa_386-HH");
 		var membershipAuthTitle = document.getElementById("tfa_116-L");
 		var membershipAuthLL = document.getElementById("tfa_379-L");
 		var duesAuthTitle = document.getElementById("tfa_355-L");
 		var duesAuthLL = document.getElementById("tfa_380-L");
 		var combinedLL = document.getElementById("tfa_377"); // jcl
 
+
+
+				// ************ PREFILL LOGIC ************ //
+
+		var preferredLanguageF = document.getElementById("tfa_91"); 
+		var addressF = document.getElementById("tfa_32");
+		var cityF = document.getElementById("tfa_34"); 
+		var stateF = document.getElementById("tfa_35");
+		var zipF = document.getElementById("tfa_39"); 
+		var emailF = document.getElementById("tfa_3"); 
+		var phoneF = document.getElementById("tfa_4"); 
+		var worksiteF = document.getElementById("tfa_388");
+		var jobTitleF = document.getElementById("tfa_385");
+
+		const prefillFieldList = [
+			preferredLanguageF,
+			addressF,
+			cityF,
+			stateF,
+			zipF,
+			emailF,
+			phoneF,
+			worksiteF,
+			jobTitleF
+		];
+
+	  prefillFieldList.forEach(function(field) {
+
+	    // Determine if the field was prefilled (i.e., has an initial value)
+	    const wasPrefilled = field.value && field.value.trim() !== "";
+	    // console.log(`field.title: ${field.title}, field.id: ${field.id}`);
+
+	    if (wasPrefilled) {
+	    	console.log(field.title, `wasPrefilled`);
+
+	      // Store a flag so we know it was prefilled originally
+	      field.dataset.prefilled = "true";
+
+	      let container =
+			    field.closest('.field-container-D, .form-group, .question') ||
+			    field.parentNode;
+
+
+				if (container) {
+				  container.style.display = 'none';
+				}
+
+	      
+	    } else {
+	      // Field was empty on load — mark it as user-editable
+	      field.dataset.prefilled = "false";
+	    }
+	  });
+
 		//
 		// US English:
 		if (getLang.startsWith("en")) {
 			console.log("Processing en-US");
+
+			preferredLanguageF.value = 'English';
 			//
 			document.title = "SEIU 503 Union Authorization and Membership Application";
 			valueFormTitle.innerHTML = "SEIU 503 Union Authorization and Membership Application";
@@ -194,7 +250,6 @@
 			ddPlaceholder.innerHTML = "Day";
 			yyyyPlaceholder.innerHTML = "Year";
 			preferredLanguage.innerHTML = "Preferred language";
-			employer.innerHTML = "Employer";
 			facility.innerHTML = "Facility";
 			jobTitle.innerHTML = "Job Title";
 			employerNote.innerHTML = `<p>Note: This form is ONLY for workers at Oregon Justice Department (OJD). If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
@@ -212,7 +267,8 @@
 			duesNote.innerHTML = "Note: Your membership will not activate, and no dues will be deducted from your check, until you negotiate and vote to approve your first union contract with your employer.";
 			polOptOut.innerHTML = "Check the box below if you would like the portion of dues spent on political power to go toward SEIU 503’s scholarship fund.";
 			polOptOutCheckbox.innerHTML = "Opt out of worker political power";
-			signature.innerHTML = "Enter your full legal name. This will act as your signature.";
+			signature.innerHTML = "Signature";
+			signatureHint.innerHTML = "Enter your full legal name. This will act as your signature.";
 			membershipAuthTitle.innerHTML = "Membership and Union Representation Authorization";
 			membershipAuthLL.innerHTML = "I request and voluntarily accept membership in SEIU Local 503 and its successors or assigns (collectively “Local 503”). This means I will receive the benefits and abide by the obligations of membership set forth in both Local 503’s and the Service Employees International Union’s Constitutions and Bylaws. I authorize Local 503 to act as my representative in collective bargaining over wages, benefits, and other terms/conditions of employment with my employer, and as my exclusive representative where authorized by law. My membership will be continuous, unless I resign by providing notice to Local 503 via U.S. mail (or other method if permitted by Local 503 policies). I know that union membership is voluntary and not a condition of employment, and that I can decline to join without reprisal. I understand that my signature may be used to obtain certification of SEIU Local 503, OPEU as the exclusive bargaining representative, without an election."
 			duesAuthTitle.innerHTML = "Dues Deduction / Checkoff Authorization";
@@ -223,6 +279,8 @@
 		// Spanish:
 		else if (getLang.startsWith("es")) {
 			console.log("Processing es-ES");
+
+			preferredLanguageF.value = 'Spanish';
 			//
 			document.title = "Autorización de representación y formulario de membresía del SEIU 503";
 			valueFormTitle.innerHTML = "Autorización de representación y formulario de membresía del SEIU 503";
@@ -239,7 +297,6 @@
 			ddPlaceholder.innerHTML = "Día";
 			yyyyPlaceholder.innerHTML = "Año";
 			preferredLanguage.innerHTML = "Idioma preferido";
-			employer.innerHTML = "Empleador";
 			worksite.innerHTML = "Sito de Trabajo";
 			jobTitle.innerHTML = "Clasificación";
 			worksitePlaceholder.innerHTML = "Seleccione..."
@@ -258,7 +315,8 @@
 			duesNote.innerHTML = "<strong>Nota: Su membresía no se activará y no se deducirán ningunas cuotas de su cheque hasta que negocie y vote para aprobar su primer contrato de unión con su empleador.</strong>"
 			polOptOut.innerHTML = "Seleccione esta casilla si quiere que una parte de las cuotas se invierta en el poder político para mejorar el fondo para becas de SEIU 503.";
 			polOptOutCheckbox.innerHTML = "Optar por no participar del poder político de los trabajadores";
-			signature.innerHTML = "Ingrese su nombre legal completo. Esto servirá como su firma.";
+			signature.innerHTML = "Firma";
+			signatureHint.innerHTML = "Ingrese su nombre legal completo. Esto servirá como su firma.";
 			membershipAuthTitle.innerHTML = "Autorización de membresía y representación de unión";
 			membershipAuthLL.innerHTML = "Solicito y acepto voluntariamente la membresía en SEIU Local 503 y sus sucesores o cesionarios (en conjunto “Local 503”). Esto significa que recibiré los beneficios y cumpliré las obligaciones derivadas de la membresía que se estipulan en la Constitución y los Estatutos de Local 503 y de la Unión Internacional de Empleados de Servicios. Autorizo a Local 503 para que actúe como mi representante en las negociaciones colectivas relativas a salarios, beneficios y demás términos/condiciones laborales que lleve a cabo con mi empleador, y como mi representante exclusivo en los casos que la ley lo permita. Mi membresía será permanente, a menos que renuncie a la misma por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503). Sé que la membresía de la unión es voluntaria y no es una condición laboral, y que puedo rechazar la opción de unirme sin que esto implique represalias. Entiendo que mi firma puede usarse para obtener la certificación de SEIU Local 503, OPEU como representante exclusivo de negociación, sin necesidad de elección."
 			duesAuthTitle.innerHTML = "Autorización de aportes/deducción de cuotas";
