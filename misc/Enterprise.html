@@ -1,0 +1,192 @@
+<script type="text/javascript">
+	// LOCALIZATION
+	window.addEventListener("load", function() {
+
+
+		// CHANGE THIS FOR EACH FORM ************************ //
+		var formEl = document.getElementById("817");
+		// CHANGE THIS FOR EACH FORM ************************ //
+
+		// check if language is set in a passed query param
+
+		function getParam(name, url) {
+		  name = name.replace(/[[\]]/g, "\\$&");
+		  const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+		  const results = regex.exec(url);
+		  if (!results) return null;
+		  if (!results[2]) return "";
+		  return decodeURIComponent(results[2].replace(/\+/g, " "));
+		}
+
+		const lCode = getParam("lang", window.location.href);
+
+		let getLang;
+
+		// If not, extract the value of the language the browser is set to:
+		if (lCode) {
+			getLang = lCode
+		} else {
+			getLang = navigator.language;
+		}
+		console.log("getLang = ", getLang);
+
+		var valueFormTitle = document.getElementsByClassName("wFormTitle")[0];
+		var valueSubmitButton = document.querySelector("#submit_button");
+
+		var firstName = document.getElementById("tfa_1-L"); 
+		var lastName = document.getElementById("tfa_2-L");
+		var city = document.getElementById("tfa_4-L"); 
+		var zip = document.getElementById("tfa_5-L"); 
+		var email = document.getElementById("tfa_3-L"); 
+		var getInvolved = document.getElementById("tfa_6-L"); 
+		var yes = document.getElementById("tfa_7-L"); 
+		var intro = document.getElementById("tfa_11-HTML"); 
+
+
+		/// ZIP validation because formassembly ZIP validation doesn't work ///
+
+		// Add validate-custom class
+		const zipField = document.getElementById('tfa_5');
+	  zipField.classList.add("validate-custom");
+
+	  (function waitForValidationObject() {
+		  if (typeof wFORMS_validation === "undefined") {
+		    setTimeout(waitForValidationObject, 100);
+		    return;
+		  }
+
+		  // wFORMS_validation exists, now attach custom validation
+		  attachCustomZipValidation();
+		})();
+
+		wFORMS.onLoad = wFORMS.onLoad || [];
+		wFORMS.onLoad.push(function() {
+		  attachCustomZipValidation();
+		});
+
+		function attachCustomZipValidation() {
+		  const zipRegex = /^\d{5}$/; // 5-digit ZIP
+
+		  window.validateCustomZip = function(el) {
+		    if (!el || el.id !== "tfa_5") return true;
+
+		    const value = el.value.trim();
+		    const isValid = zipRegex.test(value);
+
+		    // Update aria-invalid attribute
+		    el.setAttribute("aria-invalid", isValid ? "false" : "true");
+
+		    // Update grandparent's errFld class
+		    let gp = el.parentElement?.parentElement;
+		    while (gp && !gp.classList.contains("field-container-D")) {
+		      gp = gp.parentElement;
+		    }
+		    if (gp) {
+		      if (!isValid) gp.classList.add("errFld");
+		      else gp.classList.remove("errFld");
+		    }
+
+		    console.log("validateCustomZip called", value, isValid); // debug log
+		    return isValid;
+		  };
+
+		  // Add a rule to wFORMS_validation so it runs on submit
+		  wFORMS_validation.rules.customtfa_5 = {
+		    selector: "#tfa_5",
+		    check: "validateCustomZip"
+		  };
+
+		  // live blur validation
+		  const zipField = document.getElementById("tfa_5");
+		  if (zipField) {
+		    zipField.addEventListener("blur", function() {
+		      window.validateCustomZip(zipField);
+		    });
+		  }
+		}
+
+
+		//
+		// US English:
+		if (getLang.startsWith("en")) {
+			console.log("Processing en-US");
+
+			//
+			document.title = "State of Oregon: End your contract with Enterprise Rent-a-Car";
+			valueFormTitle.innerHTML = "State of Oregon: End your contract with Enterprise Rent-a-Car";
+			valueSubmitButton.defaultValue = "Join the Fight";
+			//
+			firstName.innerHTML = "First Name";
+			lastName.innerHTML = "Last Name";
+			city.innerHTML = "City";
+			zip.innerHTML = "ZIP Code";
+			email.innerHTML = "Email";
+			yes.innerHTML = 'Yes!';
+			getInvolved.innerHTML = 'I want to get involved in immigrant justice work';
+			intro.innerHTML = `<p>Enterprise rents vehicles used by Immigration and Customs Enforcement (ICE) to target immigrant communities.</p>
+				<p>From 2022 to 2025, the State of Oregon helped direct more than $15.9 million to Enterprise through a statewide price agreement.</p>
+				<p style="font-family: loos-compressed; font-weight: 700; font-size:1.3em; line-height: .9em; text-transform:uppercase;">We urge the State of Oregon to end its statewide contract with Enterprise Rent-A-Car.</p>`
+			}
+		//
+		// Spanish:
+		else if (getLang.startsWith("es")) {
+			console.log("Processing es-ES");
+
+			//
+			document.title = "Estado de Oregón: Ponga fin al contrato con Enterprise Rent-a-Car";
+			valueFormTitle.innerHTML = "Estado de Oregón: Ponga fin al contrato con Enterprise Rent-a-Car";
+			valueSubmitButton.defaultValue = "Únase a la lucha";
+			//
+			firstName.innerHTML = "Nombre de pila";
+			lastName.innerHTML = "Apellido";
+			city.innerHTML = "Ciudad";
+			zip.innerHTML = "Código postal";
+			email.innerHTML = "Correo electrónico";
+			yes.innerHTML = '¡Sí!';
+			getInvolved.innerHTML = 'Quiero involucrarme en la justicia de inmigrantes ';
+			intro.innerHTML = `<p>Enterprise alquila vehículos utilizados por Inmigración y Control de Aduanas (ICE) para atacar a comunidades inmigrantes.</p>
+				<p>De 2022 a 2025, el estado de Oregón ayudó a dirigir más de $15.9 millones a Enterprise mediante un acuerdo de precios a nivel estatal</p>
+				<p style="font-family: loos-compressed; font-weight: 700; font-size:1.3em; line-height: .9em; text-transform:uppercase;">Instamos al Estado de Oregón a que ponga fin al contrato con Enterprise Rent-A-Car.</p>`
+			}
+		//
+		else {
+		console.log("Processing ** unknown **")
+		//
+		// document.title = "** unknown **-language title.";
+		// valueFormTitle.innerHTML = "Form Title: ** unknown **";
+		// valueSubmitButton.defaultValue = "Submit: ** unknown **";
+		// //
+		// textInput_01.innerHTML = "First Name ** unknown ** Test";
+		// textInput_02.innerHTML = "Last Name ** unknown ** Test";
+		// textInput_03.innerHTML = "Email ** unknown ** Test";
+		// textInput_04.innerHTML = "Company ** unknown ** Test";
+		};
+
+
+		// replace error message text
+		formEl.addEventListener('submit', function() {
+			console.log('submitclick');
+			function replaceTextInDOM(searchText, replaceText) {
+				console.log('replaceText')
+			  const elements = document.querySelectorAll('span'); 
+
+			  elements.forEach(element => {
+			    if (element.textContent.includes(searchText)) {
+			      element.textContent = element.textContent.replaceAll(searchText, replaceText);
+			    }
+			  });
+			}
+
+			if (getLang.startsWith("es")) {
+				replaceTextInDOM("This field is required", "Requerido");
+				replaceTextInDOM("This does not appear to be a valid email address", "Dirección de correo electrónico no válida");
+				replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Ingrese un código postal válido de 5 dígitos");
+				replaceTextInDOM("This does not appear to be a valid date", "Ingrese una fecha válida");
+				replaceTextInDOM("Please enter a valid phone number", "Ingrese un número de teléfono válido");
+				replaceTextInDOM("This date must be between", "La fecha debe ser entre");
+			}
+
+		})
+
+	});
+</script>

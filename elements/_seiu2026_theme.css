@@ -1117,6 +1117,9 @@ html .kalendae .k-calendar .k-days span.k-active:hover {
 .wFormContainer .oneField.errFld div.errMsg {
   margin-top: 0.5em;
   color: $color-error-color;
+  font-family: $font-section-body-font;
+  font-weight: 400;
+
 }
 
 .wfTab.errMsg {
