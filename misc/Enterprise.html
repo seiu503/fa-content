@@ -43,69 +43,6 @@
 		var intro = document.getElementById("tfa_11-HTML"); 
 
 
-		/// ZIP validation because formassembly ZIP validation doesn't work ///
-
-		// Add validate-custom class
-		const zipField = document.getElementById('tfa_5');
-	  zipField.classList.add("validate-custom");
-
-	  (function waitForValidationObject() {
-		  if (typeof wFORMS_validation === "undefined") {
-		    setTimeout(waitForValidationObject, 100);
-		    return;
-		  }
-
-		  // wFORMS_validation exists, now attach custom validation
-		  attachCustomZipValidation();
-		})();
-
-		wFORMS.onLoad = wFORMS.onLoad || [];
-		wFORMS.onLoad.push(function() {
-		  attachCustomZipValidation();
-		});
-
-		function attachCustomZipValidation() {
-		  const zipRegex = /^\d{5}$/; // 5-digit ZIP
-
-		  window.validateCustomZip = function(el) {
-		    if (!el || el.id !== "tfa_5") return true;
-
-		    const value = el.value.trim();
-		    const isValid = zipRegex.test(value);
-
-		    // Update aria-invalid attribute
-		    el.setAttribute("aria-invalid", isValid ? "false" : "true");
-
-		    // Update grandparent's errFld class
-		    let gp = el.parentElement?.parentElement;
-		    while (gp && !gp.classList.contains("field-container-D")) {
-		      gp = gp.parentElement;
-		    }
-		    if (gp) {
-		      if (!isValid) gp.classList.add("errFld");
-		      else gp.classList.remove("errFld");
-		    }
-
-		    console.log("validateCustomZip called", value, isValid); // debug log
-		    return isValid;
-		  };
-
-		  // Add a rule to wFORMS_validation so it runs on submit
-		  wFORMS_validation.rules.customtfa_5 = {
-		    selector: "#tfa_5",
-		    check: "validateCustomZip"
-		  };
-
-		  // live blur validation
-		  const zipField = document.getElementById("tfa_5");
-		  if (zipField) {
-		    zipField.addEventListener("blur", function() {
-		      window.validateCustomZip(zipField);
-		    });
-		  }
-		}
-
-
 		//
 		// US English:
 		if (getLang.startsWith("en")) {
@@ -130,7 +67,7 @@
 		//
 		// Spanish:
 		else if (getLang.startsWith("es")) {
-			console.log("Processing es-ES");
+			console.log("Processing es-MX");
 
 			//
 			document.title = "Estado de Oregón: Ponga fin al contrato con Enterprise Rent-a-Car";
@@ -143,12 +80,54 @@
 			zip.innerHTML = "Código postal";
 			email.innerHTML = "Correo electrónico";
 			yes.innerHTML = '¡Sí!';
-			getInvolved.innerHTML = 'Quiero involucrarme en la justicia de inmigrantes ';
+			getInvolved.innerHTML = 'Quiero involucrarme en la justicia de inmigrantes';
 			intro.innerHTML = `<p>Enterprise alquila vehículos utilizados por Inmigración y Control de Aduanas (ICE) para atacar a comunidades inmigrantes.</p>
-				<p>De 2022 a 2025, el estado de Oregón ayudó a dirigir más de $15.9 millones a Enterprise mediante un acuerdo de precios a nivel estatal</p>
+				<p>De 2022 a 2025, el estado de Oregón ayudó a dirigir más de $15.9 millones a Enterprise mediante un acuerdo de precios a nivel estatal.</p>
 				<p style="font-family: loos-compressed; font-weight: 700; font-size:1.3em; line-height: .9em; text-transform:uppercase;">Instamos al Estado de Oregón a que ponga fin al contrato con Enterprise Rent-A-Car.</p>`
 			}
 		//
+		// Russian:
+		else if (getLang.startsWith("ru")) {
+			console.log("Processing ru");
+
+			//
+			document.title = "Штат Орегон: Расторгните контракт с Enterprise Rent-a-Car.";
+			valueFormTitle.innerHTML = "Штат Орегон: Расторгните контракт с Enterprise Rent-a-Car.";
+			valueSubmitButton.defaultValue = "Подписать петицию";
+			//
+			firstName.innerHTML = "Имя";
+			lastName.innerHTML = "Фамилия";
+			city.innerHTML = "Город";
+			zip.innerHTML = "Почтовый индекс";
+			email.innerHTML = "И-мейл";
+			yes.innerHTML = 'Да!';
+			getInvolved.innerHTML = 'Я хочу участвовать в деятельности, направленной на справедливость для иммигрантов';
+			intro.innerHTML = `<p>Иммиграционная и таможенная служба арендует автомобили компании Enterprise для преследования иммигрантских сообществ.</p>
+				<p>С 2022 по 2025 год штат Орегон помог направить более 15,9 млн долларов компании Enterprise в рамках соглашения о единых ценах на уровне штата.</p>
+				<p style="font-family: loos-compressed; font-weight: 700; font-size:1.3em; line-height: .9em; text-transform:uppercase;">Мы призываем штат Орегон расторгнуть общештатный контракт с Enterprise Rent-A-Car.</p>`
+			}
+		//	
+		// Simplified Chinese:
+		else if (getLang.startsWith("zh")) {
+			console.log("Processing zh");
+
+			//
+			document.title = "俄勒冈州：终止与 Enterprise Rent-a-Car 的合同";
+			valueFormTitle.innerHTML = "俄勒冈州：终止与 Enterprise Rent-a-Car 的合同";
+			valueSubmitButton.defaultValue = "加入行动";
+			//
+			firstName.innerHTML = "名";
+			lastName.innerHTML = "姓";
+			city.innerHTML = "城市";
+			zip.innerHTML = "邮政编码";
+			email.innerHTML = "电子邮箱";
+			yes.innerHTML = '是!';
+			getInvolved.innerHTML = '我想参与移民权益相关的工作';
+			intro.innerHTML = `<p>Enterprise 向移民与海关执法局（ICE）提供租赁车辆，用于针对移民社区的行动.</p>
+				<p>2022年至2025年期间，俄勒冈州通过全州统一价格协议向 Enterprise 输送了超过1590万美元的资金。</p>
+				<p style="font-family: loos-compressed; font-weight: 700; font-size:1.3em; line-height: .9em; text-transform:uppercase;">我们敦促俄勒冈州终止与 Enterprise 租车公司的全州合同。</p>`
+			}
+		//		
 		else {
 		console.log("Processing ** unknown **")
 		//
@@ -184,6 +163,20 @@
 				replaceTextInDOM("This does not appear to be a valid date", "Ingrese una fecha válida");
 				replaceTextInDOM("Please enter a valid phone number", "Ingrese un número de teléfono válido");
 				replaceTextInDOM("This date must be between", "La fecha debe ser entre");
+			} else if (getLang.startsWith("ru")) {
+				replaceTextInDOM("This field is required", "Требуется ответить на этот вопрос.");
+				replaceTextInDOM("This does not appear to be a valid email address", "Похоже, это недействительный адрес электронной почты.");
+				replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Пожалуйста, введите действительный 5-значный почтовый индекс.");
+				replaceTextInDOM("This does not appear to be a valid date", "Похоже, это недействительная дата.");
+				replaceTextInDOM("Please enter a valid phone number", "Пожалуйста, введите действительный номер телефона.");
+				replaceTextInDOM("This date must be between", "Эта дата должна находиться в диапазоне");
+			} else if (getLang.startsWith("zh")) {
+				replaceTextInDOM("This field is required", "这个问题必须回答.");
+				replaceTextInDOM("This does not appear to be a valid email address", "这似乎不是一个有效的电子邮件地址。");
+				replaceTextInDOM("Please enter a valid 5-digit ZIP code", "请输入有效的5位数字邮政编码。");
+				replaceTextInDOM("This does not appear to be a valid date", "这似乎不是一个有效的日期。");
+				replaceTextInDOM("Please enter a valid phone number", "请输入有效的电话号码。");
+				replaceTextInDOM("This date must be between", "此日期必须在以下两者之间");
 			}
 
 		})
