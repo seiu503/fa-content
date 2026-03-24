@@ -164,18 +164,31 @@
 				<p>2022年至2025年期间，俄勒冈州通过全州统一价格协议向 Enterprise 输送了超过1590万美元的资金。</p>
 				<p class="bolder">我们敦促俄勒冈州终止与 Enterprise 租车公司的全州合同。</p>`
 			}
+		//
+		// Arabic:
+		else if (getLang.startsWith("ar")) {
+			console.log("Processing ar");
+
+			//
+			document.title = "ولاية أوريغون: أنهِ عقدك مع شركة Enterprise Rent-A-Car";
+			valueFormTitle.innerHTML = `<span dir="rtl">ولاية أوريغون: أنهِ عقدك مع شركة Enterprise Rent-A-Car</span>`;
+			valueSubmitButton.defaultValue = `انضم إلى النضال`;
+			//
+			firstName.innerHTML = "First Name";
+			lastName.innerHTML = "Last Name";
+			city.innerHTML = "City";
+			zip.innerHTML = "ZIP Code";
+			email.innerHTML = "Email";
+			yes.innerHTML = 'Yes!';
+			getInvolved.innerHTML = 'I want to get involved in immigrant justice work';
+			intro.innerHTML = `<p>Enterprise rents vehicles used by Immigration and Customs Enforcement (ICE) to target immigrant communities.</p>
+				<p>From 2022 to 2025, the State of Oregon helped direct more than $15.9 million to Enterprise through a statewide price agreement.</p>
+				<p class="bolder">We urge the State of Oregon to end its statewide contract with Enterprise Rent-A-Car.</p>`
+			}
 		//		
 		else {
 		console.log("Processing ** unknown **")
-		//
-		// document.title = "** unknown **-language title.";
-		// valueFormTitle.innerHTML = "Form Title: ** unknown **";
-		// valueSubmitButton.defaultValue = "Submit: ** unknown **";
-		// //
-		// textInput_01.innerHTML = "First Name ** unknown ** Test";
-		// textInput_02.innerHTML = "Last Name ** unknown ** Test";
-		// textInput_03.innerHTML = "Email ** unknown ** Test";
-		// textInput_04.innerHTML = "Company ** unknown ** Test";
+
 		};
 
 

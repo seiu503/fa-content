@@ -315,7 +315,8 @@ input.primaryAction.slds-button.slds-button--brand.full-width {
   /* Headings */
 }
 
-.wFormContainer .wForm .wFormTitle {
+.wFormContainer .wForm .wFormTitle,
+.gform_title {
   font-family: var(--font-display), sans-serif;
   padding: 1.75rem 3rem !important;
   margin: 0;
@@ -332,7 +333,8 @@ input.primaryAction.slds-button.slds-button--brand.full-width {
 }
 
 @media only screen and (max-width: 600px) {
-  .wFormContainer .wForm .wFormTitle {
+  .wFormContainer .wForm .wFormTitle,
+  .gform_title {
     font-size: 36px;
   }
 }
@@ -350,8 +352,8 @@ input.primaryAction.slds-button.slds-button--brand.full-width {
 }
 
 .wForm div.section > .preField {
-  font-size: $length-section-title-font-size !important;
-  color: $color-section-title-text-color !important;
+  font-size: $length-section-title-font-size;
+  color: $color-section-title-text-color;
   font-family: var(--font-display), sans-serif;
 }
 
@@ -1347,4 +1349,9 @@ a.errMsg {
 :lang(zh) .htmlSection .htmlContent > p.bolder {
   line-height: 1.2em !important;
   text-transform:none !important;
+}
+
+:lang(ar) .wFormTitle  {
+  line-height: 1em !important;
+  text-transform: none;
 }
