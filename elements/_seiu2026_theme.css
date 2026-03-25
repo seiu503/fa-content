@@ -1355,3 +1355,9 @@ a.errMsg {
   line-height: 1em !important;
   text-transform: none;
 }
+
+:lang(ar) .wForm .inline .oneField .preField,
+:lang(ar) .wForm .inputWrapper {
+  float: right;
+  text-align: right;
+}

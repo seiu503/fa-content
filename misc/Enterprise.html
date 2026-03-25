@@ -15,7 +15,6 @@
 	// LOCALIZATION
 	window.addEventListener("load", function() {
 
-
 		// CHANGE THIS FOR EACH FORM ************************ //
 		var formEl = document.getElementById("817");
 		// CHANGE THIS FOR EACH FORM ************************ //
@@ -45,6 +44,69 @@
 
 		document.documentElement.lang = getLang;
 		document.querySelector('.wForm')?.setAttribute('data-language', getLang);
+
+		// ADD LANGUAGE PICKER TO DOM
+
+		// Define language map
+	    const languageMap = {
+        "English": "en",
+        "Español": "es",
+        "Русский": "ru",
+        "Tiếng Việt": "vi",
+        "简体中文": "zh",
+        "عربي": "ar",
+        "af soomaaliga": "so"
+    	};
+
+	    // Find the target element
+	    const header = document.querySelector(".wFormHeader");
+	    if (!header) return; // exit if header not found
+
+	    // Create wrapper
+	    const pickerWrap = document.createElement("div");
+	    pickerWrap.className = "pickerWrap";
+
+	    // Create select element
+	    const select = document.createElement("select");
+	    select.style.marginLeft = "5px"; // spacing for globe
+
+	    // Add globe icon using emoji as a label
+	    const globeLabel = document.createElement("span");
+	    globeLabel.textContent = "🌐";
+	    globeLabel.style.marginRight = "5px";
+
+	    pickerWrap.appendChild(globeLabel);
+	    pickerWrap.appendChild(select);
+
+	    // Add options
+	    Object.keys(languageMap).forEach(langName => {
+        const option = document.createElement("option");
+        option.value = languageMap[langName];
+        option.textContent = langName;
+        select.appendChild(option);
+	    });
+
+	    // Set current selection
+	    if (getLang) {
+        select.value = getLang;
+	    }
+
+	    // Handle selection change
+	    select.addEventListener("change", function() {
+        const newLang = select.value;
+        const currentUrl = new URL(window.location.href);
+
+        // Update or set the lang param
+        currentUrl.searchParams.set("lang", newLang);
+
+        // Reload page with new lang
+        window.location.href = currentUrl.toString();
+	    });
+
+	    // Insert picker after header
+	    header.parentNode.insertBefore(pickerWrap, header.nextSibling);
+
+	  // LOCALIZATION
 
 		var valueFormTitle = document.getElementsByClassName("wFormTitle")[0];
 		var valueSubmitButton = document.querySelector("#submit_button");
@@ -76,9 +138,10 @@
 			email.innerHTML = "Email";
 			yes.innerHTML = 'Yes!';
 			getInvolved.innerHTML = 'I want to get involved in immigrant justice work';
-			intro.innerHTML = `<p>Enterprise rents vehicles used by Immigration and Customs Enforcement (ICE) to target immigrant communities.</p>
-				<p>From 2022 to 2025, the State of Oregon helped direct more than $15.9 million to Enterprise through a statewide price agreement.</p>
-				<p class="bolder">We urge the State of Oregon to end its statewide contract with Enterprise Rent-A-Car.</p>`
+			intro.innerHTML = `<p>Our public dollars should reflect our values. Oregon should not spend taxpayer money with corporations that help carry out immigration enforcement operations that harm workers, families, and communities. Enterprise Rent-a-Car provides vehicles used by Immigration and Customs Enforcement (ICE) to target immigrant communities and terrorize our neighborhoods.</p>
+<p>Immigrant workers are our coworkers, neighbors, and family members. They care for our elders, teach our children, grow our food, and keep our communities running.</p>
+<p>When companies profit from deportation systems, they help spread fear and instability in our communities. Public institutions should stand with workers and communities, not with corporations that profit from deportation.</p>
+<p class="bolder">We demand that the State of Oregon end its statewide contract with Enterprise Rent-A-Car.</p>`
 			}
 		//
 		// Spanish:
@@ -97,9 +160,10 @@
 			email.innerHTML = "Correo electrónico";
 			yes.innerHTML = '¡Sí!';
 			getInvolved.innerHTML = 'Quiero involucrarme en la justicia de inmigrantes';
-			intro.innerHTML = `<p>Enterprise alquila vehículos utilizados por Inmigración y Control de Aduanas (ICE) para atacar a comunidades inmigrantes.</p>
-				<p>De 2022 a 2025, el estado de Oregón ayudó a dirigir más de $15.9 millones a Enterprise mediante un acuerdo de precios a nivel estatal.</p>
-				<p class="bolder">Instamos al Estado de Oregón a que ponga fin al contrato con Enterprise Rent-A-Car.</p>`
+			intro.innerHTML = `<p>Nuestros fondos públicos deberían reflejar nuestros valores. Oregón no debería gastar el dinero de los contribuyentes en empresas que ayudan a llevar a cabo operaciones de ley migratoria que perjudican a trabajadores, familias y comunidades. Enterprise alquila vehículos utilizados por Inmigración y Control de Aduanas (ICE) para atacar a comunidades inmigrantes, separar familias y sembrar miedo entre trabajadores y comunidades enteras.</p>
+<p>Los trabajadores inmigrantes son nuestros compañeros, vecinos y familiares. Cuidan de nuestros mayores, enseñan a nuestros hijos, cultivan nuestra comida y mantienen nuestras comunidades en funcionamiento. </p>
+<p>Cuando las empresas se benefician de los sistemas de deportación, ayudan a sembrar el miedo y la inestabilidad en nuestras comunidades. Las instituciones públicas deben apoyar a los trabajadores y las comunidades, no a las empresas que se benefician de la deportación.</p>
+				<p class="bolder">Exigimos que el Estado de Oregón ponga fin a su contrato estatal con Enterprise Rent-A-Car.</p>`
 			}
 		//
 		// Russian:
@@ -118,9 +182,10 @@
 			email.innerHTML = "И-мейл";
 			yes.innerHTML = 'Да!';
 			getInvolved.innerHTML = 'Я хочу участвовать в деятельности, направленной на справедливость для иммигрантов';
-			intro.innerHTML = `<p>Иммиграционная и таможенная служба арендует автомобили компании Enterprise для преследования иммигрантских сообществ.</p>
-				<p>С 2022 по 2025 год штат Орегон помог направить более 15,9 млн долларов компании Enterprise в рамках соглашения о единых ценах на уровне штата.</p>
-				<p class="bolder">Мы призываем штат Орегон расторгнуть общештатный контракт с Enterprise Rent-A-Car.</p>`
+			intro.innerHTML = `<p>Налоги на наши доходы должны отражать наши  ценности. Управление Орегона не должно совместно с корпорациями тратить налогооблагаемые деньги на выполнение операций иммиграционных служб в ущерб работникам, семьям и общественности. Иммиграционная и таможенная служба арендует автомобили компании Enterprise для преследования иммигрантских сообществ, разделения семей и внушения страха рабочим и целым сообществам.</p>
+<p>Рабочие-иммигранты – это наши коллеги, соседи и члены семьи. Они заботятся о пожилых, учат детей, выращивают еду. Без них наше сообщество не работает. </p>
+<p>Департационная система стала кормушкой для компаний, которые помогают распространять страх и нестабильность в наших сообществах. Бюджетные учреждения должны отстаивать работников и сообщества, а не корпорации, извлекающих прибыль из депортации.</p>
+				<p class="bolder">Требуем, чтобы штат Орегон прекратил свой общештатный контракт с Enterprise Rent-A-Car.</p>`
 			}
 		//	
 		// Vietnamese:
@@ -139,9 +204,10 @@
 			email.innerHTML = "Email";
 			yes.innerHTML = 'Có!';
 			getInvolved.innerHTML = 'Tôi muốn tham gia vào công tác bảo vệ công lý cho người nhập cư';
-			intro.innerHTML = `<p>Enterprise cho thuê các phương tiện được Cơ quan Thực thi Di trú và Hải quan (ICE) sử dụng để nhắm vào các cộng đồng nhập cư.</p>
-				<p>Từ năm 2022 đến năm 2025, Tiểu bang Oregon đã giúp chuyển hơn 15,9 triệu đô la Mỹ cho Enterprise thông qua một thỏa thuận giá trên toàn tiểu bang.</p>
-				<p class="bolder">Chúng tôi khẩn thiết kêu gọi Tiểu bang Oregon chấm dứt hợp đồng trên toàn tiểu bang với Enterprise Rent-A-Car.</p>`
+			intro.innerHTML = `<p>Ngân sách công của chúng ta cần phải phản ánh những giá trị của chính chúng ta. Tiểu bang Oregon không nên sử dụng tiền thuế của người dân để chi trả cho các tập đoàn tham gia thực hiện những chiến dịch thực thi luật nhập cư gây tổn hại đến người lao động, các gia đình và cộng đồng. Enterprise cho thuê các phương tiện được Cơ quan Thực thi Di trú và Hải quan (ICE) sử dụng để nhắm vào các cộng đồng nhập cư, chia cắt các gia đình, cũng như gieo rắc nỗi sợ hãi trong giới công nhân và toàn bộ cộng đồng.</p>
+<p>Người lao động nhập cư là đồng nghiệp, hàng xóm và là thành viên trong gia đình của chúng ta. Họ chăm sóc người cao tuổi, dạy dỗ con em chúng ta, trồng trọt lương thực và giúp cộng đồng của chúng ta vận hành.</p>
+<p>Khi các công ty trục lợi từ các hệ thống trục xuất, họ góp phần gieo rắc nỗi sợ hãi và sự bất ổn trong cộng đồng của chúng ta. Các tổ chức công nên đứng về phía người lao động và cộng đồng, chứ không phải đứng về phía các tập đoàn trục lợi từ việc trục xuất.</p>
+				<p class="bolder">Chúng tôi yêu cầu Tiểu bang Oregon chấm dứt hợp đồng toàn tiểu bang với Enterprise Rent-A-Car.</p>`
 			}
 		//
 		// Simplified Chinese:
@@ -160,9 +226,10 @@
 			email.innerHTML = "电子邮箱";
 			yes.innerHTML = '是!';
 			getInvolved.innerHTML = '我想参与移民权益相关的工作';
-			intro.innerHTML = `<p>Enterprise 向移民与海关执法局（ICE）提供租赁车辆，用于针对移民社区的行动.</p>
-				<p>2022年至2025年期间，俄勒冈州通过全州统一价格协议向 Enterprise 输送了超过1590万美元的资金。</p>
-				<p class="bolder">我们敦促俄勒冈州终止与 Enterprise 租车公司的全州合同。</p>`
+			intro.innerHTML = `<p>我们的公共资金应当用在符合我们的价值观的行动上。俄勒冈州不应将纳税人的钱花在那些协助伤害工人、家庭和社区的移民执法行动的公司上。Enterprise 向移民与海关执法局（ICE）提供租赁车辆，用于针对移民社区的行动，导致家庭分离，并在工人和整个社区中制造恐慌。</p>
+<p>移民群体是我们的同事、邻居和家人。他们照顾我们的长辈，教育我们的孩子，种植我们的食物，并维持社区的稳定运转。</p>
+<p>当企业从驱逐移民出境体系中获利时，恐惧和不安就在我们的社区中散播。 公共机构应该与工人和社区站在一起，而不是与从驱逐出境中获利的企业站在一起。</p>
+				<p class="bolder">我们要求俄勒冈州终止与Enterprise Rent-A-Car的全州合同。</p>`
 			}
 		//
 		// Arabic:
@@ -174,16 +241,39 @@
 			valueFormTitle.innerHTML = `<span dir="rtl">ولاية أوريغون: أنهِ عقدك مع شركة Enterprise Rent-A-Car</span>`;
 			valueSubmitButton.defaultValue = `انضم إلى النضال`;
 			//
-			firstName.innerHTML = "First Name";
-			lastName.innerHTML = "Last Name";
-			city.innerHTML = "City";
-			zip.innerHTML = "ZIP Code";
-			email.innerHTML = "Email";
-			yes.innerHTML = 'Yes!';
-			getInvolved.innerHTML = 'I want to get involved in immigrant justice work';
-			intro.innerHTML = `<p>Enterprise rents vehicles used by Immigration and Customs Enforcement (ICE) to target immigrant communities.</p>
-				<p>From 2022 to 2025, the State of Oregon helped direct more than $15.9 million to Enterprise through a statewide price agreement.</p>
-				<p class="bolder">We urge the State of Oregon to end its statewide contract with Enterprise Rent-A-Car.</p>`
+			firstName.innerHTML = `<span dir="rtl">الاسم الأول</span>`;
+			lastName.innerHTML = `<span dir="rtl">الاسم الأخير(الكنية)</span>`;
+			city.innerHTML = `<span dir="rtl">مدينة</span>`;
+			zip.innerHTML = `<span dir="rtl">الرمز البريدي</span>`;
+			email.innerHTML = `<span dir="rtl">البريد الإلكتروني</span>`;
+			yes.innerHTML = `<span dir="rtl">نعم</span>`;
+			getInvolved.innerHTML = `<span dir="rtl">أريد أن أشارك في العمل من أجل عدالة المهاجرين</span>`;
+			intro.innerHTML = `<p dir="rtl">يجب أن تعكس أموالنا العامة قيمنا. لاينبغي لأوريغون إنفاق أموال دافعي الضرائب مع الشركات التي تساعد في تنفيذ عمليات الهجرة التي تضر بالعمال والأسر والمجتمعات. تقوم شركة Enterprise بتأجير المركبات التي تستخدمها إدارة الهجرة والجمارك (ICE) لاستهداف المجتمعات المهاجرة.</p>
+<p dir="rtl"> العمال المهاجرون هم زملاؤنا وجيراننا وأفراد عائلاتنا. إنهم يعتنون بكبار السن لدينا، ويعلمون أطفالنا، ويزرعون غذائنا ويحافظون على عمل مجتمعاتنا.</p>
+<p dir="rtl">عندما تحقق الشركات أرباحًا من أنظمة الترحيل، فإنها تساعد على نشر الخوف وعدم الاستقرار في مجتمعاتنا. المؤسسات العامة أن تقف إلى جانب العمال والمجتمعات،  وليس إلى جانب الشركات التي تحقق أرباحًا من الترحيل.</p>
+				<p class="bolder" dir="rtl">حث ولاية أوريغون على إنهاء عقدها على مستوى الولاية مع شركة Enterprise Rent-A-Car</p>`
+			}
+		//
+		// Somali:
+		if (getLang.startsWith("so")) {
+			console.log("Processing so");
+
+			//
+			document.title = "Gobolka Oregon: Jooji heshiiska aad la leedahay Enterprise Rent-A-Car";
+			valueFormTitle.innerHTML = "Gobolka Oregon: Jooji heshiiska aad la leedahay Enterprise Rent-A-Car";
+			valueSubmitButton.defaultValue = "Ku biir halganka";
+			//
+			firstName.innerHTML = "Magaca Koowaad";
+			lastName.innerHTML = "Magaca Dambe";
+			city.innerHTML = "Magaalada";
+			zip.innerHTML = "Koodhka ZIP";
+			email.innerHTML = "Iimaylka";
+			yes.innerHTML = 'Haa!';
+			getInvolved.innerHTML = 'Waxaan rabaa inaan ka qayb qaato cadaaladda muhaajiriinta';
+			intro.innerHTML = `<p>Lacagteena dadweynaha waa inay ka tarjumtaa qiyamkeena. Oregon waa in aanu ku bixin lacagta canshuur bixiyeyaasha shirkado ka qayb qaata fulinta hawlgallada socdaalka ee waxyeellada u geysta shaqaalaha, qoysaska, iyo bulshooyinka. Enterprise waxay kiraysaa gaadiid ay isticmaalaan Hay’adda Socdaalka iyo Kastamyada (ICE) si ay u bartilmaameedsadaan bulshooyinka muhaajiriinta, u kala saaraan qoysaska, isla markaana u faafiyaan cabsi ka dhex jirta shaqaalaha iyo guud ahaan bulshooyinka.</p>
+<p>Shaqaalaha muhaajiriinta waa saaxiibbadeen shaqo, deriskeenna, iyo xubno ka tirsan qoysaskeenna. Waxay daryeelaan waayeelkeenna, wax baraan carruurteenna, soo saaraan cuntadeenna, waxayna sii hayaan socodka bulshooyinkeena.</p>
+<p>Marka shirkaduhu ka faa’iidaystaan nidaamyada masaafurinta, waxay gacan ka geystaan faafinta cabsi iyo xasillooni darro bulshooyinkeena. Hay’adaha dadweynaha waa inay la safdaan shaqaalaha iyo bulshooyinka, ee ma aha shirkadaha ka faa’iideysta masaafurinta.</p>
+<p class="bolder">Waxaan ka dalbaneynaa in Gobolka Oregon uu joojiyo qandaraaska gobolka oo dhan ee uu la galay Enterprise Rent-A-Car.</p>`
 			}
 		//		
 		else {
@@ -234,7 +324,24 @@
 				replaceTextInDOM("This does not appear to be a valid date", "Đây dường như không phải là một ngày hợp lệ");
 				replaceTextInDOM("Please enter a valid phone number", "Vui lòng nhập số điện thoại hợp lệ");
 				replaceTextInDOM("This date must be between", "Ngày này phải nằm trong khoảng từ");
+			} else if (getLang.startsWith("ar")) {
+				replaceTextInDOM("This field is required", "الإجابة على هذا السؤال اجباري");
+				replaceTextInDOM("This does not appear to be a valid email address", "لا يبدو أن هذا عنوان بريد إلكتروني صالح");
+				replaceTextInDOM("Please enter a valid 5-digit ZIP code", "يُرجى إدخال رمز بريدي صالح مكون من 5 أرقام");
+				replaceTextInDOM("This does not appear to be a valid date", "لا يبدو أن هذا تاريخ صالح");
+				replaceTextInDOM("Please enter a valid phone number", "يُرجى إدخال رقم هاتف صالح");
+				replaceTextInDOM("This date must be between", "يجب أن يكون هذا التاريخ بين");
+			} else if (getLang.startsWith("so")) {
+				replaceTextInDOM("This field is required", "Jawaabta su’aashan waa qasab");
+				replaceTextInDOM("This does not appear to be a valid email address", "Tani uma muuqato inay tahay cinwaan email oo sax ah");
+				replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Fadlan geli koodh ZIP oo sax ah oo 5-lambar ah");
+				replaceTextInDOM("This does not appear to be a valid date", "Tani uma muuqato inay tahay taariikh sax ah");
+				replaceTextInDOM("Please enter a valid phone number", "Fadlan geli lambarka telefoonka ee saxda ah");
+				replaceTextInDOM("This date must be between", "Taariikhdan waa inay u dhaxeysaa");
 			}
+
+
+			
 
 		})
 
