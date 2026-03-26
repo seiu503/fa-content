@@ -313,12 +313,29 @@ input.primaryAction.slds-button.slds-button--brand.full-width {
 #languagePicker {
   margin-left: 5px;
   padding: 5px;
+  padding-left:12px;
 }
 
 .globeSVG {
   margin-right: 5px;
   padding-top: 5px;
 }
+
+@media only screen and (max-width: 600px) {
+
+  .wFormContainer .wForm .inputWrapper select[multiple],
+  #languagePicker {
+    width: auto;
+    -webkit-appearance: none;
+    height: 45px;
+    padding-left: 15px;
+  }
+
+  .globeSVG {
+    padding-top: 12px;
+  }
+}
+
 
 
 
@@ -914,15 +931,6 @@ table {
 }
 
 
-@media only screen and (max-width: 600px) {
-
-  .wFormContainer .wForm .inputWrapper select[multiple],
-  #languagePicker {
-    width: auto;
-    -webkit-appearance: none;
-    height: 45px;
-  }
-}
 
 
 /* HINTS */

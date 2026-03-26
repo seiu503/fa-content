@@ -30,15 +30,11 @@
 
 		const lCode = getParam("lang", window.location.href);
 
-		let getLang;
-
 		// If not, extract the value of the language the browser is set to:
-		if (lCode) {
-			getLang = lCode
-		} else {
-			getLang = navigator.language;
-		}
-		console.log("getLang = ", getLang);
+
+		let getLang = (lCode || navigator.language || "en").split("-")[0];
+
+		console.log("getLang =", getLang);
 
 		document.documentElement.lang = getLang;
 		document.querySelector('.wForm')?.setAttribute('data-language', getLang);
@@ -56,6 +52,12 @@
         "Af Soomaaliga": "so"
     	};
 
+    	const supportedLangs = Object.values(languageMap);
+
+			if (!supportedLangs.includes(getLang)) {
+			  getLang = "en"; // fallback
+			}
+
 	    // Find the target element
 	    const header = document.querySelector(".wFormHeader");
 	    if (!header) return; // exit if header not found
@@ -72,7 +74,7 @@
 	    // Create globe icon
 	    const globeSVG = document.createElement("span");
 			globeSVG.innerHTML = `
-			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#f1eee9" stroke-width="2" viewBox="0 0 24 24">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#f1eee9" stroke-width="2" viewBox="0 0 24 24">
 			  <circle cx="12" cy="12" r="10"/>
 			  <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>
 			</svg>`;
