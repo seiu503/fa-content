@@ -15,9 +15,7 @@
 	// LOCALIZATION
 	window.addEventListener("load", function() {
 
-		// CHANGE THIS FOR EACH FORM ************************ //
-		var formEl = document.getElementById("817");
-		// CHANGE THIS FOR EACH FORM ************************ //
+		const formEl = document.querySelector("form");
 
 		// check if language is set in a passed query param
 
@@ -55,7 +53,7 @@
         "Tiếng Việt": "vi",
         "简体中文": "zh",
         "عربي": "ar",
-        "af soomaaliga": "so"
+        "Af Soomaaliga": "so"
     	};
 
 	    // Find the target element
@@ -68,14 +66,21 @@
 
 	    // Create select element
 	    const select = document.createElement("select");
-	    select.style.marginLeft = "5px"; // spacing for globe
+	    select.id = "languagePicker";
+	    select.className = "languagePicker";
 
-	    // Add globe icon using emoji as a label
-	    const globeLabel = document.createElement("span");
-	    globeLabel.textContent = "🌐";
-	    globeLabel.style.marginRight = "5px";
+	    // Create globe icon
+	    const globeSVG = document.createElement("span");
+			globeSVG.innerHTML = `
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#f1eee9" stroke-width="2" viewBox="0 0 24 24">
+			  <circle cx="12" cy="12" r="10"/>
+			  <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>
+			</svg>`;
+			globeSVG.className = "globeSVG";
+			
 
-	    pickerWrap.appendChild(globeLabel);
+	    // Append icon and select to wrapper
+	    pickerWrap.appendChild(globeSVG);
 	    pickerWrap.appendChild(select);
 
 	    // Add options
@@ -293,57 +298,92 @@
 			    if (element.textContent.includes(searchText)) {
 			      element.textContent = element.textContent.replaceAll(searchText, replaceText);
 			    }
-			  });
-			}
+				  });
+				}
 
-			if (getLang.startsWith("es")) {
-				replaceTextInDOM("This field is required", "Requerido");
-				replaceTextInDOM("This does not appear to be a valid email address", "Dirección de correo electrónico no válida");
-				replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Ingrese un código postal válido de 5 dígitos");
-				replaceTextInDOM("This does not appear to be a valid date", "Ingrese una fecha válida");
-				replaceTextInDOM("Please enter a valid phone number", "Ingrese un número de teléfono válido");
-				replaceTextInDOM("This date must be between", "La fecha debe ser entre");
-			} else if (getLang.startsWith("ru")) {
-				replaceTextInDOM("This field is required", "Требуется ответить на этот вопрос");
-				replaceTextInDOM("This does not appear to be a valid email address", "Похоже, это недействительный адрес электронной почты");
-				replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Пожалуйста, введите действительный 5-значный почтовый индекс");
-				replaceTextInDOM("This does not appear to be a valid date", "Похоже, это недействительная дата");
-				replaceTextInDOM("Please enter a valid phone number", "Пожалуйста, введите действительный номер телефона");
-				replaceTextInDOM("This date must be between", "Эта дата должна находиться в диапазоне");
-			} else if (getLang.startsWith("zh")) {
-				replaceTextInDOM("This field is required", "这个问题必须回答");
-				replaceTextInDOM("This does not appear to be a valid email address", "这似乎不是一个有效的电子邮件地址");
-				replaceTextInDOM("Please enter a valid 5-digit ZIP code", "请输入有效的5位数字邮政编码");
-				replaceTextInDOM("This does not appear to be a valid date", "这似乎不是一个有效的日期");
-				replaceTextInDOM("Please enter a valid phone number", "请输入有效的电话号码");
-				replaceTextInDOM("This date must be between", "此日期必须在以下两者之间");
-			} else if (getLang.startsWith("vi")) {
-				replaceTextInDOM("This field is required", "Cần phải trả lời câu hỏi này");
-				replaceTextInDOM("This does not appear to be a valid email address", "Đây dường như không phải là một địa chỉ email hợp lệ");
-				replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Vui lòng nhập mã ZIP 5 chữ số hợp lệ");
-				replaceTextInDOM("This does not appear to be a valid date", "Đây dường như không phải là một ngày hợp lệ");
-				replaceTextInDOM("Please enter a valid phone number", "Vui lòng nhập số điện thoại hợp lệ");
-				replaceTextInDOM("This date must be between", "Ngày này phải nằm trong khoảng từ");
-			} else if (getLang.startsWith("ar")) {
-				replaceTextInDOM("This field is required", "الإجابة على هذا السؤال اجباري");
-				replaceTextInDOM("This does not appear to be a valid email address", "لا يبدو أن هذا عنوان بريد إلكتروني صالح");
-				replaceTextInDOM("Please enter a valid 5-digit ZIP code", "يُرجى إدخال رمز بريدي صالح مكون من 5 أرقام");
-				replaceTextInDOM("This does not appear to be a valid date", "لا يبدو أن هذا تاريخ صالح");
-				replaceTextInDOM("Please enter a valid phone number", "يُرجى إدخال رقم هاتف صالح");
-				replaceTextInDOM("This date must be between", "يجب أن يكون هذا التاريخ بين");
-			} else if (getLang.startsWith("so")) {
-				replaceTextInDOM("This field is required", "Jawaabta su’aashan waa qasab");
-				replaceTextInDOM("This does not appear to be a valid email address", "Tani uma muuqato inay tahay cinwaan email oo sax ah");
-				replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Fadlan geli koodh ZIP oo sax ah oo 5-lambar ah");
-				replaceTextInDOM("This does not appear to be a valid date", "Tani uma muuqato inay tahay taariikh sax ah");
-				replaceTextInDOM("Please enter a valid phone number", "Fadlan geli lambarka telefoonka ee saxda ah");
-				replaceTextInDOM("This date must be between", "Taariikhdan waa inay u dhaxeysaa");
-			}
+				if (getLang.startsWith("es")) {
+					replaceTextInDOM("This field is required", "Requerido");
+					replaceTextInDOM("This does not appear to be a valid email address", "Dirección de correo electrónico no válida");
+					replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Ingrese un código postal válido de 5 dígitos");
+					replaceTextInDOM("This does not appear to be a valid date", "Ingrese una fecha válida");
+					replaceTextInDOM("Please enter a valid phone number", "Ingrese un número de teléfono válido");
+					replaceTextInDOM("This date must be between", "La fecha debe ser entre");
+				} else if (getLang.startsWith("ru")) {
+					replaceTextInDOM("This field is required", "Требуется ответить на этот вопрос");
+					replaceTextInDOM("This does not appear to be a valid email address", "Похоже, это недействительный адрес электронной почты");
+					replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Пожалуйста, введите действительный 5-значный почтовый индекс");
+					replaceTextInDOM("This does not appear to be a valid date", "Похоже, это недействительная дата");
+					replaceTextInDOM("Please enter a valid phone number", "Пожалуйста, введите действительный номер телефона");
+					replaceTextInDOM("This date must be between", "Эта дата должна находиться в диапазоне");
+				} else if (getLang.startsWith("zh")) {
+					replaceTextInDOM("This field is required", "这个问题必须回答");
+					replaceTextInDOM("This does not appear to be a valid email address", "这似乎不是一个有效的电子邮件地址");
+					replaceTextInDOM("Please enter a valid 5-digit ZIP code", "请输入有效的5位数字邮政编码");
+					replaceTextInDOM("This does not appear to be a valid date", "这似乎不是一个有效的日期");
+					replaceTextInDOM("Please enter a valid phone number", "请输入有效的电话号码");
+					replaceTextInDOM("This date must be between", "此日期必须在以下两者之间");
+				} else if (getLang.startsWith("vi")) {
+					replaceTextInDOM("This field is required", "Cần phải trả lời câu hỏi này");
+					replaceTextInDOM("This does not appear to be a valid email address", "Đây dường như không phải là một địa chỉ email hợp lệ");
+					replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Vui lòng nhập mã ZIP 5 chữ số hợp lệ");
+					replaceTextInDOM("This does not appear to be a valid date", "Đây dường như không phải là một ngày hợp lệ");
+					replaceTextInDOM("Please enter a valid phone number", "Vui lòng nhập số điện thoại hợp lệ");
+					replaceTextInDOM("This date must be between", "Ngày này phải nằm trong khoảng từ");
+				} else if (getLang.startsWith("ar")) {
+					replaceTextInDOM("This field is required", "الإجابة على هذا السؤال اجباري");
+					replaceTextInDOM("This does not appear to be a valid email address", "لا يبدو أن هذا عنوان بريد إلكتروني صالح");
+					replaceTextInDOM("Please enter a valid 5-digit ZIP code", "يُرجى إدخال رمز بريدي صالح مكون من 5 أرقام");
+					replaceTextInDOM("This does not appear to be a valid date", "لا يبدو أن هذا تاريخ صالح");
+					replaceTextInDOM("Please enter a valid phone number", "يُرجى إدخال رقم هاتف صالح");
+					replaceTextInDOM("This date must be between", "يجب أن يكون هذا التاريخ بين");
+				} else if (getLang.startsWith("so")) {
+					replaceTextInDOM("This field is required", "Jawaabta su’aashan waa qasab");
+					replaceTextInDOM("This does not appear to be a valid email address", "Tani uma muuqato inay tahay cinwaan email oo sax ah");
+					replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Fadlan geli koodh ZIP oo sax ah oo 5-lambar ah");
+					replaceTextInDOM("This does not appear to be a valid date", "Tani uma muuqato inay tahay taariikh sax ah");
+					replaceTextInDOM("Please enter a valid phone number", "Fadlan geli lambarka telefoonka ee saxda ah");
+					replaceTextInDOM("This date must be between", "Taariikhdan waa inay u dhaxeysaa");
+				}
+
+			})
+
+		const waitTextMap = {
+	    en: "Please wait...",
+	    es: "Por favor espera...",
+	    ru: "Пожалуйста, подождите...",
+	    vi: "Vui lòng đợi...",
+	    zh: "请稍候...",
+	    ar: "يرجى الانتظار...",
+	    so: "Fadlan sug..."
+		};	
+		
+		// replace 'please wait' text
+		const waitButtonObserver = new MutationObserver(mutations => {
+	    mutations.forEach(mutation => {
+	    	console.log("Mutation detected:", mutation);
+
+	    	const btn = mutation.target;
+        const text = btn.textContent || "";
+        console.log("Button text now:", text);
+
+        if (text.toLowerCase().includes("please wait")) {
+          console.log("Matched 'Please wait', replacing with localized text");
+          btn.textContent = waitTextMap[getLang] || waitTextMap['en'];
+          console.log("Button text replaced with:", btn.textContent);
+        }
+		  });
+		});
+
+		// Find the submit button
+		const submitButton = document.querySelector("button[type='submit']");
+		if (submitButton) {
+			console.log("Submit button found:", submitButton);
+		  waitButtonObserver.observe(submitButton, { childList: true, subtree: true });
+		}
+
+		// .wFormThankYou
 
 
-			
-
-		})
 
 	});
 </script>

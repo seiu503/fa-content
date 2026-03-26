@@ -303,6 +303,25 @@ input.primaryAction.slds-button.slds-button--brand.full-width {
   }
 }
 
+/*LANGUAGE PICKER*/
+
+.pickerWrap {
+  display: flex;
+  justify-content: center;
+}
+
+#languagePicker {
+  margin-left: 5px;
+  padding: 5px;
+}
+
+.globeSVG {
+  margin-right: 5px;
+  padding-top: 5px;
+}
+
+
+
 /*TITLE AND HEADINGS*/
 
 /* Main container. Must wrap *all* theme CSS */
@@ -668,7 +687,8 @@ table {
 .wFormContainer .wForm .inputWrapper input[type='text'],
 .wFormContainer .wForm .inputWrapper input[type='password'],
 .wFormContainer .wForm .inputWrapper select,
-.wFormContainer .wForm .inputWrapper textarea {
+.wFormContainer .wForm .inputWrapper textarea,
+#languagePicker {
   font-family: var(--font-body), sans-serif;
   color: $color-input-text-color;
   border: 1px solid $color-input-border-color;
@@ -687,7 +707,8 @@ table {
   padding: 0 .5rem;
 }
 
-.wFormContainer .wForm .inputWrapper select[multiple] {
+.wFormContainer .wForm .inputWrapper select[multiple],
+#languagePicker {
   width: auto;
 }
 
@@ -719,7 +740,8 @@ table {
   padding: .5rem !important;
 }
 
-.wFormContainer .wForm .inputWrapper select option {
+.wFormContainer .wForm .inputWrapper select option,
+#languagePicker option {
   padding: 0.25em .5rem;
   font-family: var(--font-body), sans-serif;
 }
@@ -748,7 +770,8 @@ table {
 .wFormContainer .wForm .inputWrapper input[type='password']:focus,
 .wFormContainer .wForm .inputWrapper input[type='password'].required:focus,
 .wFormContainer .wForm .inputWrapper select:focus,
-.wFormContainer .wForm .inputWrapper select.required:focus {
+.wFormContainer .wForm .inputWrapper select.required:focus,
+#languagePicker:focus {
   outline-style: none;
   border: 2px solid $color-fieldset-border-color !important;
   color: $color-input-text-color;
@@ -893,7 +916,8 @@ table {
 
 @media only screen and (max-width: 600px) {
 
-  .wFormContainer .wForm .inputWrapper select[multiple] {
+  .wFormContainer .wForm .inputWrapper select[multiple],
+  #languagePicker {
     width: auto;
     -webkit-appearance: none;
     height: 45px;
