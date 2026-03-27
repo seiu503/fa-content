@@ -288,6 +288,33 @@
 
 		};
 
+		const thankYouMap = {
+	    en: `Thank you for your support. To learn more about SEIU 503's immigrant justice work, visit our website:`,
+	    es: `Gracias por su apoyo. Para obtener más información sobre el trabajo de justicia para inmigrantes de SEIU 503, visite nuestro sitio web:`,
+	    ru: `Спасибо за вашу поддержку. Чтобы узнать больше о работе SEIU 503 в области справедливости для иммигрантов, посетите наш сайт:`,
+	    vi: `Cảm ơn bạn đã ủng hộ. Để tìm hiểu thêm về công việc công lý cho người nhập cư của SEIU 503, truy cập trang web của chúng tôi:`,
+	    zh: `感谢您的支持。要了解更多关于 SEIU 503 移民正义工作的内容，请访问我们的网站。`,
+	    ar: `شكرًا لدعمكم. لمعرفة المزيد عن عمل SEIU 503 في مجال عدالة المهاجرين، 
+	            يرجى زيارة موقعنا الإلكتروني`,
+	    so: `Waad ku mahadsan tahay taageeradaada. Si aad wax badan uga ogaato shaqada cadaaladda muhaajiriinta ee SEIU 503, booqo boggayaga`
+		};
+
+		// Set value BEFORE submit
+		const thankYouField = document.querySelector("#tfa_13");
+
+		if (thankYouField) {
+	    const lang = (getLang || "en").split("-")[0];
+	    const translatedHTML = thankYouMap[lang] || thankYouMap["en"];
+
+	    console.log("Setting thank-you field to lang:", lang);
+
+	    thankYouField.value = translatedHTML;
+
+	    if (thankYouField.innerHTML !== undefined) {
+	      thankYouField.innerHTML = translatedHTML;
+	    }
+		}
+
 
 		// replace error message text
 		formEl.addEventListener('submit', function() {
@@ -349,41 +376,48 @@
 
 			})
 
-		const waitTextMap = {
-	    en: "Please wait...",
-	    es: "Por favor espera...",
-	    ru: "Пожалуйста, подождите...",
-	    vi: "Vui lòng đợi...",
-	    zh: "请稍候...",
-	    ar: "يرجى الانتظار...",
-	    so: "Fadlan sug..."
-		};	
-		
-		// replace 'please wait' text
-		const waitButtonObserver = new MutationObserver(mutations => {
-	    mutations.forEach(mutation => {
-	    	console.log("Mutation detected:", mutation);
+			const waitTextMap = {
+		    en: "Please wait...",
+		    es: "Por favor espera...",
+		    ru: "Пожалуйста, подождите...",
+		    vi: "Vui lòng đợi...",
+		    zh: "请稍候...",
+		    ar: "يرجى الانتظار...",
+		    so: "Fadlan sug..."
+			};
 
-	    	const btn = mutation.target;
-        const text = btn.textContent || "";
-        console.log("Button text now:", text);
+			const btn = document.querySelector("#submit_button");
 
-        if (text.toLowerCase().includes("please wait")) {
-          console.log("Matched 'Please wait', replacing with localized text");
-          btn.textContent = waitTextMap[getLang] || waitTextMap['en'];
-          console.log("Button text replaced with:", btn.textContent);
-        }
-		  });
-		});
+			if (btn) {
+		    console.log("Observing submit button for value changes");
 
-		// Find the submit button
-		const submitButton = document.querySelector("button[type='submit']");
-		if (submitButton) {
-			console.log("Submit button found:", submitButton);
-		  waitButtonObserver.observe(submitButton, { childList: true, subtree: true });
-		}
+		    const observer = new MutationObserver((mutations) => {
+	        mutations.forEach((mutation) => {
+            if (mutation.type === "attributes" && mutation.attributeName === "value") {
 
-		// .wFormThankYou
+              const currentVal = btn.value || "";
+              console.log("Button value changed to:", currentVal);
+
+              if (currentVal.toLowerCase().includes("please wait")) {
+						    const translated = waitTextMap[getLang] || waitTextMap['en'];
+
+						    let attempts = 0;
+						    const interval = setInterval(() => {
+					        btn.value = translated;
+					        attempts++;
+
+					        if (attempts > 5) clearInterval(interval);
+						    }, 50);
+							}
+            }
+	        });
+		    });
+
+		    observer.observe(btn, {
+	        attributes: true,
+	        attributeFilter: ["value"]
+		    });
+			}
 
 
 
