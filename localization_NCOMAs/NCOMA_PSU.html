@@ -1,3 +1,181 @@
+<style>
+
+  .wFormContainer .wForm .wFormTitle {
+    color: #2C0940 !important;
+  } 
+  .label {
+    text-wrap: wrap !important;
+  }
+
+  h2.gform_title {
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    font-size: 2em;
+  }
+  /* EMBEDS */
+  .page-id-26039 h2.gform_title {
+    display:none;
+  }
+
+  .page-id-26039 .wFormHeader {
+    display:none;
+  }
+
+  .wFormContainer .label {
+    font-weight: 400;
+    font-family: "Roboto Slab", Roboto, sans-serif;
+    color: #444;
+    font-size: 20px;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+
+/* Preferred Language label */
+  @media only screen and (min-width: 600px)  {
+		#tfa_91-D {
+			margin-top: -18px;
+		}
+  }
+  
+  #tfa_379-L, #tfa_380-L, #tfa_122-L, .label {
+    text-align: left !important;
+  }
+
+/* Job title container */
+  #tfa_385-D {
+  	width: 49%;
+  }
+
+  #tfa_385-D > .inputWrapper {
+  	width: 100% !important;
+  }
+   #tfa_122-L {
+     text-wrap: wrap;
+     line-height: 1.2em;
+     margin-bottom: -10px;
+   }
+
+  #tfa_116-L {
+    font-size: 1.2em;
+    color: #531078;
+    font-weight: 700;
+    padding-left: 0;
+  }
+
+   #tfa_355-L {
+    font-size: 1.2em;
+    color: #531078;
+    font-weight: 700;
+    padding-left: 0;
+  }
+/*   #tfa_122-D {
+    background: #eee;
+  } */
+
+  .wFormContainer .wForm .wFormTitle {
+    background-color: white;
+  }
+
+  #tfa_17-HTML {
+    text-align: center;
+  }
+
+  #tfa_105-L {
+    text-wrap: wrap;
+    text-align: left;
+    max-width: 90%;
+    font-size: 1em;
+  line-height: 1.3em;
+  padding-left: 0;
+  }
+
+  /* 2-col fields */
+
+  #tfa_1-D, #tfa_2-D, #tfa_3-D, #tfa_4-D,
+    #tfa_22-D, #tfa_6-D, #tfa_7-D, #tfa_91-D, #tfa_385-D {
+        width: 49% !important
+    }
+
+  #tfa_32 {
+    width: 98.5% !important;
+  }
+
+  #tfa_90 {
+    width: 98.5%;
+  display: flex;
+  justify-content: space-between;
+  }
+
+  /* Authorization checkbox labels (legal language), mobile alerts opt out, scholarship opt out */
+  #tfa_379-L, #tfa_380-L, #tfa_382-L, #capeLL2, #tfa_383-HTML,
+  #tfa_114-L, #tfa_115-L, #tfa_122-L, #tfa_123-L {
+    font-size: 13.6px !important;
+    color: rgb(68, 68, 68) !important;
+    line-height: normal;
+  }
+
+  /* Authorization checkboxes */
+  #tfa_379-L:before,
+  #tfa_380-L:before,
+  #tfa_382-L:before {
+    margin-right: 6px;
+    width: 14px;
+    height: 14px;
+    top: -2px;
+  }
+
+  #tfa_379-L:after,
+  #tfa_380-L:after,
+  #tfa_382-L:after {
+    left: 3px;
+    top: 6px;
+  }
+
+  /* checkbox backgrounds checked */
+  .wFormContainer .wForm .inputWrapper input[type="checkbox"]:checked~.label:before {
+    background: #531078;
+  }
+  
+
+    #tfa_1-D .inputWrapper, #tfa_2-D .inputWrapper, #tfa_3-D .inputWrapper, #tfa_4-D .inputWrapper,
+    #tfa_22-D .inputWrapper, #tfa_6-D .inputWrapper, #tfa_7-D .inputWrapper, #tfa_91-D .inputWrapper,
+    #tfa_32-D .inputWrapper, #tfa_34-D .inputWrapper, #tfa_35-D .inputWrapper, #tfa_39-D .inputWrapper, #tfa_32  .inputWrapper{
+        display: block !important;
+    }
+
+  @media only screen and (max-width: 600px)  {
+    #tfa_1-D, #tfa_2-D, #tfa_3-D, #tfa_4-D,
+    #tfa_22-D, #tfa_6-D, #tfa_7-D, #tfa_91-D,
+    #tfa_32-D, #tfa_34-D, #tfa_35-D, #tfa_39-D, #tfa_32 {
+        width: 100% !important
+    }
+    #tfa_90 {
+      display: block;
+      width: 100%;
+    }
+  }
+  
+
+.wFormContainer .actions .primaryAction, #primaryAction {
+ background-color: #531078 !important;
+}
+
+  #791-A:hover {
+    background-color: #531078 !important;
+  }
+
+  form#801 {
+    @media only screen and (max-width: 480px)  {
+    .wFormContainer .wForm form {
+      padding: 0 important;
+    }
+  }
+
+
+  </style>
+
 <script type="text/javascript">
 //
 window.addEventListener("load", function() {
@@ -210,4 +388,125 @@ window.addEventListener("load", function() {
 	})
 
 });
+</script>
+
+
+
+
+
+
+
+<script type="text/javascript"> 
+
+  window.addEventListener("load", function() {
+
+    const mmEl = document.getElementById("tfa_129");
+    const ddEl = document.getElementById("tfa_133");
+    const yyyyEl = document.getElementById("tfa_131");
+    const dobEl = document.getElementById("tfa_113");
+
+    var mmSelect = document.getElementById("tfa_156");
+    var ddSelect = document.getElementById("tfa_157");
+    var yyyySelect = document.getElementById("tfa_158");
+
+    const dateSelects = [mmSelect, ddSelect, yyyySelect];
+
+    // switch helper for dateOptions
+    const getMaxDay = month => {
+      switch (month) {
+        case "02":
+          return 29;
+        case "04":
+        case "06":
+        case "09":
+        case "11":
+          return 30;
+        default:
+          return 31;
+      }
+    };
+
+    // function to adjust date select based on mm value
+    const dateOptions = () => {
+      const selectVal = el => el.options[el.selectedIndex].text;
+      const mm = selectVal(mmSelect);
+      const max = getMaxDay(mm);
+      let dates = [];
+      for (let i = 1; i <= max; i++) {
+        if (i < 10) {
+          dates.push("0" + i);
+        } else {
+          dates.push(i.toString());
+        }
+      }
+      dates.unshift("");
+      return dates;
+    };
+
+    // dynamically fills yyyy select with last 100 years
+    const yearOptions = () => {
+      let years = [];
+      for (
+        let i = new Date().getFullYear() - 99;
+        i <= new Date().getFullYear();
+        i++
+      ) {
+        years.unshift(i.toString());
+      }
+      years.unshift("");
+      return years;
+    };
+
+    function emptyCombo(selectEl) {
+      selectEl.options.length = 1;
+      return selectEl;
+    }
+
+    function appendChildren(el, children) {
+      return el.append(...children);
+    }
+
+    function populateCombo(selectEl, items) {
+      return appendChildren(selectEl, items.map(item => new Option(item, item)));
+    }
+
+    mmSelect.addEventListener('change', function() {
+      populateCombo(emptyCombo(ddSelect), dateOptions());
+    })
+
+    populateCombo(emptyCombo(yyyySelect), yearOptions());
+
+    
+
+    // date formatter for submitting to Salesforce
+    const formatSFDate = date => {
+      let d = new Date(date),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
+
+      return [year, month, day].join("-");
+    };
+
+
+    // convert MM DD YYYY to SF-formatted birthdate
+    const formatBirthdate = (mm, dd, yyyy) => {
+      console.log("formatBirthdate");
+      console.log(mm, dd, yyyy);
+      const dobRaw = `${mm}/${dd}/${yyyy}`;
+      console.log(dobRaw);
+      return formatSFDate(dobRaw);
+    };
+
+    dateSelects.forEach(field => field.addEventListener('change', function() {
+      console.log('updating birthdate field from selects');
+      const selectVal = el => el.options[el.selectedIndex].text;
+      dobEl.value = formatBirthdate(selectVal(mmSelect), selectVal(ddSelect), selectVal(yyyySelect));
+    }));
+
+  });
+
 </script>

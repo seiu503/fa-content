@@ -17,7 +17,7 @@
 
 		const formEl = document.querySelector("form");
 
-		// check if language is set in a passed query param
+		// parse query params from url
 
 		function getParam(name, url) {
 		  name = name.replace(/[[\]]/g, "\\$&");
@@ -27,6 +27,18 @@
 		  if (!results[2]) return "";
 		  return decodeURIComponent(results[2].replace(/\+/g, " "));
 		}
+
+		// extract src leader dev id if it exists and save to field
+
+		const src = getParam("src", window.location.href);
+		const srcLD = document.getElementById("tfa_13"); // tfa_14 on test form 😩
+
+		if (src) {
+			srcLD.value = src;
+			console.log("src", src, "srcLD", srcLD, "srcLD.value", srcLD.value);
+		}
+
+		// check if language is set in a passed query param
 
 		const lCode = getParam("lang", window.location.href);
 
@@ -386,38 +398,12 @@
 		    so: "Fadlan sug..."
 			};
 
-			const btn = document.querySelector("#submit_button");
-
-			if (btn) {
-		    console.log("Observing submit button for value changes");
-
-		    const observer = new MutationObserver((mutations) => {
-	        mutations.forEach((mutation) => {
-            if (mutation.type === "attributes" && mutation.attributeName === "value") {
-
-              const currentVal = btn.value || "";
-              console.log("Button value changed to:", currentVal);
-
-              if (currentVal.toLowerCase().includes("please wait")) {
-						    const translated = waitTextMap[getLang] || waitTextMap['en'];
-
-						    let attempts = 0;
-						    const interval = setInterval(() => {
-					        btn.value = translated;
-					        attempts++;
-
-					        if (attempts > 5) clearInterval(interval);
-						    }, 50);
-							}
-            }
-	        });
-		    });
-
-		    observer.observe(btn, {
-	        attributes: true,
-	        attributeFilter: ["value"]
-		    });
-			}
+	document.querySelector("form").addEventListener("submit", () => {
+	  const btn = document.querySelector("#submit_button");
+	  if (btn) {
+	    btn.value = waitTextMap[getLang] || waitTextMap['en'];
+	  }
+	});
 
 
 

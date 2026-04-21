@@ -3,6 +3,16 @@
 @import url("https://use.typekit.net/emx5mfb.css"); /* typekit: loos-compressed, roboto-condensed, cofo-sans-variable */
 @import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
+@font-face {
+  font-family: 'loos-compressed';
+  src: url('https://seiu503.org/wp-content/uploads/2026/03/LoosCompressed-Bold.woff2') format('woff2'),
+      url('https://seiu503.org/wp-content/uploads/2026/03/LoosCompressed-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 /*----------------------*/
 /*LOGO*/
 $image-logo-image: 'https://seiu503.tfaforms.net/forms/get_image/3/YJCpDY1LtTbphiYOxFmhatUFbAlWW3qgMrtI7SCwFuIqvLBUBPz9p4hwJIvCBcpX-seiu503_horiz_tag_white-on-transparent3x.png';
@@ -303,6 +313,42 @@ input.primaryAction.slds-button.slds-button--brand.full-width {
   }
 }
 
+/*LANGUAGE PICKER*/
+
+.pickerWrap {
+  display: flex;
+  justify-content: center;
+}
+
+#languagePicker {
+  margin-left: 5px;
+  padding: 5px;
+  padding-left:12px;
+}
+
+.globeSVG {
+  margin-right: 5px;
+  padding-top: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .wFormContainer .wForm .inputWrapper select[multiple],
+  #languagePicker {
+    width: auto;
+    -webkit-appearance: none;
+    height: 45px;
+    padding-left: 15px;
+  }
+
+  .globeSVG {
+    padding-top: 12px;
+  }
+}
+
+
+
+
 /*TITLE AND HEADINGS*/
 
 /* Main container. Must wrap *all* theme CSS */
@@ -315,7 +361,8 @@ input.primaryAction.slds-button.slds-button--brand.full-width {
   /* Headings */
 }
 
-.wFormContainer .wForm .wFormTitle {
+.wFormContainer .wForm .wFormTitle,
+.gform_title {
   font-family: var(--font-display), sans-serif;
   padding: 1.75rem 3rem !important;
   margin: 0;
@@ -332,7 +379,8 @@ input.primaryAction.slds-button.slds-button--brand.full-width {
 }
 
 @media only screen and (max-width: 600px) {
-  .wFormContainer .wForm .wFormTitle {
+  .wFormContainer .wForm .wFormTitle,
+  .gform_title {
     font-size: 36px;
   }
 }
@@ -350,8 +398,8 @@ input.primaryAction.slds-button.slds-button--brand.full-width {
 }
 
 .wForm div.section > .preField {
-  font-size: $length-section-title-font-size !important;
-  color: $color-section-title-text-color !important;
+  font-size: $length-section-title-font-size;
+  color: $color-section-title-text-color;
   font-family: var(--font-display), sans-serif;
 }
 
@@ -666,7 +714,8 @@ table {
 .wFormContainer .wForm .inputWrapper input[type='text'],
 .wFormContainer .wForm .inputWrapper input[type='password'],
 .wFormContainer .wForm .inputWrapper select,
-.wFormContainer .wForm .inputWrapper textarea {
+.wFormContainer .wForm .inputWrapper textarea,
+#languagePicker {
   font-family: var(--font-body), sans-serif;
   color: $color-input-text-color;
   border: 1px solid $color-input-border-color;
@@ -685,7 +734,8 @@ table {
   padding: 0 .5rem;
 }
 
-.wFormContainer .wForm .inputWrapper select[multiple] {
+.wFormContainer .wForm .inputWrapper select[multiple],
+#languagePicker {
   width: auto;
 }
 
@@ -717,7 +767,8 @@ table {
   padding: .5rem !important;
 }
 
-.wFormContainer .wForm .inputWrapper select option {
+.wFormContainer .wForm .inputWrapper select option,
+#languagePicker option {
   padding: 0.25em .5rem;
   font-family: var(--font-body), sans-serif;
 }
@@ -746,7 +797,8 @@ table {
 .wFormContainer .wForm .inputWrapper input[type='password']:focus,
 .wFormContainer .wForm .inputWrapper input[type='password'].required:focus,
 .wFormContainer .wForm .inputWrapper select:focus,
-.wFormContainer .wForm .inputWrapper select.required:focus {
+.wFormContainer .wForm .inputWrapper select.required:focus,
+#languagePicker:focus {
   outline-style: none;
   border: 2px solid $color-fieldset-border-color !important;
   color: $color-input-text-color;
@@ -889,14 +941,6 @@ table {
 }
 
 
-@media only screen and (max-width: 600px) {
-
-  .wFormContainer .wForm .inputWrapper select[multiple] {
-    width: auto;
-    -webkit-appearance: none;
-    height: 45px;
-  }
-}
 
 
 /* HINTS */
@@ -1347,4 +1391,15 @@ a.errMsg {
 :lang(zh) .htmlSection .htmlContent > p.bolder {
   line-height: 1.2em !important;
   text-transform:none !important;
+}
+
+:lang(ar) .wFormTitle  {
+  line-height: 1em !important;
+  text-transform: none;
+}
+
+:lang(ar) .wForm .inline .oneField .preField,
+:lang(ar) .wForm .inputWrapper {
+  float: right;
+  text-align: right;
 }
