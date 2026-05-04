@@ -352,12 +352,14 @@ input.primaryAction.slds-button.slds-button--brand.full-width {
 }
 
 .wFormContainer .wForm .wFormTitle,
-.gform_title {
+.gform_title,
+h2.gform_title,
+.wForm h2 {
   font-family: var(--font-display), sans-serif;
   padding: 1.75rem 3rem !important;
   margin: 0;
   line-height: .8em;
-  font-size: $length-title-font-size;
+  font-size: $length-title-font-size !important;
   background-color: $color-form-header-background-color;
   color: $color-title-text-color;
   text-transform: uppercase;
@@ -1370,11 +1372,19 @@ a.errMsg {
 }
 
 :lang(zh-CN) .wFormTitle,
-:lang(zh) .wFormTitle  {
+:lang(zh) .wFormTitle,
+:lang(zh-CN) .gform_title,
+:lang(zh) .gform_title  {
   font-weight: 700; 
   letter-spacing: -0.5px;
   line-height: 1.2em !important;
-  text-transform: none;
+}
+
+html:lang(es) .wFormTitle,
+html:lang(es) .gform_title,
+html:lang(ar) .wFormTitle,
+html:lang(ar) .gform_title {
+  line-height: 1em !important;
 }
 
 :lang(zh-CN) .htmlSection .htmlContent > p.bolder,
@@ -1383,8 +1393,12 @@ a.errMsg {
   text-transform:none !important;
 }
 
-:lang(ar) .wFormTitle  {
-  line-height: 1em !important;
+:lang(ar) .wFormTitle,
+:lang(ar) .gform_title,
+:lang(zh-CN) .wFormTitle,
+:lang(zh) .wFormTitle,
+:lang(zh-CN) .gform_title,
+:lang(zh) .gform_title  {
   text-transform: none;
 }
 

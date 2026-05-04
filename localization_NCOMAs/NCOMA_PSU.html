@@ -165,11 +165,9 @@
   #791-A:hover {
     background-color: #531078 !important;
   }
-
-  form#801 {
-    @media only screen and (max-width: 480px)  {
-    .wFormContainer .wForm form {
-      padding: 0 important;
+@media only screen and (max-width: 480px)  {
+  form#801 .wFormContainer .wForm form {
+      padding: 0 !important;
     }
   }
 
@@ -195,7 +193,7 @@ window.addEventListener("load", function() {
 	var formEl = document.getElementById("807");
 	var prefillWarning1 = document.getElementById("tfa_330-DB"); // span inside this is 'This form is customized especially for'
 	var prefillWarning2 = document.getElementById("tfa_330-DA"); // span inside this is 'If this is not you, do not complete this form!'
-	var formIntro = document.getElementById("tfa_456");
+	// var formIntro = document.getElementById("tfa_456");
 	var firstName = document.getElementById("tfa_1-L"); 
 	var lastName = document.getElementById("tfa_2-L");
 	var birthDate = document.getElementById("tfa_134-L"); 
@@ -239,6 +237,20 @@ window.addEventListener("load", function() {
 	var combinedLL = document.getElementById("tfa_377");
 
 
+  // extract query params
+	var urlParams = new URLSearchParams(window.location.search);
+	var src = urlParams.get('src');
+	console.log(`src: ${src}`);
+
+
+	// set source code
+	if (src) {
+		console.log('250');
+		document.getElementById('tfa_626').value = src;
+		console.log(`tfa_626: ${document.getElementById('tfa_626').value}`);
+	} 
+
+
 	//
 	// US English:
 	if (getLang.startsWith("en")) {
@@ -250,7 +262,7 @@ window.addEventListener("load", function() {
 		//
 		prefillWarning1.innerText = 'This form is customized especially for'
 	    prefillWarning2.innerText = 'If this is not you, do not complete this form!'
-	    formIntro.innerHTML = "Now is our chance. By joining together with SEIU Local 503 we will strengthen our voices to bargain for improved pay, benefits, and working conditions. This form is your commitment to stand together with your co-workers and build a union together.";
+	    // formIntro.innerHTML = "Now is our chance. By joining together with SEIU Local 503 we will strengthen our voices to bargain for improved pay, benefits, and working conditions. This form is your commitment to stand together with your co-workers and build a union together.";
 		firstName.innerHTML = "First Name";
 		lastName.innerHTML = "Last Name";
 		birthDate.innerHTML = `Birth Date`;
@@ -303,7 +315,7 @@ window.addEventListener("load", function() {
 		//
 		prefillWarning1.innerText = 'Este formulario está personalizado especialmente para'
 	    prefillWarning2.innerText = '¡Si no es usted, no complete este formulario!'
-	    formIntro.innerHTML = "Ahora es nuestra oportunidad. Al unirnos al Local 503 de SEIU, fortaleceremos nuestra voz para negociar mejores salarios, beneficios y condiciones laborales. Este formulario es su compromiso de unirse a sus compañeros y forjar juntos un sindicato.";
+	    // formIntro.innerHTML = "Ahora es nuestra oportunidad. Al unirnos al Local 503 de SEIU, fortaleceremos nuestra voz para negociar mejores salarios, beneficios y condiciones laborales. Este formulario es su compromiso de unirse a sus compañeros y forjar juntos un sindicato.";
 		firstName.innerHTML = "Primer nombre";
 		lastName.innerHTML = "Apellido";
 		birthDate.innerHTML = `Fecha de nacimiento`;
