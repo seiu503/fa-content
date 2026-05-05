@@ -1,5 +1,5 @@
 /*TYPOGRAPHY*/
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap"); /* simplified chinese support */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Barlow+Condensed:wght@700&display=swap"); /* Noto: simplified chinese, Barlow Condensed: vietnamese */
 @import url("https://use.typekit.net/emx5mfb.css"); /* typekit: loos-compressed, roboto-condensed, cofo-sans-variable */
 @import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
@@ -34,13 +34,13 @@ $color-fieldset-border-color: #010203;
 }
 
 
-/*$font-title-font: 'loos-compressed', 'roboto-condensed';   */
+/*$font-title-font: 'loos-compressed', "Barlow Condensed";   */
 $length-title-font-size: 48px;
 $color-title-text-color: #010203;
-/*$font-section-title-font: 'loos-compressed', 'roboto-condensed';*/
+/*$font-section-title-font: 'loos-compressed', "Barlow Condensed";*/
 $length-section-title-font-size: 20px;
 $color-section-title-text-color: #444444;
-/*$font-main-font: 'loos-compressed', 'roboto-condensed';
+/*$font-main-font: 'loos-compressed', "Barlow Condensed";
 $font-label-font: 'botanika-mono-web';
 $font-section-body-font: 'cofo-sans-variable';*/
 $length-main-text-size: 16px;
@@ -60,7 +60,7 @@ $color-read-only-background-color: #eeeeee;
 $color-read-only-border-color: #cccccc;
 
 /*BUTTONS*/
-/*$font-btn-font: 'loos-compressed', 'roboto-condensed';*/
+/*$font-btn-font: 'loos-compressed', "Barlow Condensed";*/
 $length-btn-font-size: 20px;
 $color-btn-text-color: #f1eee9;
 $color-btn-background-color: #010203;
@@ -110,6 +110,12 @@ $color-progress-bar-color: #444444;
   margin: 1em auto;
   font-family: var(--font-body), sans-serif;
 
+}
+
+/*PREFILL MODAL BUTTON*/
+#hiddenButton {
+  position: absolute;
+  left: -1000px;
 }
 
 /*FORM CONTAINER*/
@@ -365,9 +371,19 @@ h2.gform_title,
   text-transform: uppercase;
 }
 
-:lang(ru) .wFormContainer .wForm .wFormTitle,
-:lang(vi) .wFormContainer .wForm .wFormTitle {
-  font-family: "roboto-condensed", sans-serif;
+:lang(vi) .wFormContainer .wForm .wFormTitle,
+:lang(vi) .gform_title, 
+:lang(vi) h2.gform_title,
+:lang(vi) .wForm h2 {
+  font-family: "Barlow Condensed", sans-serif; 
+  line-height: 1em;
+}
+
+:lang(es) .wFormContainer .wForm .wFormTitle,
+:lang(es) .gform_title, 
+:lang(es) h2.gform_title,
+:lang(es) .wForm h2 {
+  line-height: 1em;
 }
 
 @media only screen and (max-width: 600px) {
@@ -1361,9 +1377,10 @@ a.errMsg {
   background-color: $color-progress-bar-color;
 }
 
-:lang(ru),
+/*:lang(ru),*/
 :lang(vi) {
-  --font-display: "roboto-condensed", sans-serif;
+  /* loos-compressed works for russian; barlow-condensed is vietnamese fallback */
+  --font-display: "Barlow Condensed", sans-serif;
 }
 
 :lang(zh-CN),
