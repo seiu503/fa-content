@@ -1,3 +1,5 @@
+/*2026 THEME CSS*/
+
 /*TYPOGRAPHY*/
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Barlow+Condensed:wght@700&display=swap"); /* Noto: simplified chinese, Barlow Condensed: vietnamese */
 @import url("https://use.typekit.net/emx5mfb.css"); /* typekit: loos-compressed, roboto-condensed, cofo-sans-variable */
@@ -901,6 +903,11 @@ table {
   cursor: pointer;
   padding: 0;
   margin-top: 1em;
+  font-size: 13.6px !important;
+  font-family: var(--font-body), sans-serif !important;
+  color: rgb(68, 68, 68) !important;
+  text-transform: none !important;
+  line-height: normal;
 }
 
 .wFormContainer .wForm .inputWrapper input[type='checkbox'] ~ .label:before {
@@ -998,6 +1005,10 @@ table {
   background-color: $color-form-background-color !important;
   color: $color-hint-text-color !important;
   opacity: 1 !important;
+}
+
+.hint {
+  font-family: var(--font-body), sans-serif;
 }
 
 
@@ -1419,8 +1430,83 @@ html:lang(ar) .gform_title {
   text-transform: none;
 }
 
-:lang(ar) .wForm .inline .oneField .preField,
-:lang(ar) .wForm .inputWrapper {
-  float: right;
+/* ---------------------- */
+/* RTL / Arabic support   */
+/* ---------------------- */
+
+html:lang(ar),
+html:lang(ar) body,
+html:lang(ar) .wFormContainer,
+html:lang(ar) .wForm {
+  direction: rtl;
+}
+
+html:lang(ar) .wForm,
+html:lang(ar) .wFormContainer,
+html:lang(ar) .wFormContainer .label,
+html:lang(ar) .wFormContainer .htmlSection,
+html:lang(ar) .wFormContainer .htmlContent,
+html:lang(ar) .wFormContainer .field-hint,
+html:lang(ar) .wFormContainer .hint,
+html:lang(ar) .wFormContainer .errMsg {
   text-align: right;
+}
+
+/* Inputs */
+html:lang(ar) .wFormContainer .wForm .inputWrapper input[type="text"],
+html:lang(ar) .wFormContainer .wForm .inputWrapper input[type="password"],
+html:lang(ar) .wFormContainer .wForm .inputWrapper select,
+html:lang(ar) .wFormContainer .wForm .inputWrapper textarea {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Typeahead / Salesforce autosuggest */
+html:lang(ar) .twitter-typeahead,
+html:lang(ar) .tt-menu,
+html:lang(ar) .tt-suggestion,
+html:lang(ar) .wfAutosuggest.tt-input,
+html:lang(ar) .wfAutosuggest.tt-hint {
+  direction: rtl;
+  text-align: right;
+}
+
+html:lang(ar) .tt-menu {
+  left: auto !important;
+  right: 0 !important;
+}
+
+html:lang(ar) .tt-spinner,
+html:lang(ar) .tt-search,
+html:lang(ar) .tt-clear {
+  right: auto !important;
+  left: 0.5rem !important;
+}
+
+/* Translated overlay */
+html:lang(ar) .twitter-typeahead .translated-typeahead-value {
+  direction: rtl;
+  text-align: right;
+  justify-content: flex-start;
+  right: 0;
+  left: auto !important;
+  padding-right: 0.75rem;
+  padding-left: 2rem;
+  font-family: var(--font-body), sans-serif;
+}
+
+/* Radio / checkbox spacing */
+html:lang(ar) .wFormContainer .wForm .inputWrapper input[type="radio"] ~ .label:before,
+html:lang(ar) .wFormContainer .wForm .inputWrapper input[type="checkbox"] ~ .label:before {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+html:lang(ar) .wFormContainer .wForm .inputWrapper input[type="checkbox"]:checked ~ .label:after {
+  left: auto;
+  right: 5px;
+}
+
+html:lang(ar) .wFormContainer .wForm .removeSpan {
+  text-align: left;
 }
