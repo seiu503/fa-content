@@ -1,7 +1,7 @@
 /*2026 THEME CSS*/
 
 /*TYPOGRAPHY*/
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Barlow+Condensed:wght@700&display=swap"); /* Noto: simplified chinese, Barlow Condensed: vietnamese */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;800;900&family=Barlow+Condensed:wght@800&display=swap"); /* Noto: simplified chinese, Barlow Condensed: vietnamese */
 @import url("https://use.typekit.net/emx5mfb.css"); /* typekit: loos-compressed, roboto-condensed, cofo-sans-variable */
 @import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
@@ -89,7 +89,7 @@ $color-progress-bar-color: #444444;
 }
 
 .wFormContainer {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: $length-main-text-size;
 }
 
@@ -168,7 +168,7 @@ $color-progress-bar-color: #444444;
 
 .wFormThankYou a {
   color: $color-link-text-color !important;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .wFormContainer .wFormHelp {
@@ -241,7 +241,7 @@ input.primaryAction.slds-button.slds-button--brand.full-width {
 #wFormResumePage legend,
 #responsePasswordResetform legend {
   margin-bottom: 20px;
-  font-weight: 900;
+  font-weight: 800;
   font-size: $length-section-title-font-size !important;
   color: $color-section-title-text-color !important;
   font-family: var(--font-display), sans-serif;
@@ -371,6 +371,7 @@ h2.gform_title,
   background-color: $color-form-header-background-color;
   color: $color-title-text-color;
   text-transform: uppercase;
+  font-weight: 800;
 }
 
 :lang(vi) .wFormContainer .wForm .wFormTitle,
@@ -399,18 +400,21 @@ h2.gform_title,
   font-size: $length-section-title-font-size;
   color: $color-section-title-text-color;
   font-family: var(--font-display), sans-serif;
+  font-weight: 800;
 }
 
 .wFormContainer .wForm .htmlSection h4 {
   font-size: $length-section-title-font-size;
   color: $color-section-title-text-color;
   font-family: var(--font-display), sans-serif;
+  font-weight: 800;
 }
 
 .wForm div.section > .preField {
   font-size: $length-section-title-font-size;
   color: $color-section-title-text-color;
   font-family: var(--font-display), sans-serif;
+  font-weight: 800;
 }
 
 /*Mobile Canvas & Preview in FB*/
@@ -470,7 +474,7 @@ h2.gform_title,
 }
 
 .wFormContainer .wfTab.wfTabCurrentPage {
-  font-weight: 700;
+  font-weight: 800;
   background-color: $color-btn-text-color;
   color: $color-btn-background-color;
 }
@@ -531,6 +535,7 @@ h2.gform_title,
   font-size: $length-section-title-font-size !important;
   color: $color-section-title-text-color !important;
   font-family: var(--font-display), sans-serif;
+  font-weight: 800;
 }
 
 .wFormContainer .group > .label {
@@ -544,7 +549,7 @@ h2.gform_title,
   font-family: var(--font-display), sans-serif;
   font-size: 100% !important;
   line-height: auto;
-
+  font-weight: 800;
 }
 
 .htmlSection .htmlContent {
@@ -560,7 +565,7 @@ h2.gform_title,
 
 .htmlSection .htmlContent > p.bolder {
   font-family: var(--font-display), sans-serif !important;
-  font-weight: 700 !important; 
+  font-weight: 800 !important; 
   font-size:1.3em !important; 
   line-height: .9em !important;
   text-transform:uppercase !important;
@@ -700,6 +705,7 @@ table {
   color: $color-main-text-color !important;
   font-family: var(--font-display), sans-serif;
   font-size: 100% !important;
+  font-weight: 800;
 }
 
 
@@ -782,6 +788,39 @@ table {
   padding: 0.25em .5rem;
   font-family: var(--font-body), sans-serif;
 }
+
+
+/* SF typeahead dropdown container */
+
+.wForm div .tt-menu .tt-open {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 9999;
+}
+
+/* Each option */
+.wForm div .tt-suggestion {
+  padding: 10px 12px;
+  cursor: pointer;
+  font-family: var(--font-body), sans-serif;
+  font-size: 14px;
+  background-color: #f1eee9;
+}
+
+/* Hover / keyboard focus */
+.wForm div .tt-suggestion.tt-cursor,
+.wForm div .tt-suggestion:hover {
+  background-color: #fff;
+}
+
+/* Optional: spacing */
+.wForm div .tt-dataset {
+  padding: 4px 0;
+} 
+
 
 .wFormContainer .wForm .inputWrapper input:not([type="file"]):not(.tt-hint):read-only,
 .wFormContainer .wForm .inputWrapper textarea:read-only {
@@ -1061,6 +1100,7 @@ html .kalendae {
   font-family: var(--font-display), sans-serif;
   border-radius: $length-input-border-radius;
   padding: 1rem;
+  font-weight: 800;
   /** Container for the 1-month view **/
 }
 
@@ -1129,7 +1169,7 @@ html .kalendae .k-calendar .k-btn-next-month:hover,
 html .kalendae .k-calendar .k-btn-previous-year:hover,
 html .kalendae .k-calendar .k-btn-next-year:hover {
   color: $color-section-title-text-color;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 html .kalendae .k-calendar .k-header span {
@@ -1257,6 +1297,7 @@ a.errMsg {
   font-size: $length-btn-font-size;
   font-weight: bold;
   font-family: var(--font-display), sans-serif;
+  font-weight: 800;
   -webkit-appearance: none;
   border-radius: $length-input-border-radius;
   width: 100%;
@@ -1291,6 +1332,7 @@ a.errMsg {
   border: none;
   font-size: $length-btn-font-size;
   font-family: var(--font-display), sans-serif;
+  font-weight: 800;
   -webkit-appearance: none;
   border-radius: $length-input-border-radius;
 }
@@ -1403,7 +1445,7 @@ a.errMsg {
 :lang(zh) .wFormTitle,
 :lang(zh-CN) .gform_title,
 :lang(zh) .gform_title  {
-  font-weight: 700; 
+  font-weight: 800; 
   letter-spacing: -0.5px;
   line-height: 1.2em !important;
 }
