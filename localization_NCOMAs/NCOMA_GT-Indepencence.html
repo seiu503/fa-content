@@ -11,10 +11,10 @@
 
 	/* COMING SOON SECTION and SUBMIT BUTTON (hidden until form is live) */
 
-	#tfa_394,
+/*	#tfa_394,
 	#submit_button {
 		display: none;
-	}
+	}*/
 
   h2.gform_title {
     margin: auto;
@@ -181,17 +181,228 @@
 	window.addEventListener("load", function() {
 
 
-		var formEl = document.querySelector("form");
+	const formEl = document.querySelector("form");
 
-		// Extract the value of the language the browser is set to:
-		const getLang = navigator.language;
-		console.log("getLang = ", getLang);
+	// parse query params from url
+
+	function getParam(name, url) {
+	  name = name.replace(/[[\]]/g, "\\$&");
+	  const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+	  const results = regex.exec(url);
+	  if (!results) return null;
+	  if (!results[2]) return "";
+	  return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+
+	// check if language is set in a passed query param
+
+	const lCode = getParam("lang", window.location.href);
+
+	// If not, extract the value of the language the browser is set to:
+
+	let getLang = (lCode || navigator.language || "en").split("-")[0];
+
+	console.log("getLang =", getLang);
+
+	document.documentElement.lang = getLang;
+	document.querySelector('.wForm')?.setAttribute('data-language', getLang);
+
+	const LANGUAGE_CONFIG = {
+	  en: {
+	    pickerLabel: "English",
+	    preferredValues: ["English", "Other"],
+	    nativeLabel: "English",
+	    renderLang: "en"
+	  },
+	  es: {
+	    pickerLabel: "Español",
+	    preferredValues: ["Spanish"],
+	    nativeLabel: "Español",
+	    renderLang: "es"
+	  },
+	  ru: {
+	    pickerLabel: "Русский",
+	    preferredValues: ["Russian"],
+	    nativeLabel: "Русский",
+	    renderLang: "ru"
+	  }
+	};
+
+	const supportedLangs = Object.entries(LANGUAGE_CONFIG)
+  .filter(([, cfg]) => cfg.pickerLabel)
+  .map(([code]) => code);
+
+	// ADD LANGUAGE PICKER TO DOM
+
+		const detectedSupportedLang = supportedLangs.includes(getLang);
+
+    // Find the target element
+    const header = document.querySelector(".wFormHeader");
+    if (!header) return; // exit if header not found
+
+    // Create wrapper
+    const pickerWrap = document.createElement("div");
+    pickerWrap.className = "pickerWrap";
+
+    // Create select element
+    const select = document.createElement("select");
+    select.id = "languagePicker";
+    select.className = "languagePicker";
+
+    // Create globe icon
+    const globeSVG = document.createElement("span");
+		globeSVG.innerHTML = `
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#f1eee9" stroke-width="2" viewBox="0 0 24 24">
+		  <circle cx="12" cy="12" r="10"/>
+		  <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>
+		</svg>`;
+		globeSVG.className = "globeSVG";
+		
+
+    // Append icon and select to wrapper
+    pickerWrap.appendChild(globeSVG);
+    pickerWrap.appendChild(select);
+
+    // Add options
+    Object.entries(LANGUAGE_CONFIG).forEach(([code, cfg]) => {
+		  if (!cfg.pickerLabel) return;
+
+		  const option = document.createElement("option");
+		  option.value = code;
+		  option.textContent = cfg.pickerLabel;
+		  select.appendChild(option);
+		});
+
+    // Set current selection
+    if (getLang) {
+      select.value = getLang;
+    }
+
+    // Handle selection change
+    select.addEventListener("change", function () {
+		  switchLanguage(select.value, {
+		    syncPreferredLanguageField: true
+		  });
+		});
+
+    // Insert picker after header
+    header.parentNode.insertBefore(pickerWrap, header.nextSibling);
 
 		var valueFormTitle = document.getElementsByClassName("gform_title")[0] || document.getElementsByClassName("wFormTitle")[0];
 		var valueSubmitButton = document.querySelector("#submit_button");
 
+		function updateDatePlaceholders() {
+		  const mmSelect = document.getElementById("tfa_156");
+		  const ddSelect = document.getElementById("tfa_157");
+		  const yyyySelect = document.getElementById("tfa_158");
+
+		  if (mmSelect?.options?.[0]) {
+		    mmSelect.options[0].textContent = getTranslation(
+		      translationsNorm,
+		      "mmPlaceholder",
+		      getLang,
+		      "Month"
+		    );
+		  }
+
+		  if (ddSelect?.options?.[0]) {
+		    ddSelect.options[0].textContent = getTranslation(
+		      translationsNorm,
+		      "ddPlaceholder",
+		      getLang,
+		      "Day"
+		    );
+		  }
+
+		  if (yyyySelect?.options?.[0]) {
+		    yyyySelect.options[0].textContent = getTranslation(
+		      translationsNorm,
+		      "yyyyPlaceholder",
+		      getLang,
+		      "Year"
+		    );
+		  }
+		}
+
+		function applyTranslations() {
+		  document.title = getTranslation(translationsNorm, "formTitle", getLang, document.title);
+
+			  setHTML(valueFormTitle, "formTitle");
+			  if (valueSubmitButton) {
+				  valueSubmitButton.dataset.originalValue ||= valueSubmitButton.value || "";
+				  valueSubmitButton.value = getTranslation(
+					  translationsNorm,
+					  "submitButton",
+					  getLang,
+					  valueSubmitButton.dataset.originalValue
+					);
+				}
+
+			  setText(prefillWarning1, "prefillWarning1");
+			  setText(prefillWarning2, "prefillWarning2");
+			  setText(employerTypeLabel, "employerTypeLabel");
+			  setText(firstName, "firstName");
+			  setText(lastName, "lastName");
+			  setText(birthDate, "birthDate");
+
+			  if (birthDate) {
+			    birthDate.classList.add("reqMark");
+			    birthDate.style.cssText += "font-size:inherit!important;font-style:inherit!important;";
+			  }
+
+			  setText(preferredLanguage, "preferredLanguage");
+			  setText(address, "address");
+			  setText(addressNote, "addressNote");
+			  setText(city, "city");
+			  setText(state, "state");
+			  setText(zip, "zip");
+			  setText(email, "email");
+			  setText(emailNote, "emailNote");
+			  setText(phone, "phone");
+			  setText(phoneNote, "phoneNote");
+			  setText(smsOptOut, "smsOptOut");
+			  setText(smsOptOutCheckbox, "smsOptOutCheckbox");
+			  setText(polOptOut, "polOptOut");
+			  setText(polOptOutCheckbox, "polOptOutCheckbox");
+			  setText(signature, "signature");
+			  setText(signatureNote, "signatureNote");
+			  setText(membershipAuthTitle, "membershipAuthTitle");
+			  setText(membershipAuthLL, "membershipAuthLL");
+			  setText(duesAuthTitle, "duesAuthTitle");
+			  setText(duesAuthLL, "duesAuthLL");
+
+			  if (combinedLL && membershipAuthLL && duesAuthLL) {
+			    combinedLL.value = `** Membership Authorization: ${membershipAuthLL.textContent} ** Dues Deduction / Checkoff Authorization: ${duesAuthLL.textContent}`;
+			  }
+
+		}
 
 
+		function switchLanguage(newLang, options = {}) {
+		  if (!supportedLangs.includes(newLang)) return;
+
+		  const { syncPreferredLanguageField = true } = options;
+
+		  getLang = newLang;
+
+		  document.documentElement.lang = getLang;
+		  document.querySelector(".wForm")?.setAttribute("data-language", getLang);
+
+		  if (select) select.value = getLang;
+
+		  if (syncPreferredLanguageField) {
+		    setPreferredLanguageFieldFromLang(getLang);
+		  }
+
+		  applyTranslations();
+		  updateDatePlaceholders();
+
+		  document.dispatchEvent(
+		    new CustomEvent("languagechange", {
+		      detail: { lang: getLang }
+		    })
+		  );
+		}
 
 
 
@@ -288,8 +499,8 @@
 
 			// preferredLanguageF.value = 'English';
 			//
-			document.title = "SEIU 503 Union Authorization and Membership Form";
-			valueFormTitle.innerHTML = "SEIU 503 Union Authorization and Membership Form";
+			document.title = "SEIU 503 Union Authorization and Membership Form: GT-Independence";
+			valueFormTitle.innerHTML = "SEIU 503 Union Authorization and Membership Form: GT-Independence";
 			valueSubmitButton.defaultValue = "Submit";
 			//
 			prefillWarning1.innerText = 'This form is customized especially for'
@@ -305,7 +516,7 @@
 			// preferredLanguage.innerHTML = "Preferred language";
 			// worksite.innerHTML = "Worksite";
 			jobTitle.innerHTML = "Job Title";
-			employerNote.innerHTML = `<p style="margin-bottom: 0px;">Note: This form is ONLY for workers at the City of Tigard. If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
+			employerNote.innerHTML = `<p style="margin-bottom: 0px;">Note: This form is ONLY for workers at GT-Independence. If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
 			address.innerHTML = "Address";
 			addressNote.innerHTML = "Please enter your physical street address here, not a P.O. box.";
 			city.innerHTML = "City";
@@ -322,8 +533,8 @@
 			polOptOutCheckbox.innerHTML = "Opt out of worker political power";
 			signature.innerHTML = "Signature";
 			signatureHint.innerHTML = "Enter your full legal name. This will act as your signature.";
-			unionAuthTitle.innerHTML = "Union Representation Authorization";
-			unionAuthLL.innerHTML = "I authorize Local 503 to act as my representative in collective bargaining over wages, benefits, and other terms/conditions of employment with my employer, and as my exclusive representative where authorized by law.  I understand that my electronic signature may be used to obtain certification of SEIU Local 503 as the exclusive representative without an election."
+			unionAuthTitle.innerHTML = "Union Representation / Membership Authorization";
+			unionAuthLL.innerHTML = "I request and voluntarily accept membership in SEIU Local 503 and its successors or assigns (collectively “Local 503”). This means I will receive the benefits and abide by the obligations of membership set forth in both Local 503’s and the Service Employees International Union’s Constitutions and Bylaws. I authorize Local 503 to act as my representative in collective bargaining over wages, benefits, and other terms/conditions of employment with my employer, and as my exclusive representative where authorized by law. My membership will be continuous, unless I resign by providing notice to Local 503 via U.S. mail (or other method if permitted by Local 503 policies). I know that union membership is voluntary and not a condition of employment, and that I can decline to join without reprisal.  I understand that my electronic signature may be used to obtain certification of SEIU Local 503 as the exclusive representative without an election."
 			duesAuthTitle.innerHTML = "Dues Deduction / Checkoff Authorization";
 			duesAuthLL.innerHTML = "I request and voluntarily authorize my employer to deduct from my earnings and to pay to Local 503 and its successors and assigns (collectively “Local 503”) an amount equal to Local 503’s regular dues, and other fees or assessments uniformly applicable to members of Local 503. This dues deduction authorization shall remain in effect unless I revoke it by providing notice to Local 503 via U.S. mail (or other method if permitted by Local 503’s policies) within 15 days before or after (1) the annual anniversary date of this agreement or (2) the termination of the applicable collective bargaining agreement between my employer and union (“my window periods”). This authorization will renew automatically from year to year even if I have resigned my membership, unless I revoke it during one of my window periods and as required by Local 503’s policies. This authorization is voluntary and is not a condition of my employment, and I can decline to agree to it without reprisal. I understand that all members benefit from everyone’s commitments because they help build a strong union that is able to plan for the future."
 			}
@@ -334,8 +545,8 @@
 
 			// preferredLanguageF.value = 'Spanish';
 			//
-			document.title = "Autorización de representación y formulario de membresía del SEIU 503";
-			valueFormTitle.innerHTML = "Autorización de representación y formulario de membresía del SEIU 503";
+			document.title = "Autorización de representación y formulario de membresía del SEIU 503: GT-Independence";
+			valueFormTitle.innerHTML = "Autorización de representación y formulario de membresía del SEIU 503: GT-Independence";
 			valueSubmitButton.defaultValue = "Enviar";
 			//
 			prefillWarning1.innerHTML = `<span style="font-size: 13.6px;">Este formulario está personalizado especialmente para</span>`
@@ -352,7 +563,7 @@
 			// worksite.innerHTML = "Sito de Trabajo";
 			jobTitle.innerHTML = "Clasificación";
 			// worksitePlaceholder.innerHTML = "Seleccione..."
-			employerNote.innerHTML = `<p style="margin-bottom: 0px;">Nota: Este formulario es SOLO para trabajadores de la Ciudad de Tigard. Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`;
+			employerNote.innerHTML = `<p style="margin-bottom: 0px;">Nota: Este formulario es SOLO para trabajadores de GT-Independence. Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`;
 			address.innerHTML = "Calle particular";
 			addressNote.innerHTML = "Ingrese su dirección física aquí, no un apartado postal (P.O. Box).";
 			city.innerHTML = "Ciudad";
@@ -375,6 +586,51 @@
 			duesAuthLL.innerHTML = "Solicito y autorizo voluntariamente que mi empleador deduzca de mis ganancias, y le pague a Local 503 y a sus sucesores y cesionarios (en conjunto “Local 503”), un monto equivalente a las cuotas ordinarias de Local 503 y demás cargos y avalúos que sean aplicables a los miembros de Local 503. Esta autorización para deducir las cuotas seguirá vigente a menos que yo la revoque por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503) en un plazo de 15 días antes o después de (1) la fecha de aniversario de este acuerdo o (2) la fecha de terminación del Contrato Colectivo de Trabajo correspondiente celebrado entre la unión y mi empleador (“los márgenes estipulados”). Esta autorización se renovará automáticamente cada año, incluso en caso de que renuncie a mi membresía, salvo que yo la revoque durante uno de los márgenes estipulados y de acuerdo con las políticas de Local 503. Esta autorización es voluntaria y no es una condición laboral, así que puedo rechazarla sin que esto suponga represalias. Comprendo que todos(as) los(as) miembros se benefician de los compromisos que todos(as) asumen porque ayudan a crear una unión fuerte que es capaz de planear a futuro."
 			}
 		//
+			// Russian:
+		else if (getLang.startsWith("ru")) {
+			console.log("Processing ru");
+
+			// preferredLanguageF.value = 'Russian';
+			//
+			document.title = "Заявление на вступление в профсоюз SEIU 503: GT-Independence";
+			valueFormTitle.innerHTML = "Заявление на вступление в профсоюз SEIU 503: GT-Independence";
+			valueSubmitButton.defaultValue = "Подать";
+			//
+			prefillWarning1.innerText = 'Эта форма специально настроена для'
+		    prefillWarning2.innerText = 'Если это не вы, не заполняйте эту форму!'
+			firstName.innerHTML = "Имя";
+			lastName.innerHTML = "Фамилия";
+			birthDate.innerHTML = `Дата рождения`;
+			birthDate.classList.add("reqMark");
+			birthDate.style.cssText += 'font-size:inherit!important;font-style:inherit!important;';
+			mmPlaceholder.innerHTML = "Месяц";
+			ddPlaceholder.innerHTML = "День";
+			yyyyPlaceholder.innerHTML = "Год";
+			// preferredLanguage.innerHTML = "Preferred language";
+			// worksite.innerHTML = "Worksite";
+			jobTitle.innerHTML = "Job Title";
+			employerNote.innerHTML = `<p style="margin-bottom: 0px;">Note: This form is ONLY for workers at GT-Independence. If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
+			address.innerHTML = "Адрес";
+			addressNote.innerHTML = "Пожалуйста, укажите здесь ваш фактический адрес проживания, а не почтовый ящик.";
+			city.innerHTML = "Город проживания";
+			state.innerHTML = "Штат проживания";
+			zip.innerHTML = "Почтовый индекс";
+			email.innerHTML = "Дом. эл. почта";
+			emailNote.innerHTML = "Пожалуйста, укажите адрес вашей личной эл. почты, если таковой имеется, поскольку использование рабочей эл. почты для обмена информацией с профсоюзом ограничивается некоторыми работодателями. Если у вас нет личной эл. почты, вы можете указать адрес рабочей эл. почты. Если у вас нет эл. почты, позвоните нам по тел. 1.844.503.7348, чтобы зарегистрироваться по телефону.";
+			phone.innerHTML = "редпочитаемый номер телефона для звонков";
+			phoneNote.innerHTML = "† Предоставляя номер своего телефона, я понимаю, что Международный профсоюз работников сферы обслуживания (SEIU), включая его местные отделения и филиалы, может применять автоматизированные технологии вызова и/или на периодической основе посылать на мой мобильный телефон текстовые сообщения. Профсоюз SEIU никоим образом не будет взыскивать плату за оповещения посредством текстовых сообщений. В отношении оповещений могут применяться расценки и тарифы оператора телефонной связи. Отправьте сообщение со словом STOP, чтобы прекратить отправку сообщений; отправьте сообщение со словом HELP, чтобы получить более подробную информацию.";
+			smsOptOut.innerHTML = "Отказаться от получения мобильных уведомлений";
+			smsOptOutCheckbox.innerHTML = "Отказаться";
+			duesNote.innerHTML = "Note: Your membership will not activate, and no dues will be deducted from your check, until you negotiate and vote to approve your first union contract with your employer.";
+			polOptOut.innerHTML = "Установите флажок ниже, если хотите, чтобы часть взносов, расходуемая на политическую деятельность, направлялась в стипендиальный фонд SEIU 503.";
+			polOptOutCheckbox.innerHTML = "Отказаться от участия в политической силе работников";
+			signature.innerHTML = "Подпись";
+			signatureHint.innerHTML = "Укажите ваши имя и фамилию согласно документам. Ваше имя будет служить вашей подписью.";
+			unionAuthTitle.innerHTML = "Разрешение на членство";
+			unionAuthLL.innerHTML = "Я запрашиваю и добровольно подтверждаю участие в профсоюзе SEIU Local 503 и его правопреемниках или представителях (совместно именуемых Local 503). Это означает, что я буду получать льготы и соблюдать обязательства по членству, изложенные в Уставе и внутренних положениях как Local 503, так и Международного профсоюза работников сферы обслуживания (Service Employees International Union, SEIU). Я уполномочиваю Local 503 действовать в качестве моего представителя в коллективных переговорах о заработной плате, льготах и других условиях найма с моим работодателем, и эксклюзивного представителя в случаях, разрешенных законом. Участие в профсоюзе является бессрочным вплоть до моего отказа от членства путем отправки уведомления Local 503 по Почте США (или иным способом, предусмотренным регламентами Local 503). Я знаю, что членство в профсоюзе добровольное, и отказ от него не может служить основанием для негативных последствий. Я осознаю, что моя электронная подпись может быть использована для подтверждения статуса SEIU Local 503 в качестве исключительного представителя без проведения голосования."
+			duesAuthTitle.innerHTML = "Разрешение на удержание членских взносов";
+			duesAuthLL.innerHTML = "Я прошу и добровольно разрешаю моему работодателю удерживать из моего заработка и перечислять профсоюзу Local 503 и его правопреемникам сумму, равную регулярным членским взносам Local 503. Данное разрешение остается в силе, если я не отзову его, направив уведомление в Local 503 по Почте США (или другим способом, разрешенным политиками Local 503) в течение 15 дней до или после даты годовщины соглашения или прекращения коллективного договора. Это разрешение автоматически продлевается ежегодно, даже если я выйду из профсоюза, если только я не отзову его в установленные периоды. Разрешение является добровольным и не является условием трудоустройства. Я понимаю, что коллективные обязательства помогают создавать сильный профсоюз."
+			}
 		else {
 		console.log("Processing ** unknown **")
 		//
@@ -411,6 +667,15 @@
 				replaceTextInDOM("Please enter a valid phone number", "Ingrese un número de teléfono válido");
 				replaceTextInDOM("This date must be between", "La fecha debe ser entre");
 			}
+
+			if (getLang.startsWith("ru")) {
+		    replaceTextInDOM("This field is required.", "Это поле обязательно.");
+		    replaceTextInDOM("This does not appear to be a valid email address.", "Похоже, адрес электронной почты указан неверно.");
+		    replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Введите действительный 5-значный почтовый индекс.");
+		    replaceTextInDOM("This does not appear to be a valid date.", "Введите корректную дату.");
+		    replaceTextInDOM("Please enter a valid phone number", "Введите действительный номер телефона.");
+		    replaceTextInDOM("This date must be between", "Дата должна находиться в диапазоне от");
+		}
 
 		})
 
