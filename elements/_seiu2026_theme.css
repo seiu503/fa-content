@@ -372,6 +372,8 @@ h2.gform_title,
   color: $color-title-text-color;
   text-transform: uppercase;
   font-weight: 800;
+  letter-spacing: -1px;
+  word-spacing: 3px;
 }
 
 :lang(vi) .wFormContainer .wForm .wFormTitle,
@@ -1452,6 +1454,8 @@ a.errMsg {
 
 html:lang(es) .wFormTitle,
 html:lang(es) .gform_title,
+html:lang(ru) .wFormTitle,
+html:lang(ru) .gform_title,
 html:lang(ar) .wFormTitle,
 html:lang(ar) .gform_title {
   line-height: 1em !important;

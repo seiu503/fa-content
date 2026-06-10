@@ -22,6 +22,11 @@
     width: 100%;
   }
 
+  .wFormContainer .wForm .wFormTitle, .gform_title, h2.gform_title, .wForm h2 {
+    font-size: 47px !important;
+  }
+    
+
   /* Birth date section label */
 	#tfa_134-L {
 		font-family: var(--font-mono), sans-serif !important;
@@ -291,37 +296,329 @@
 		var valueFormTitle = document.getElementsByClassName("gform_title")[0] || document.getElementsByClassName("wFormTitle")[0];
 		var valueSubmitButton = document.querySelector("#submit_button");
 
+		function setPreferredLanguageFieldFromLang(lang) {
+		  if (!preferredLanguageField) return;
+
+		  const targets = LANGUAGE_CONFIG[lang]?.preferredValues;
+		  if (!targets) return;
+
+		  const option = Array.from(preferredLanguageField.options).find(opt => {
+		    const englishValue = opt.dataset.englishValue || opt.textContent.trim();
+		    return targets.includes(englishValue);
+		  });
+
+		  if (option) {
+		    preferredLanguageField.value = option.value;
+		    option.selected = true;
+		  }
+		}
+
+		
+
+		const translations = {
+		  formTitle: {
+			  en: "SEIU 503 Union Authorization and Membership Form: GT-Independence",
+			  es: "Autorización de representación y formulario de membresía del SEIU 503: GT-Independence",
+			  ru: "Форма для вступления в профсоюз SEIU 503 и предоставления полномочий: GT-Independence"
+			},
+
+		  submitButton: {
+		    en: "Submit",
+		    es: "Enviar",
+		    ru: "Подать"
+		  },
+
+		  prefillWarning1: {
+		    en: "This form is customized especially for",
+		    es: "Este formulario está personalizado especialmente para",
+		    ru: "Эта форма специально настроена для"
+		  },
+
+		  prefillWarning2: {
+		    en: "If this is not you, do not complete this form!",
+		    es: "¡Si no es usted, no complete este formulario!",
+		    ru: "Если это не вы, не заполняйте эту форму!"
+		  },
+
+		  employerNameLabel: {
+			  en: "Employer Name",
+			  es: "Nombre del empleador",
+			  ru: "Название работодателя"
+			},
+
+		  firstName: {
+		    en: "First Name",
+		    es: "Primer nombre",
+		    ru: "Имя"
+		  },
+
+		  lastName: {
+		    en: "Last Name",
+		    es: "Apellido",
+		    ru: "Фамилия"
+		  },
+
+		  birthDate: {
+		    en: "Birth Date",
+		    es: "Fecha de nacimiento",
+		    ru: "Дата рождения"
+		  },
+
+		  mmPlaceholder: {
+		    en: "Month",
+		    es: "Mes",
+		    ru: "Месяц"
+		  },
+
+		  ddPlaceholder: {
+		    en: "Day",
+		    es: "Día",
+		    ru: "День"
+		  },
+
+		  yyyyPlaceholder: {
+		    en: "Year",
+		    es: "Año",
+		    ru: "Год"
+		  },
+
+		  preferredLanguage: {
+		    en: "Preferred language",
+		    es: "Idioma preferido",
+		    ru: "Предпочитаемый язык"
+		  },
+
+		  jobTitle: {
+		  	en: "Job Title",
+		  	es: "Clasificación",
+		  	ru: "Рабочая категория/должность"
+		  },
+
+		  employerNote: {
+		  	en: `<p style="margin-bottom: 0px;">Note: This form is ONLY for workers at GT-Independence. If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`,
+		  	es: `<p style="margin-bottom: 0px;">Nota: Este formulario es SOLO para trabajadores de GT-Independence. Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`,
+		  	ru: `<p style="margin-bottom: 0px;">Примечание: Эта форма предназначена ТОЛЬКО для сотрудников GT-Independence. Если вы работаете в другом месте и хотите вступить в профсоюз, <strong><a href="https://seiu503signup.org">вы можете сделать это здесь.</a></strong></p>`
+		  },
+
+		  duesNote: {
+		  	en: "<strong>Note: Your membership will not activate, and no dues will be deducted from your check, until you negotiate and vote to approve your first union contract with your employer.</strong>",
+		  	es: "<strong>Nota: Su membresía no se activará y no se deducirán ningunas cuotas de su cheque hasta que negocie y vote para aprobar su primer contrato de unión con su empleador.</strong>",
+		  	ru: "<strong>Примечание: Ваше членство не будет активировано, а членские взносы не будут удерживаться из вашей зарплаты до тех пор, пока вы не согласуете и не утвердите голосованием свой первый коллективный договор с работодателем.</strong>"
+		  },
+
+		  address: {
+		    en: "Address",
+		    es: "Calle particular",
+		    ru: "Адрес"
+		  },
+
+		  addressNote: {
+		    en: "Please enter your physical street address here, not a P.O. box.",
+		    es: "Ingrese su dirección física aquí, no un apartado postal (P.O. Box).",
+		    ru: "Пожалуйста, укажите здесь ваш фактический адрес проживания, а не почтовый ящик."
+		  },
+
+		  city: {
+		    en: "City",
+		    es: "Ciudad",
+		    ru: "Город проживания"
+		  },
+
+		  state: {
+		    en: "State",
+		    es: "Estado",
+		    ru: "Штат проживания"
+		  },
+
+		  zip: {
+		    en: "ZIP Code",
+		    es: "Código postal",
+		    ru: "Почтовый индекс"
+		  },
+
+		  email: {
+		    en: "Email",
+		    es: "Correo electrónico particular",
+		    ru: "Дом. эл. почта"
+		  },
+
+		  emailNote: {
+		    en: "Please use your personal email if you have one, since some employers limit union communication via work email. If you don't have a personal email, work email is fine. If you don't have an email address, call us at 1.844.503.7348 to sign up over the phone.",
+		    es: "Use su correo electrónico particular, si tiene uno, ya que algunos empleadores limitan la comunicación sindical a través del correo electrónico del trabajo. Si no tiene un correo electrónico personal, puede usar el correo electrónico del trabajo. Si no tiene una dirección de correo electrónico, llámenos al 1.844.503.7348 para registrarse por teléfono.",
+		    ru: "Пожалуйста, укажите адрес вашей личной эл. почты, если таковой имеется, поскольку использование рабочей эл. почты для обмена информацией с профсоюзом ограничивается некоторыми работодателями. Если у вас нет личной эл. почты, вы можете указать адрес рабочей эл. почты. Если у вас нет эл. почты, позвоните нам по тел. 1.844.503.7348, чтобы зарегистрироваться по телефону."
+		  },
+
+		  phone: {
+		    en: "Phone",
+		    es: "Mejor teléfono",
+		    ru: "Предпочитаемый номер телефона для звонков"
+		  },
+
+		  smsOptOut: {
+		    en: "Opt out of receiving mobile alerts",
+		    es: "No deseo recibir alertas por mensaje de texto",
+		    ru: "Отказаться от получения мобильных уведомлений"
+		  },
+
+		  smsOptOutCheckbox: {
+		    en: "Opt out",
+		    es: "Optar por no participar",
+		    ru: "Отказаться"
+		  },
+
+		  phoneNote: {
+		    en: "† By providing my phone number, I understand that the Service Employees International Union (SEIU), its local unions, and affiliates may use automated calling technologies and/or text message me on my cellular phone on a periodic basis. SEIU will never charge for text message alerts. Carrier message and data rates may apply to such alerts. Reply STOP to stop receiving messages; reply HELP for more information.",
+		    es: "† Al proporcionar mi número de teléfono, entiendo que la Unión Internacional de Empleados de Servicios (SEIU, por sus siglas en inglés), sus uniones locales y sus afiliados pueden usar tecnologías automatizadas para llamarme y/o para enviar mensajes de texto a mi celular periódicamente. SEIU nunca cobrará por las alertas de mensaje de texto. Pueden aplicar tarifas por el envío de mensaje y el uso de datos para dichas alertas. Responda con la palabra STOP para dejar de recibir mensajes; responda con la palabra HELP para obtener más información.",
+		    ru: "† Предоставляя номер своего телефона, я понимаю, что Международный профсоюз работников сферы обслуживания (SEIU), включая его местные отделения и филиалы, может применять автоматизированные технологии вызова и/или на периодической основе посылать на мой мобильный телефон текстовые сообщения. Профсоюз SEIU никоим образом не будет взыскивать плату за оповещения посредством текстовых сообщений. В отношении оповещений могут применяться расценки и тарифы оператора телефонной связи. Отправьте сообщение со словом STOP, чтобы прекратить отправку сообщений; отправьте сообщение со словом HELP, чтобы получить более подробную информацию."
+		  },
+
+		  polOptOut: {
+		    en: "Check the box below if you would like the portion of dues spent on political power to go toward SEIU 503’s scholarship fund.",
+		    es: "Seleccione esta casilla si quiere que una parte de las cuotas se invierta en el poder político para mejorar el fondo para becas de SEIU 503.",
+		    ru: "Установите флажок ниже, если хотите, чтобы часть взносов, расходуемая на политическую деятельность"
+		  },
+
+		  polOptOutCheckbox: {
+		    en: "Opt out of worker political power",
+		    es: "Optar por no participar del poder político de los trabajadores",
+		    ru: "Отказаться от участия в политической силе работников"
+		  },
+
+		  signature: {
+		    en: "Signature",
+		    es: "Firma",
+		    ru: "Подпись"
+		  },
+
+		  signatureHint: {
+		    en: "Enter your full legal name. This will act as your signature.",
+		    es: "Ingrese su nombre legal completo. Esto servirá como su firma.",
+		    ru: "Укажите ваши имя и фамилию согласно документам. Ваше имя будет служить вашей подписью."
+		  },
+
+		  unionAuthTitle: {
+			  en: "Union Representation / Membership Authorization",
+			  es: "Autorización de membresía",
+			  ru: "Разрешение на членство"
+			},
+
+			unionAuthLL: {
+			  en: "I request and voluntarily accept membership in SEIU Local 503 and its successors or assigns (collectively “Local 503”). This means I will receive the benefits and abide by the obligations of membership set forth in both Local 503’s and the Service Employees International Union’s Constitutions and Bylaws. I authorize Local 503 to act as my representative in collective bargaining over wages, benefits, and other terms/conditions of employment with my employer, and as my exclusive representative where authorized by law. My membership will be continuous, unless I resign by providing notice to Local 503 via U.S. mail (or other method if permitted by Local 503 policies). I know that union membership is voluntary and not a condition of employment, and that I can decline to join without reprisal. I understand that my electronic signature may be used to obtain certification of SEIU Local 503 as the exclusive representative without an election.",
+			  es: "Solicito y acepto voluntariamente la membresía en SEIU Local 503 y sus sucesores o cesionarios (en conjunto “Local 503”). Esto significa que recibiré los beneficios y cumpliré las obligaciones derivadas de la membresía que se estipulan en la Constitución y los Estatutos de Local 503 y de la Unión Internacional de Empleados de Servicios. Autorizo a Local 503 para que actúe como mi representante en las negociaciones colectivas relativas a salarios, beneficios y demás términos/condiciones laborales que lleve a cabo con mi empleador, y como mi representante exclusivo en los casos que la ley lo permita. Mi membresía será permanente, a menos que renuncie a la misma por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503). Sé que la membresía de la unión es voluntaria y no es una condición laboral, y que puedo rechazar la opción de unirme sin que esto implique represalias. Entiendo que mi firma puede usarse para obtener la certificación de SEIU Local 503, OPEU como representante exclusivo de negociación, sin necesidad de elección.",
+			  ru: "Я запрашиваю и добровольно подтверждаю участие в профсоюзе SEIU Local 503 и его правопреемниках или представителях (совместно именуемых Local 503). Это означает, что я буду получать льготы и соблюдать обязательства по членству, изложенные в Уставе и внутренних положениях как Local 503, так и Международного профсоюза работников сферы обслуживания (Service Employees International Union, SEIU). Я уполномочиваю Local 503 действовать в качестве моего представителя в коллективных переговорах о заработной плате, льготах и других условиях найма с моим работодателем, и эксклюзивного представителя в случаях, разрешенных законом. Участие в профсоюзе является бессрочным вплоть до моего отказа от членства путем отправки уведомления Local 503 по Почте США (или иным способом, предусмотренным регламентами Local 503). Я знаю, что членство в профсоюзе добровольное, и отказ от него не может служить основанием для негативных последствий. Я понимаю, что моя электронная подпись может быть использована для подтверждения статуса SEIU Local 503 в качестве исключительного представителя без проведения выборов."
+			},
+
+
+		  duesAuthTitle: {
+		    en: "Dues Deduction / Checkoff Authorization",
+		    es: "Autorización de aportes/deducción de cuotas",
+		    ru: "Разрешение на удержание членских взносов"
+		  },
+
+		  duesAuthLL: {
+			  en: "I request and voluntarily authorize my employer to deduct from my earnings and to pay to Local 503 and its successors and assigns (collectively “Local 503”) an amount equal to Local 503’s regular dues. This dues deduction authorization shall remain in effect unless I revoke it by providing notice to Local 503 via U.S. mail (or other method if permitted by Local 503’s policies) within 15 days before or after (1) the annual anniversary date of this agreement or (2) the termination of the applicable collective bargaining agreement between my employer and union (“my window periods”). This authorization will renew automatically from year to year even if I have resigned my membership, unless I revoke it during one of my window periods and as required by Local 503’s policies. This authorization is voluntary and is not a condition of my employment, and I can decline to agree to it without reprisal. I understand that all members benefit from everyone’s commitments because they help build a strong union that is able to plan for the future.",
+			  es: "Solicito y autorizo voluntariamente que mi empleador deduzca de mis ganancias, y le pague a Local 503 y a sus sucesores y cesionarios (en conjunto “Local 503”), un monto equivalente a las cuotas ordinarias de Local 503. Esta autorización para deducir las cuotas seguirá vigente a menos que yo la revoque por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503) en un plazo de 15 días antes o después de (1) la fecha de aniversario de este acuerdo o (2) la fecha de terminación del Contrato Colectivo de Trabajo correspondiente celebrado entre la unión y mi empleador. Esta autorización se renovará automáticamente cada año, incluso si renuncio a mi membresía, salvo que la revoque dentro de los períodos permitidos. Esta autorización es voluntaria y no es una condición laboral, y puedo rechazarla sin represalias. Entiendo que todos los miembros se benefician de los compromisos colectivos porque ayudan a construir un sindicato fuerte capaz de planificar el futuro.",
+			  ru: "Я прошу и добровольно разрешаю моему работодателю удерживать из моего заработка и перечислять профсоюзу Local 503 и его правопреемникам сумму, равную регулярным членским взносам Local 503. Данное разрешение остается в силе, если я не отзову его, направив уведомление в Local 503 по Почте США (или другим способом, разрешенным политиками Local 503) в течение 15 дней до или после даты годовщины соглашения или прекращения коллективного договора. Это разрешение автоматически продлевается ежегодно, даже если я выйду из профсоюза, если только я не отзову его в установленные периоды. Разрешение является добровольным и не является условием трудоустройства. Я понимаю, что коллективные обязательства помогают создавать сильный профсоюз."
+			},
+
+		  english: {
+		    en: "English",
+		    es: "Inglés",
+		    ru: "Английский"
+		  },
+
+		  russian: {
+		    en: "Russian",
+		    es: "Ruso",
+		    ru: "Русский"
+		  },
+
+		  spanish: {
+		    en: "Spanish",
+		    es: "Español",
+		    ru: "Испанский"
+		  },
+
+		};
+
+		function normalizeTranslationMap(map) {
+		  return Object.fromEntries(
+		    Object.entries(map).map(([key, value]) => [key.toLowerCase(), value])
+		  );
+		}
+
+		const translationsNorm = normalizeTranslationMap(translations);
+
 		function updateDatePlaceholders() {
 		  const mmSelect = document.getElementById("tfa_156");
 		  const ddSelect = document.getElementById("tfa_157");
 		  const yyyySelect = document.getElementById("tfa_158");
 
 		  if (mmSelect?.options?.[0]) {
-		    mmSelect.options[0].textContent = getTranslation(
-		      translationsNorm,
-		      "mmPlaceholder",
-		      getLang,
-		      "Month"
-		    );
+		    mmSelect.options[0].textContent = getTranslation(translationsNorm, "mmPlaceholder", getLang, "Month");
+		    mmSelect.options[0].value = "";
 		  }
 
 		  if (ddSelect?.options?.[0]) {
-		    ddSelect.options[0].textContent = getTranslation(
-		      translationsNorm,
-		      "ddPlaceholder",
-		      getLang,
-		      "Day"
-		    );
+		    ddSelect.options[0].textContent = getTranslation(translationsNorm, "ddPlaceholder", getLang, "Day");
+		    ddSelect.options[0].value = "";
 		  }
 
 		  if (yyyySelect?.options?.[0]) {
-		    yyyySelect.options[0].textContent = getTranslation(
-		      translationsNorm,
-		      "yyyyPlaceholder",
-		      getLang,
-		      "Year"
-		    );
+		    yyyySelect.options[0].textContent = getTranslation(translationsNorm, "yyyyPlaceholder", getLang, "Year");
+		    yyyySelect.options[0].value = "";
 		  }
+		}
+
+		updateDatePlaceholders();
+
+		function getTranslation(map, key, lang, fallbackText = "") {
+		  if (!map || !key) return fallbackText;
+
+		  const entry = map[key.toLowerCase()];
+		  if (!entry) return fallbackText;
+
+		  const value = entry?.[lang];
+		  if (typeof value === "string" && value.trim()) return value;
+
+		  const english = entry?.en;
+		  if (typeof english === "string" && english.trim()) return english;
+
+		  return fallbackText;
+		}
+
+		function getOriginalText(el) {
+		  if (!el) return "";
+		  if (!el.dataset.originalText) {
+		    el.dataset.originalText = el.textContent || "";
+		  }
+		  return el.dataset.originalText;
+		}
+
+		function getOriginalHTML(el) {
+		  if (!el) return "";
+		  if (!el.dataset.originalHtml) {
+		    el.dataset.originalHtml = el.innerHTML || "";
+		  }
+		  return el.dataset.originalHtml;
+		}
+
+		function setText(el, key) {
+		  if (!el) return;
+
+		  const fallback = getOriginalText(el);
+		  const translated = getTranslation(translationsNorm, key, getLang, fallback);
+
+		  el.textContent = translated;
+		}
+
+		function setHTML(el, key) {
+		  if (!el) return;
+
+		  const fallback = getOriginalHTML(el);
+		  const translated = getTranslation(translationsNorm, key, getLang, fallback);
+
+		  el.innerHTML = translated;
 		}
 
 		function applyTranslations() {
@@ -340,10 +637,10 @@
 
 			  setText(prefillWarning1, "prefillWarning1");
 			  setText(prefillWarning2, "prefillWarning2");
-			  setText(employerTypeLabel, "employerTypeLabel");
 			  setText(firstName, "firstName");
 			  setText(lastName, "lastName");
 			  setText(birthDate, "birthDate");
+			  setText(jobTitle, "jobTitle");
 
 			  if (birthDate) {
 			    birthDate.classList.add("reqMark");
@@ -358,6 +655,8 @@
 			  setText(zip, "zip");
 			  setText(email, "email");
 			  setText(emailNote, "emailNote");
+			  setHTML(employerNote, "employerNote");
+			  setHTML(duesNote, "duesNote");
 			  setText(phone, "phone");
 			  setText(phoneNote, "phoneNote");
 			  setText(smsOptOut, "smsOptOut");
@@ -365,14 +664,14 @@
 			  setText(polOptOut, "polOptOut");
 			  setText(polOptOutCheckbox, "polOptOutCheckbox");
 			  setText(signature, "signature");
-			  setText(signatureNote, "signatureNote");
-			  setText(membershipAuthTitle, "membershipAuthTitle");
-			  setText(membershipAuthLL, "membershipAuthLL");
+			  setText(signatureHint, "signatureHint");
+			  setText(unionAuthTitle, "unionAuthTitle");
+			  setText(unionAuthLL, "unionAuthLL");
 			  setText(duesAuthTitle, "duesAuthTitle");
 			  setText(duesAuthLL, "duesAuthLL");
 
-			  if (combinedLL && membershipAuthLL && duesAuthLL) {
-			    combinedLL.value = `** Membership Authorization: ${membershipAuthLL.textContent} ** Dues Deduction / Checkoff Authorization: ${duesAuthLL.textContent}`;
+			  if (combinedLL && unionAuthLL && duesAuthLL) {
+			    combinedLL.value = `** Membership Authorization: ${unionAuthLL.textContent} ** Dues Deduction / Checkoff Authorization: ${duesAuthLL.textContent}`;
 			  }
 
 		}
@@ -436,13 +735,15 @@
 		var unionAuthLL = document.getElementById("tfa_379-L");
 		var duesAuthTitle = document.getElementById("tfa_389-L");
 		var duesAuthLL = document.getElementById("tfa_390-L");
+		var preferredLanguage = document.getElementById("tfa_396-L");
+		var combinedLL = document.getElementById("tfa_377"); 
 
 
 
 
 				// ************ PREFILL LOGIC ************ //
 
-		// var preferredLanguageF = document.getElementById("tfa_91"); 
+		var preferredLanguageField = document.getElementById("tfa_396"); 
 		var addressF = document.getElementById("tfa_32");
 		var cityF = document.getElementById("tfa_34"); 
 		var stateF = document.getElementById("tfa_35");
@@ -453,7 +754,7 @@
 		var jobTitleF = document.getElementById("tfa_385");
 
 		const prefillFieldList = [
-			// preferredLanguageF,
+			// preferredLanguageField,
 			addressF,
 			cityF,
 			// stateF,
@@ -492,158 +793,6 @@
 	    }
 	  });
 
-		//
-		// US English:
-		if (getLang.startsWith("en")) {
-			console.log("Processing en-US");
-
-			// preferredLanguageF.value = 'English';
-			//
-			document.title = "SEIU 503 Union Authorization and Membership Form: GT-Independence";
-			valueFormTitle.innerHTML = "SEIU 503 Union Authorization and Membership Form: GT-Independence";
-			valueSubmitButton.defaultValue = "Submit";
-			//
-			prefillWarning1.innerText = 'This form is customized especially for'
-		    prefillWarning2.innerText = 'If this is not you, do not complete this form!'
-			firstName.innerHTML = "First Name";
-			lastName.innerHTML = "Last Name";
-			birthDate.innerHTML = `Birth Date`;
-			birthDate.classList.add("reqMark");
-			birthDate.style.cssText += 'font-size:inherit!important;font-style:inherit!important;';
-			mmPlaceholder.innerHTML = "Month";
-			ddPlaceholder.innerHTML = "Day";
-			yyyyPlaceholder.innerHTML = "Year";
-			// preferredLanguage.innerHTML = "Preferred language";
-			// worksite.innerHTML = "Worksite";
-			jobTitle.innerHTML = "Job Title";
-			employerNote.innerHTML = `<p style="margin-bottom: 0px;">Note: This form is ONLY for workers at GT-Independence. If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
-			address.innerHTML = "Address";
-			addressNote.innerHTML = "Please enter your physical street address here, not a P.O. box.";
-			city.innerHTML = "City";
-			state.innerHTML = "State";
-			zip.innerHTML = "ZIP Code";
-			email.innerHTML = "Email";
-			emailNote.innerHTML = "Please use your personal email if you have one, since some employers limit union communication via work email. If you don't have a personal email, work email is fine. If you don't have an email address, call us at 1.844.503.7348 to sign up over the phone.";
-			phone.innerHTML = "Phone";
-			phoneNote.innerHTML = "† By providing my phone number, I understand that the Service Employees International Union (SEIU), its local unions, and affiliates may use automated calling technologies and/or text message me on my cellular phone on a periodic basis. SEIU will never charge for text message alerts. Carrier message and data rates may apply to such alerts. Reply STOP to stop receiving messages; reply HELP for more information.";
-			smsOptOut.innerHTML = "Opt out of receiving mobile alerts";
-			smsOptOutCheckbox.innerHTML = "Opt out";
-			duesNote.innerHTML = "Note: Your membership will not activate, and no dues will be deducted from your check, until you negotiate and vote to approve your first union contract with your employer.";
-			polOptOut.innerHTML = "Check the box below if you would like the portion of dues spent on political power to go toward SEIU 503’s scholarship fund.";
-			polOptOutCheckbox.innerHTML = "Opt out of worker political power";
-			signature.innerHTML = "Signature";
-			signatureHint.innerHTML = "Enter your full legal name. This will act as your signature.";
-			unionAuthTitle.innerHTML = "Union Representation / Membership Authorization";
-			unionAuthLL.innerHTML = "I request and voluntarily accept membership in SEIU Local 503 and its successors or assigns (collectively “Local 503”). This means I will receive the benefits and abide by the obligations of membership set forth in both Local 503’s and the Service Employees International Union’s Constitutions and Bylaws. I authorize Local 503 to act as my representative in collective bargaining over wages, benefits, and other terms/conditions of employment with my employer, and as my exclusive representative where authorized by law. My membership will be continuous, unless I resign by providing notice to Local 503 via U.S. mail (or other method if permitted by Local 503 policies). I know that union membership is voluntary and not a condition of employment, and that I can decline to join without reprisal.  I understand that my electronic signature may be used to obtain certification of SEIU Local 503 as the exclusive representative without an election."
-			duesAuthTitle.innerHTML = "Dues Deduction / Checkoff Authorization";
-			duesAuthLL.innerHTML = "I request and voluntarily authorize my employer to deduct from my earnings and to pay to Local 503 and its successors and assigns (collectively “Local 503”) an amount equal to Local 503’s regular dues, and other fees or assessments uniformly applicable to members of Local 503. This dues deduction authorization shall remain in effect unless I revoke it by providing notice to Local 503 via U.S. mail (or other method if permitted by Local 503’s policies) within 15 days before or after (1) the annual anniversary date of this agreement or (2) the termination of the applicable collective bargaining agreement between my employer and union (“my window periods”). This authorization will renew automatically from year to year even if I have resigned my membership, unless I revoke it during one of my window periods and as required by Local 503’s policies. This authorization is voluntary and is not a condition of my employment, and I can decline to agree to it without reprisal. I understand that all members benefit from everyone’s commitments because they help build a strong union that is able to plan for the future."
-			}
-		//
-		// Spanish:
-		else if (getLang.startsWith("es")) {
-			console.log("Processing es-ES");
-
-			// preferredLanguageF.value = 'Spanish';
-			//
-			document.title = "Autorización de representación y formulario de membresía del SEIU 503: GT-Independence";
-			valueFormTitle.innerHTML = "Autorización de representación y formulario de membresía del SEIU 503: GT-Independence";
-			valueSubmitButton.defaultValue = "Enviar";
-			//
-			prefillWarning1.innerHTML = `<span style="font-size: 13.6px;">Este formulario está personalizado especialmente para</span>`
-		    prefillWarning2.innerHTML = `<span style="font-weight: 700; font-size: 13.6px;">¡Si no es usted, no complete este formulario!</span>`
-			firstName.innerHTML = "Primer nombre";
-			lastName.innerHTML = "Apellido";
-			birthDate.innerHTML = `Fecha de nacimiento`;
-			birthDate.classList.add("reqMark");
-			birthDate.style.cssText += 'font-size:inherit!important;font-style:inherit!important;';
-			mmPlaceholder.innerHTML = "Mes";
-			ddPlaceholder.innerHTML = "Día";
-			yyyyPlaceholder.innerHTML = "Año";
-			// preferredLanguage.innerHTML = "Idioma preferido";
-			// worksite.innerHTML = "Sito de Trabajo";
-			jobTitle.innerHTML = "Clasificación";
-			// worksitePlaceholder.innerHTML = "Seleccione..."
-			employerNote.innerHTML = `<p style="margin-bottom: 0px;">Nota: Este formulario es SOLO para trabajadores de GT-Independence. Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`;
-			address.innerHTML = "Calle particular";
-			addressNote.innerHTML = "Ingrese su dirección física aquí, no un apartado postal (P.O. Box).";
-			city.innerHTML = "Ciudad";
-			state.innerHTML = "Estado";
-			zip.innerHTML = "Código postal";
-			email.innerHTML = "Correo electrónico particular";
-			emailNote.innerHTML = "Use su correo electrónico particular, si tiene uno, ya que algunos empleadores limitan la comunicación de la unión a través del correo electrónico del trabajo. Si no tiene un correo electrónico personal, puede usar el correo electrónico del trabajo. Si no tiene una dirección de correo electrónico, llámenos al 1.844.503.7348 para registrarse por teléfono.";
-			phone.innerHTML = "Mejor teléfono";
-			phoneNote.innerHTML = "† Al proporcionar mi número de teléfono, entiendo que la Unión Internacional de Empleados de Servicios (SEIU, por sus siglas en inglés), sus uniones locales y sus afiliados pueden usar tecnologías automatizadas para llamarme y/o para enviar mensajes de texto a mi celular periódicamente. SEIU nunca cobrará por las alertas de mensaje de texto. Pueden aplicar tarifas por el envío de mensaje y el uso de datos para dichas alertas. Responda con la palabra STOP para dejar de recibir mensajes; responda con la palabra HELP para obtener más información.";
-			smsOptOut.innerHTML = "No deseo recibir alertas por mensaje de texto";
-			smsOptOutCheckbox.innerHTML = "Optar por no participar";
-			duesNote.innerHTML = "<strong>Nota: Su membresía no se activará y no se deducirán ningunas cuotas de su cheque hasta que negocie y vote para aprobar su primer contrato de unión con su empleador.</strong>"
-			polOptOut.innerHTML = "Seleccione esta casilla si quiere que una parte de las cuotas se invierta en el poder político para mejorar el fondo para becas de SEIU 503.";
-			polOptOutCheckbox.innerHTML = "Optar por no participar del poder político de los trabajadores";
-			signature.innerHTML = "Firma";
-			signatureHint.innerHTML = "Ingrese su nombre legal completo. Esto servirá como su firma.";
-			unionAuthTitle.innerHTML = "Autorización de membresía y representación de unión";
-			unionAuthLL.innerHTML = "Solicito y acepto voluntariamente la membresía en SEIU Local 503 y sus sucesores o cesionarios (en conjunto “Local 503”). Esto significa que recibiré los beneficios y cumpliré las obligaciones derivadas de la membresía que se estipulan en la Constitución y los Estatutos de Local 503 y de la Unión Internacional de Empleados de Servicios. Autorizo a Local 503 para que actúe como mi representante en las negociaciones colectivas relativas a salarios, beneficios y demás términos/condiciones laborales que lleve a cabo con mi empleador, y como mi representante exclusivo en los casos que la ley lo permita. Mi membresía será permanente, a menos que renuncie a la misma por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503). Sé que la membresía de la unión es voluntaria y no es una condición laboral, y que puedo rechazar la opción de unirme sin que esto implique represalias. Entiendo que mi firma puede usarse para obtener la certificación de SEIU Local 503, OPEU como representante exclusivo de negociación, sin necesidad de elección."
-			duesAuthTitle.innerHTML = "Autorización de aportes/deducción de cuotas";
-			duesAuthLL.innerHTML = "Solicito y autorizo voluntariamente que mi empleador deduzca de mis ganancias, y le pague a Local 503 y a sus sucesores y cesionarios (en conjunto “Local 503”), un monto equivalente a las cuotas ordinarias de Local 503 y demás cargos y avalúos que sean aplicables a los miembros de Local 503. Esta autorización para deducir las cuotas seguirá vigente a menos que yo la revoque por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503) en un plazo de 15 días antes o después de (1) la fecha de aniversario de este acuerdo o (2) la fecha de terminación del Contrato Colectivo de Trabajo correspondiente celebrado entre la unión y mi empleador (“los márgenes estipulados”). Esta autorización se renovará automáticamente cada año, incluso en caso de que renuncie a mi membresía, salvo que yo la revoque durante uno de los márgenes estipulados y de acuerdo con las políticas de Local 503. Esta autorización es voluntaria y no es una condición laboral, así que puedo rechazarla sin que esto suponga represalias. Comprendo que todos(as) los(as) miembros se benefician de los compromisos que todos(as) asumen porque ayudan a crear una unión fuerte que es capaz de planear a futuro."
-			}
-		//
-			// Russian:
-		else if (getLang.startsWith("ru")) {
-			console.log("Processing ru");
-
-			// preferredLanguageF.value = 'Russian';
-			//
-			document.title = "Заявление на вступление в профсоюз SEIU 503: GT-Independence";
-			valueFormTitle.innerHTML = "Заявление на вступление в профсоюз SEIU 503: GT-Independence";
-			valueSubmitButton.defaultValue = "Подать";
-			//
-			prefillWarning1.innerText = 'Эта форма специально настроена для'
-		    prefillWarning2.innerText = 'Если это не вы, не заполняйте эту форму!'
-			firstName.innerHTML = "Имя";
-			lastName.innerHTML = "Фамилия";
-			birthDate.innerHTML = `Дата рождения`;
-			birthDate.classList.add("reqMark");
-			birthDate.style.cssText += 'font-size:inherit!important;font-style:inherit!important;';
-			mmPlaceholder.innerHTML = "Месяц";
-			ddPlaceholder.innerHTML = "День";
-			yyyyPlaceholder.innerHTML = "Год";
-			// preferredLanguage.innerHTML = "Preferred language";
-			// worksite.innerHTML = "Worksite";
-			jobTitle.innerHTML = "Job Title";
-			employerNote.innerHTML = `<p style="margin-bottom: 0px;">Note: This form is ONLY for workers at GT-Independence. If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
-			address.innerHTML = "Адрес";
-			addressNote.innerHTML = "Пожалуйста, укажите здесь ваш фактический адрес проживания, а не почтовый ящик.";
-			city.innerHTML = "Город проживания";
-			state.innerHTML = "Штат проживания";
-			zip.innerHTML = "Почтовый индекс";
-			email.innerHTML = "Дом. эл. почта";
-			emailNote.innerHTML = "Пожалуйста, укажите адрес вашей личной эл. почты, если таковой имеется, поскольку использование рабочей эл. почты для обмена информацией с профсоюзом ограничивается некоторыми работодателями. Если у вас нет личной эл. почты, вы можете указать адрес рабочей эл. почты. Если у вас нет эл. почты, позвоните нам по тел. 1.844.503.7348, чтобы зарегистрироваться по телефону.";
-			phone.innerHTML = "редпочитаемый номер телефона для звонков";
-			phoneNote.innerHTML = "† Предоставляя номер своего телефона, я понимаю, что Международный профсоюз работников сферы обслуживания (SEIU), включая его местные отделения и филиалы, может применять автоматизированные технологии вызова и/или на периодической основе посылать на мой мобильный телефон текстовые сообщения. Профсоюз SEIU никоим образом не будет взыскивать плату за оповещения посредством текстовых сообщений. В отношении оповещений могут применяться расценки и тарифы оператора телефонной связи. Отправьте сообщение со словом STOP, чтобы прекратить отправку сообщений; отправьте сообщение со словом HELP, чтобы получить более подробную информацию.";
-			smsOptOut.innerHTML = "Отказаться от получения мобильных уведомлений";
-			smsOptOutCheckbox.innerHTML = "Отказаться";
-			duesNote.innerHTML = "Note: Your membership will not activate, and no dues will be deducted from your check, until you negotiate and vote to approve your first union contract with your employer.";
-			polOptOut.innerHTML = "Установите флажок ниже, если хотите, чтобы часть взносов, расходуемая на политическую деятельность, направлялась в стипендиальный фонд SEIU 503.";
-			polOptOutCheckbox.innerHTML = "Отказаться от участия в политической силе работников";
-			signature.innerHTML = "Подпись";
-			signatureHint.innerHTML = "Укажите ваши имя и фамилию согласно документам. Ваше имя будет служить вашей подписью.";
-			unionAuthTitle.innerHTML = "Разрешение на членство";
-			unionAuthLL.innerHTML = "Я запрашиваю и добровольно подтверждаю участие в профсоюзе SEIU Local 503 и его правопреемниках или представителях (совместно именуемых Local 503). Это означает, что я буду получать льготы и соблюдать обязательства по членству, изложенные в Уставе и внутренних положениях как Local 503, так и Международного профсоюза работников сферы обслуживания (Service Employees International Union, SEIU). Я уполномочиваю Local 503 действовать в качестве моего представителя в коллективных переговорах о заработной плате, льготах и других условиях найма с моим работодателем, и эксклюзивного представителя в случаях, разрешенных законом. Участие в профсоюзе является бессрочным вплоть до моего отказа от членства путем отправки уведомления Local 503 по Почте США (или иным способом, предусмотренным регламентами Local 503). Я знаю, что членство в профсоюзе добровольное, и отказ от него не может служить основанием для негативных последствий. Я осознаю, что моя электронная подпись может быть использована для подтверждения статуса SEIU Local 503 в качестве исключительного представителя без проведения голосования."
-			duesAuthTitle.innerHTML = "Разрешение на удержание членских взносов";
-			duesAuthLL.innerHTML = "Я прошу и добровольно разрешаю моему работодателю удерживать из моего заработка и перечислять профсоюзу Local 503 и его правопреемникам сумму, равную регулярным членским взносам Local 503. Данное разрешение остается в силе, если я не отзову его, направив уведомление в Local 503 по Почте США (или другим способом, разрешенным политиками Local 503) в течение 15 дней до или после даты годовщины соглашения или прекращения коллективного договора. Это разрешение автоматически продлевается ежегодно, даже если я выйду из профсоюза, если только я не отзову его в установленные периоды. Разрешение является добровольным и не является условием трудоустройства. Я понимаю, что коллективные обязательства помогают создавать сильный профсоюз."
-			}
-		else {
-		console.log("Processing ** unknown **")
-		//
-		// document.title = "** unknown **-language title.";
-		// valueFormTitle.innerHTML = "Form Title: ** unknown **";
-		// valueSubmitButton.defaultValue = "Submit: ** unknown **";
-		// //
-		// textInput_01.innerHTML = "First Name ** unknown ** Test";
-		// textInput_02.innerHTML = "Last Name ** unknown ** Test";
-		// textInput_03.innerHTML = "Email ** unknown ** Test";
-		// textInput_04.innerHTML = "Company ** unknown ** Test";
-		};
-
 
 		// replace error message text
 		formEl.addEventListener('submit', function() {
@@ -679,7 +828,209 @@
 
 		})
 
+	
+		const i18n = {
+  es: {
+    pleaseWait: "Espere...",
+    alert: n =>
+      `El formulario no está completo y aún no se ha enviado. Hay ${n} problema${n === 1 ? "" : "s"} con su envío.`,
+    messages: {
+      "This field is required.": "Requerido",
+      "This does not appear to be a valid email address.": "Dirección de correo electrónico no válida",
+      "Please enter a valid 5-digit ZIP code": "Ingrese un código postal válido de 5 dígitos",
+      "This does not appear to be a valid date.": "Ingrese una fecha válida.",
+      "Please enter a valid phone number": "Ingrese un número de teléfono válido",
+      "This date must be between": "La fecha debe ser entre"
+    }
+  },
+
+  ru: {
+    pleaseWait: "Пожалуйста, подождите...",
+    alert: n =>
+      `Форма не заполнена и еще не отправлена. Количество проблем: ${n}.`,
+    messages: {
+      "This field is required.": "Это поле обязательно.",
+      "This does not appear to be a valid email address.": "Похоже, это недействительный адрес электронной почты.",
+      "Please enter a valid 5-digit ZIP code": "Введите действительный 5-значный почтовый индекс",
+      "This does not appear to be a valid date.": "Похоже, это недействительная дата.",
+      "Please enter a valid phone number": "Введите действительный номер телефона",
+      "This date must be between": "Дата должна быть между"
+    }
+  }
+};
+
+
+let currentGetLang = () => "en";
+
+function getCurrentLang() {
+  const candidates = [
+    typeof currentGetLang === "function" ? currentGetLang() : currentGetLang,
+    document.documentElement.lang,
+    document.body?.lang,
+    document.body?.dataset?.lang,
+    new URLSearchParams(window.location.search).get("lang"),
+    new URLSearchParams(window.location.search).get("language"),
+    document.querySelector("[lang]")?.getAttribute("lang"),
+    document.querySelector("html")?.getAttribute("lang")
+  ];
+
+  const found = candidates
+    .map(value => String(value || "").trim().toLowerCase())
+    .find(value => value && value !== "en");
+
+  return (found || "en").split("-")[0];
+}
+
+
+function patchAlert() {
+  if (window.__faLocalizedAlertPatched) return;
+  window.__faLocalizedAlertPatched = true;
+
+  const originalAlert = window.alert;
+
+  window.alert = function (message) {
+    const lang = getCurrentLang();
+    const dict = i18n[lang];
+
+    console.log("FA alert intercepted:", message, "lang:", lang);
+
+    if (dict && typeof message === "string") {
+      const match = message.match(
+        /The form is not complete and has not been submitted yet\. There (?:is|are) (\d+) problems? with your submission\./i
+      );
+
+      if (match) {
+        return originalAlert.call(window, dict.alert(Number(match[1])));
+      }
+    }
+
+    return originalAlert.call(window, message);
+  };
+}
+
+function observeFormAssemblyErrors() {
+  if (window.__faErrorObserverInstalled) return;
+  window.__faErrorObserverInstalled = true;
+
+  new MutationObserver(runTranslations).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    characterData: true,
+    attributes: true,
+    attributeFilter: ["value", "class", "style"]
+  });
+
+  document.addEventListener(
+    "submit",
+    () => {
+      setTimeout(runTranslations, 0);
+      setTimeout(runTranslations, 50);
+      setTimeout(runTranslations, 250);
+      setTimeout(runTranslations, 1000);
+    },
+    true
+  );
+
+  document.addEventListener(
+    "click",
+    () => {
+      setTimeout(runTranslations, 0);
+      setTimeout(runTranslations, 50);
+      setTimeout(runTranslations, 250);
+    },
+    true
+  );
+}
+
+function observeSubmitButton() {
+  // This can be global because buttons may not exist yet
+  document.addEventListener(
+    "submit",
+    () => {
+      setTimeout(translateSubmitButtons, 0);
+      setTimeout(translateSubmitButtons, 50);
+      setTimeout(translateSubmitButtons, 250);
+      setTimeout(translateSubmitButtons, 1000);
+    },
+    true
+  );
+}
+
+function runTranslations() {
+  console.log("running translations", getCurrentLang());
+  translateValidationMessages();
+  translateSubmitButtons();
+}
+
+function translateSubmitButtons() {
+  const lang = getCurrentLang();
+  const dict = i18n[lang];
+  if (!dict) return;
+
+  document
+    .querySelectorAll("input[type='submit'], button[type='submit']")
+    .forEach(btn => {
+      if (btn.tagName === "INPUT" && /please wait/i.test(btn.value)) {
+        btn.value = dict.pleaseWait;
+      } else if (/please wait/i.test(btn.textContent)) {
+        btn.textContent = dict.pleaseWait;
+      }
+    });
+}
+
+function initValidation({ formEl, getLang }) {
+  console.log("initValidation called");
+
+  if (typeof getLang === "function") {
+    currentGetLang = getLang;
+  } else if (typeof getLang === "string") {
+    currentGetLang = () => getLang;
+  }
+
+  runTranslations();
+}
+
+initValidation({
+  formEl,
+  getLang,
+  translations
+});
+
+function translateValidationMessages() {
+  const lang = getCurrentLang();
+  if (lang === "en") return;
+
+  const dict = i18n[lang];
+  if (!dict) return;
+
+  document.querySelectorAll(".errMsg").forEach(el => {
+    let text = el.textContent || "";
+
+    Object.entries(dict.messages).forEach(([english, translated]) => {
+      text = text.replaceAll(english, translated);
+    });
+
+    if (el.textContent !== text) {
+      console.log("Translated error:", el.textContent, "=>", text);
+      el.textContent = text;
+    }
+  });
+}
+
+/*
+ * RUN IMMEDIATELY ON BUNDLE LOAD
+ * NOT inside initValidation()
+ */
+(function installFormAssemblyLocalization() {
+  patchAlert();
+  observeFormAssemblyErrors();
+  observeSubmitButton();
+})();
+
+
 	});
+
+
 </script>
 
 
@@ -997,9 +1348,18 @@
       return appendChildren(selectEl, items.map(item => new Option(item, item)));
     }
 
-    mmSelect.addEventListener('change', function() {
-      populateCombo(emptyCombo(ddSelect), dateOptions());
-    })
+    mmSelect.addEventListener("change", function () {
+		  const previousDay = ddSelect.value;
+
+		  populateCombo(emptyCombo(ddSelect), dateOptions());
+
+		  if (
+		    previousDay &&
+		    Array.from(ddSelect.options).some(option => option.value === previousDay)
+		  ) {
+		    ddSelect.value = previousDay;
+		  }
+		});
 
     populateCombo(emptyCombo(yyyySelect), yearOptions());
 
@@ -1028,11 +1388,18 @@
       return formatSFDate(dobRaw);
     };
 
-    dateSelects.forEach(field => field.addEventListener('change', function() {
-      console.log('updating birthdate field from selects');
-      const selectVal = el => el.options[el.selectedIndex].text;
-      dobEl.value = formatBirthdate(selectVal(mmSelect), selectVal(ddSelect), selectVal(yyyySelect));
-    }));
+    dateSelects.forEach(field => field.addEventListener("change", function () {
+		  const mm = mmSelect.value;
+		  const dd = ddSelect.value;
+		  const yyyy = yyyySelect.value;
+
+		  if (!mm || !dd || !yyyy) {
+		    dobEl.value = "";
+		    return;
+		  }
+
+		  dobEl.value = formatBirthdate(mm, dd, yyyy);
+		}));
 
   });
 
