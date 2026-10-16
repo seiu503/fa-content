@@ -1,0 +1,401 @@
+<style>
+.sapphire-language-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+.sapphire-language-picker select {
+  font: inherit;
+  padding: 0.4rem 0.6rem;
+  max-width: 100%;
+  margin: auto !important;
+}
+.sapphire-language-picker label {
+	position: absolute;
+    left: -9999px;
+}
+
+#tfa_91-D { /* preferred language */
+	margin-top: -8px;
+}
+</style>
+
+<script type="text/javascript">
+//
+window.addEventListener("load", function() {
+
+	if (window.self !== window.top) {
+	  // If the page is in an iframe, add a class to the <html> or <body> tag
+	  document.documentElement.classList.add('is-in-iframe');
+	}
+
+	// Extract the value of the language the browser is set to:
+	const supportedLanguages = { en: "English", es: "Español", vi: "Tiếng Việt" };
+	const requestedLanguage = new URLSearchParams(window.location.search).get("lang") || navigator.language || "en";
+	let getLang = requestedLanguage.toLowerCase().split("-")[0];
+	if (!supportedLanguages[getLang]) getLang = "en";
+	console.log("getLang = ", getLang);
+	//
+	var valueFormTitle = document.getElementsByClassName("gform_title")[0];
+	var valueSubmitButton = document.querySelector("#submit_button");
+	//
+	var formEl = document.getElementById("803");
+	var firstName = document.getElementById("tfa_1-L"); 
+	var lastName = document.getElementById("tfa_2-L");
+	var birthDate = document.getElementById("tfa_134-L"); 
+	var mmPlaceholder = document.getElementById("tfa_156").options[0];
+	var ddPlaceholder = document.getElementById("tfa_157").options[0];
+	var yyyyPlaceholder = document.getElementById("tfa_158").options[0];
+	var preferredLanguage = document.getElementById("tfa_91-L"); 
+	var employer = document.getElementById("tfa_22-L"); 
+	var facility = document.getElementById("tfa_6-L");
+	var jobTitle = document.getElementById("tfa_385-L");
+	var facilityPlaceholder = document.getElementById("tfa_6").options[0];
+	var employerNote = document.getElementById("tfa_127-HTML"); 
+	var address = document.getElementById("tfa_32-L"); 
+	var addressNote = document.getElementById("tfa_32-HH");
+	var city = document.getElementById("tfa_34-L"); 
+	var state = document.getElementById("tfa_35-L");
+	var zip = document.getElementById("tfa_39-L"); 
+	var email = document.getElementById("tfa_3-L"); 
+	var emailNote = document.getElementById("tfa_3-HH");
+	var phone = document.getElementById("tfa_4-L"); 
+	var phoneNote = document.getElementById("tfa_4-HH");
+	var smsOptOut = document.getElementById("tfa_114-L");
+	var smsOptOutCheckbox = document.getElementById("tfa_115-L");
+	var membershipAuth = document.getElementById("tfa_116-L"); 
+	var membershipAuthCheckbox = document.getElementById("tfa_379-L"); 
+	var duesAuth = document.getElementById("tfa_355-L"); 
+	var duesAuthCheckbox = document.getElementById("tfa_380-L"); 
+	var duesNote = document.getElementById("tfa_128-HTML");
+	var polOptOut = document.getElementById("tfa_122-L"); 
+	var polOptOutCheckbox = document.getElementById("tfa_123-L"); 
+	var signature = document.getElementById("tfa_386-L");
+	var signatureNote = document.getElementById("tfa_386-HH");
+
+	const englishFacilityPlaceholder = facilityPlaceholder.innerHTML;
+
+	function applyTranslations() {
+		document.documentElement.lang = getLang;
+		document.querySelector(".wForm")?.setAttribute("data-language", getLang);
+	//
+	// US English:
+	if (getLang.startsWith("en")) {
+		console.log("Processing en-US");
+		facilityPlaceholder.innerHTML = englishFacilityPlaceholder;
+		//
+		document.title = "SEIU 503 Membership Application";
+		valueFormTitle.innerHTML = "SEIU 503 Membership Application";
+		valueSubmitButton.value = "Submit";
+		//
+		firstName.innerHTML = "First Name";
+		lastName.innerHTML = "Last Name";
+		birthDate.innerHTML = `Birth Date`;
+		birthDate.classList.add("reqMark");
+		birthDate.style.cssText += 'font-size:inherit!important;font-style:inherit!important;';
+		mmPlaceholder.innerHTML = "Month";
+		ddPlaceholder.innerHTML = "Day";
+		yyyyPlaceholder.innerHTML = "Year";
+		preferredLanguage.innerHTML = "Preferred language";
+		employer.innerHTML = "Employer";
+		facility.innerHTML = "Facility";
+		jobTitle.innerHTML = "Job Title";
+		employerNote.innerHTML = `<p>Note: This form is ONLY for workers at Sapphire Rose City or Gresham Post Acute. If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
+		address.innerHTML = "Address";
+		addressNote.innerHTML = "Please enter your physical street address here, not a P.O. box.";
+		city.innerHTML = "City";
+		state.innerHTML = "State";
+		zip.innerHTML = "ZIP Code";
+		email.innerHTML = "Email";
+		emailNote.innerHTML = "Please use your personal email if you have one, since some employers limit union communication via work email. If you don't have a personal email, work email is fine. If you don't have an email address, call us at 1.844.503.7348 to sign up over the phone.";
+		phone.innerHTML = "Phone";
+		phoneNote.innerHTML = "† By providing my phone number, I understand that the Service Employees International Union (SEIU), its local unions, and affiliates may use automated calling technologies and/or text message me on my cellular phone on a periodic basis. SEIU will never charge for text message alerts. Carrier message and data rates may apply to such alerts. Reply STOP to stop receiving messages; reply HELP for more information.";
+		smsOptOut.innerHTML = "Opt out of receiving mobile alerts";
+		smsOptOutCheckbox.innerHTML = "Opt out";
+		membershipAuth.innerHTML = "Membership Authorization";
+		membershipAuthCheckbox.innerHTML = "I request and voluntarily accept membership in SEIU Local 503 and its successors or assigns (collectively “Local 503”). This means I will receive the benefits and abide by the obligations of membership set forth in both Local 503’s and the Service Employees International Union’s Constitutions and Bylaws. I authorize Local 503 to act as my representative in collective bargaining over wages, benefits, and other terms/conditions of employment with my employer, and as my exclusive representative where authorized by law. My membership will be continuous, unless I resign by providing notice to Local 503 via U.S. mail (or other method if permitted by Local 503 policies). I know that union membership is voluntary and not a condition of employment, and that I can decline to join without reprisal.";
+		duesAuth.innerHTML = "Dues Deduction/Checkoff Authorization";
+		duesAuthCheckbox.innerHTML = "I request and voluntarily authorize my employer to deduct from my earnings and to pay to Local 503 and its successors and assigns (collectively “Local 503”) an amount equal to Local 503’s regular dues, and other fees or assessments uniformly applicable to members of Local 503. This dues deduction authorization shall remain in effect unless I revoke it by providing notice to Local 503 via U.S. mail (or other method if permitted by Local 503’s policies) within 15 days before or after (1) the annual anniversary date of this agreement or (2) the termination of the applicable collective bargaining agreement between my employer and union (“my window periods”). This authorization will renew automatically from year to year even if I have resigned my membership, unless I revoke it during one of my window periods and as required by Local 503’s policies. This authorization is voluntary and is not a condition of my employment, and I can decline to agree to it without reprisal. I understand that all members benefit from everyone’s commitments because they help build a strong union that is able to plan for the future.";
+		duesNote.innerHTML = "<strong>Note: Your membership will not activate, and no dues will be deducted from your check, until you negotiate and vote to approve your first union contract with your employer.</strong>"
+		polOptOut.innerHTML = "Check the box below if you would like the portion of dues spent on political power to go toward SEIU 503’s scholarship fund.";
+		polOptOutCheckbox.innerHTML = "Opt out of worker political power";
+		signature.innerHTML = "Your full legal name";
+		signatureNote.innerHTML = "Enter your full legal name. This will act as your signature.";
+		}
+	//
+	// Spanish:
+	else if (getLang.startsWith("es")) {
+		console.log("Processing es-ES");
+		//
+		document.title = "Formulario de membresía del SEIU 503";
+		valueFormTitle.innerHTML = "Formulario de membresía del SEIU 503";
+		valueSubmitButton.value = "Enviar";
+		//
+		firstName.innerHTML = "Primer nombre";
+		lastName.innerHTML = "Apellido";
+		birthDate.innerHTML = `Fecha de nacimiento`;
+		birthDate.classList.add("reqMark");
+		birthDate.style.cssText += 'font-size:inherit!important;font-style:inherit!important;';
+		mmPlaceholder.innerHTML = "Mes";
+		ddPlaceholder.innerHTML = "Día";
+		yyyyPlaceholder.innerHTML = "Año";
+		preferredLanguage.innerHTML = "Idioma preferido";
+		employer.innerHTML = "Empleador";
+		facility.innerHTML = "Instalación";
+		jobTitle.innerHTML = "Clasificación";
+		facilityPlaceholder.innerHTML = "Seleccione..."
+		employerNote.innerHTML = `<p>Nota: Este formulario es SOLO para trabajadores de Sapphire Rose City o Gresham Post Acute. Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`;
+		address.innerHTML = "Calle particular";
+		addressNote.innerHTML = "Ingrese su dirección física aquí, no un apartado postal (P.O. Box).";
+		city.innerHTML = "Ciudad";
+		state.innerHTML = "Estado";
+		zip.innerHTML = "Código postal";
+		email.innerHTML = "Correo electrónico particular";
+		emailNote.innerHTML = "Use su correo electrónico particular, si tiene uno, ya que algunos empleadores limitan la comunicación de la unión a través del correo electrónico del trabajo. Si no tiene un correo electrónico personal, puede usar el correo electrónico del trabajo. Si no tiene una dirección de correo electrónico, llámenos al 1.844.503.7348 para registrarse por teléfono.";
+		phone.innerHTML = "Mejor teléfono";
+		phoneNote.innerHTML = "† Al proporcionar mi número de teléfono, entiendo que la Unión Internacional de Empleados de Servicios (SEIU, por sus siglas en inglés), sus uniones locales y sus afiliados pueden usar tecnologías automatizadas para llamarme y/o para enviar mensajes de texto a mi celular periódicamente. SEIU nunca cobrará por las alertas de mensaje de texto. Pueden aplicar tarifas por el envío de mensaje y el uso de datos para dichas alertas. Responda con la palabra STOP para dejar de recibir mensajes; responda con la palabra HELP para obtener más información.";
+		smsOptOut.innerHTML = "No deseo recibir alertas por mensaje de texto";
+		smsOptOutCheckbox.innerHTML = "Optar por no participar";
+		membershipAuth.innerHTML = "Autorización de membresía";
+		membershipAuthCheckbox.innerHTML = "Solicito y acepto voluntariamente la membresía en SEIU Local 503 y sus sucesores o cesionarios (en conjunto “Local 503”). Esto significa que recibiré los beneficios y cumpliré las obligaciones derivadas de la membresía que se estipulan en la Constitución y los Estatutos de Local 503 y de la Unión Internacional de Empleados de Servicios. Autorizo a Local 503 para que actúe como mi representante en las negociaciones colectivas relativas a salarios, beneficios y demás términos/condiciones laborales que lleve a cabo con mi empleador, y como mi representante exclusivo en los casos que la ley lo permita. Mi membresía será permanente, a menos que renuncie a la misma por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503). Sé que la membresía de la unión es voluntaria y no es una condición laboral, y que puedo rechazar la opción de unirme sin que esto implique represalias.";
+		duesAuth.innerHTML = "Autorización de aportes/deducción de cuotas";
+		duesAuthCheckbox.innerHTML = "Solicito y autorizo voluntariamente que mi empleador deduzca de mis ganancias, y le pague a Local 503 y a sus sucesores y cesionarios (en conjunto “Local 503”), un monto equivalente a las cuotas ordinarias de Local 503 y demás cargos y avalúos que sean aplicables a los miembros de Local 503. Esta autorización para deducir las cuotas seguirá vigente a menos que yo la revoque por medio de un aviso dirigido a Local 503 y lo envíe a través del correo postal de los EE. UU. (u otro método, si así lo permiten las políticas de Local 503) en un plazo de 15 días antes o después de (1) la fecha de aniversario de este acuerdo o (2) la fecha de terminación del Contrato Colectivo de Trabajo correspondiente celebrado entre la unión y mi empleador (“los márgenes estipulados”). Esta autorización se renovará automáticamente cada año, incluso en caso de que renuncie a mi membresía, salvo que yo la revoque durante uno de los márgenes estipulados y de acuerdo con las políticas de Local 503. Esta autorización es voluntaria y no es una condición laboral, así que puedo rechazarla sin que esto suponga represalias. Comprendo que todos(as) los(as) miembros se benefician de los compromisos que todos(as) asumen porque ayudan a crear una unión fuerte que es capaz de planear a futuro.";
+		duesNote.innerHTML = "<strong>Nota: Su membresía no se activará y no se deducirán ningunas cuotas de su cheque hasta que negocie y vote para aprobar su primer contrato de unión con su empleador.</strong>"
+		polOptOut.innerHTML = "Seleccione esta casilla si quiere que una parte de las cuotas se invierta en el poder político para mejorar el fondo para becas de SEIU 503.";
+		polOptOutCheckbox.innerHTML = "Optar por no participar del poder político de los trabajadores";
+		signature.innerHTML = "Su nombre legal completo";
+		signatureNote.innerHTML = "Ingrese su nombre legal completo. Esto servirá como su firma.";
+		}
+	// Vietnamese:
+	else if (getLang.startsWith("vi")) {
+		console.log("Processing vi-VN");
+		//
+		document.title = "Đơn đăng ký thành viên SEIU 503";
+		valueFormTitle.innerHTML = "Đơn đăng ký thành viên SEIU 503";
+		valueSubmitButton.value = "Gửi";
+		//
+		firstName.innerHTML = "Tên";
+		lastName.innerHTML = "Họ";
+		birthDate.innerHTML = `Ngày sinh`;
+		birthDate.classList.add("reqMark");
+		birthDate.style.cssText += 'font-size:inherit!important;font-style:inherit!important;';
+		mmPlaceholder.innerHTML = "Tháng";
+		ddPlaceholder.innerHTML = "Ngày";
+		yyyyPlaceholder.innerHTML = "Năm";
+		preferredLanguage.innerHTML = "Ngôn ngữ ưu tiên";
+		employer.innerHTML = "Chủ lao động";
+		facility.innerHTML = "Cơ sở";
+		jobTitle.innerHTML = "Chức danh công việc";
+		facilityPlaceholder.innerHTML = "Chọn..."
+		employerNote.innerHTML = `<p>Lưu ý: Biểu mẫu này CHỈ dành cho người lao động tại Sapphire Rose City hoặc Gresham Post Acute. Nếu quý vị làm việc ở nơi khác và muốn ký đơn gia nhập công đoàn, <strong><a href="https://seiu503signup.org">quý vị có thể thực hiện tại đây.</a></strong></p>`;
+		address.innerHTML = "Địa chỉ";
+		addressNote.innerHTML = "Vui lòng nhập địa chỉ đường phố nơi quý vị cư trú, không nhập hộp thư bưu điện (P.O. Box).";
+		city.innerHTML = "Thành phố";
+		state.innerHTML = "Tiểu bang";
+		zip.innerHTML = "Mã ZIP";
+		email.innerHTML = "Email cá nhân";
+		emailNote.innerHTML = "Vui lòng sử dụng email cá nhân nếu quý vị có, vì một số chủ lao động hạn chế việc liên lạc của công đoàn qua email công việc. Nếu quý vị không có email cá nhân, quý vị có thể sử dụng email công việc. Nếu quý vị không có địa chỉ email, hãy gọi cho chúng tôi theo số 1.844.503.7348 để đăng ký qua điện thoại.";
+		phone.innerHTML = "Số điện thoại";
+		phoneNote.innerHTML = "† Khi cung cấp số điện thoại của mình, tôi hiểu rằng Service Employees International Union (SEIU), các công đoàn địa phương và các tổ chức liên kết của SEIU có thể sử dụng công nghệ gọi tự động và/hoặc định kỳ gửi tin nhắn văn bản đến điện thoại di động của tôi. SEIU sẽ không bao giờ tính phí cho các cảnh báo bằng tin nhắn văn bản. Phí tin nhắn và dữ liệu của nhà mạng có thể được áp dụng. Trả lời STOP để ngừng nhận tin nhắn; trả lời HELP để biết thêm thông tin.";
+		smsOptOut.innerHTML = "Không nhận cảnh báo trên điện thoại di động";
+		smsOptOutCheckbox.innerHTML = "Không tham gia";
+		membershipAuth.innerHTML = "Ủy quyền tư cách thành viên";
+		membershipAuthCheckbox.innerHTML = "Tôi yêu cầu và tự nguyện chấp nhận tư cách thành viên của SEIU Local 503 và các tổ chức kế nhiệm hoặc bên được chuyển nhượng của tổ chức này (gọi chung là “Local 503”). Điều này có nghĩa là tôi sẽ nhận được các quyền lợi và tuân thủ các nghĩa vụ của tư cách thành viên được quy định trong Hiến pháp và Điều lệ của cả Local 503 và Service Employees International Union. Tôi ủy quyền cho Local 503 đại diện cho tôi trong thương lượng tập thể với chủ lao động về tiền lương, phúc lợi và các điều khoản/điều kiện làm việc khác, đồng thời làm đại diện độc quyền của tôi khi pháp luật cho phép. Tư cách thành viên của tôi sẽ được duy trì liên tục, trừ khi tôi từ chức bằng cách gửi thông báo cho Local 503 qua đường bưu điện Hoa Kỳ (hoặc bằng phương thức khác nếu chính sách của Local 503 cho phép). Tôi hiểu rằng việc tham gia công đoàn là tự nguyện và không phải là điều kiện để được tuyển dụng, và tôi có thể từ chối tham gia mà không bị trả đũa.";
+		duesAuth.innerHTML = "Ủy quyền khấu trừ/thu đoàn phí";
+		duesAuthCheckbox.innerHTML = "Tôi yêu cầu và tự nguyện cho phép chủ lao động khấu trừ từ thu nhập của tôi và thanh toán cho Local 503 và các tổ chức kế nhiệm hoặc bên được chuyển nhượng của tổ chức này (gọi chung là “Local 503”) một khoản tiền tương đương với đoàn phí thông thường của Local 503 cùng các khoản phí hoặc khoản thu khác được áp dụng đồng đều cho các thành viên Local 503. Việc ủy quyền khấu trừ đoàn phí này sẽ tiếp tục có hiệu lực trừ khi tôi hủy bỏ bằng cách gửi thông báo cho Local 503 qua đường bưu điện Hoa Kỳ (hoặc bằng phương thức khác nếu chính sách của Local 503 cho phép) trong vòng 15 ngày trước hoặc sau (1) ngày kỷ niệm hằng năm của thỏa thuận này hoặc (2) ngày chấm dứt thỏa ước lao động tập thể hiện hành giữa chủ lao động của tôi và công đoàn (“thời gian hủy bỏ của tôi”). Việc ủy quyền này sẽ tự động được gia hạn từ năm này sang năm khác ngay cả khi tôi đã từ bỏ tư cách thành viên, trừ khi tôi hủy bỏ trong một trong các thời gian hủy bỏ của mình và theo yêu cầu của chính sách Local 503. Việc ủy quyền này là tự nguyện và không phải là điều kiện để được tuyển dụng, và tôi có thể từ chối đồng ý mà không bị trả đũa. Tôi hiểu rằng tất cả các thành viên đều được hưởng lợi từ cam kết của mọi người vì những cam kết đó giúp xây dựng một công đoàn vững mạnh có khả năng lập kế hoạch cho tương lai.";
+		duesNote.innerHTML = "<strong>Lưu ý: Tư cách thành viên của quý vị sẽ chưa có hiệu lực và sẽ không có đoàn phí nào được khấu trừ từ tiền lương của quý vị cho đến khi quý vị thương lượng và bỏ phiếu thông qua hợp đồng công đoàn đầu tiên với chủ lao động.</strong>"
+		polOptOut.innerHTML = "Đánh dấu vào ô bên dưới nếu quý vị muốn phần đoàn phí được sử dụng cho hoạt động chính trị được chuyển sang quỹ học bổng của SEIU 503.";
+		polOptOutCheckbox.innerHTML = "Không tham gia hoạt động chính trị của người lao động";
+		signature.innerHTML = "Họ tên pháp lý đầy đủ của quý vị";
+		signatureNote.innerHTML = "Nhập họ tên pháp lý đầy đủ của quý vị. Nội dung này sẽ được dùng làm chữ ký của quý vị.";
+		}
+	}
+
+	// Use the main form's picker pattern, with only Sapphire's three languages.
+	const pickerWrap = document.createElement("div");
+	pickerWrap.className = "sapphire-language-picker";
+	const pickerLabel = document.createElement("label");
+	pickerLabel.htmlFor = "languagePicker";
+	pickerLabel.textContent = "Language / Idioma / Ngôn ngữ";
+	const select = document.createElement("select");
+	select.id = "languagePicker";
+	Object.entries(supportedLanguages).forEach(([code, label]) => {
+		select.add(new Option(label, code));
+	});
+	select.value = getLang;
+	pickerWrap.append(pickerLabel, select);
+	const header = document.querySelector(".wFormHeader") || valueFormTitle;
+	if (header) header.insertAdjacentElement("afterend", pickerWrap);
+	else formEl.prepend(pickerWrap);
+	select.addEventListener("change", function() {
+		getLang = select.value;
+		applyTranslations();
+		translateValidationMessages();
+	});
+	applyTranslations();
+
+	// Translate both new errors and errors already visible when the language changes.
+	const validationMessages = [
+  {
+    "en": "This field is required.",
+    "es": "Requerido",
+    "vi": "Trường này là bắt buộc."
+  },
+  {
+    "en": "This does not appear to be a valid email address.",
+    "es": "Dirección de correo electrónico no válida",
+    "vi": "Địa chỉ email không hợp lệ"
+  },
+  {
+    "en": "Please enter a valid 5-digit ZIP code",
+    "es": "Ingrese un código postal válido de 5 dígitos",
+    "vi": "Vui lòng nhập mã ZIP hợp lệ gồm 5 chữ số"
+  },
+  {
+    "en": "This does not appear to be a valid date.",
+    "es": "Ingrese una fecha válida.",
+    "vi": "Vui lòng nhập ngày hợp lệ."
+  },
+  {
+    "en": "Please enter a valid phone number",
+    "es": "Ingrese un número de teléfono válido",
+    "vi": "Vui lòng nhập số điện thoại hợp lệ"
+  },
+  {
+    "en": "This date must be between",
+    "es": "La fecha debe ser entre",
+    "vi": "Ngày này phải nằm trong khoảng"
+  }
+];
+	function translateValidationMessages() {
+		formEl.querySelectorAll("span").forEach(span => {
+			// Update text nodes only, preserving any nested markup and event handlers.
+			const walker = document.createTreeWalker(span, NodeFilter.SHOW_TEXT);
+			let node;
+			while ((node = walker.nextNode())) {
+				let text = node.nodeValue;
+				validationMessages.forEach(message => {
+					Object.values(message).forEach(source => {
+						if (source !== message[getLang]) text = text.replaceAll(source, message[getLang]);
+					});
+				});
+				if (text !== node.nodeValue) node.nodeValue = text;
+			}
+		});
+	}
+	const errorObserver = new MutationObserver(translateValidationMessages);
+	errorObserver.observe(formEl, { childList: true, subtree: true, characterData: true });
+	formEl.addEventListener("submit", function() {
+		setTimeout(translateValidationMessages, 0);
+	});
+	translateValidationMessages();
+});
+</script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+window.addEventListener("load", function () {
+  const dobEl = document.getElementById("tfa_113");
+  const mmSelect = document.getElementById("tfa_156");
+  const ddSelect = document.getElementById("tfa_157");
+  const yyyySelect = document.getElementById("tfa_158");
+
+  if (!dobEl || !mmSelect || !ddSelect || !yyyySelect) return;
+
+  // FormAssembly option values may be IDs, so read the displayed text.
+  function getSelectedText(selectEl) {
+    const option = selectEl.options[selectEl.selectedIndex];
+    return option && option.value !== ""
+      ? option.textContent.trim()
+      : "";
+  }
+
+  function setSelectByText(selectEl, text) {
+    const option = Array.from(selectEl.options).find(
+      opt => opt.textContent.trim() === text || opt.value === text
+    );
+
+    if (option) {
+      selectEl.value = option.value;
+      option.selected = true;
+    }
+  }
+
+  // Preserve the translated placeholder and restore the previous selection.
+  function populateSelect(selectEl, items, previousText) {
+    const placeholder = selectEl.options[0]?.textContent || "";
+    selectEl.options.length = 0;
+    selectEl.add(new Option(placeholder, ""));
+
+    items.forEach(item => selectEl.add(new Option(item, item)));
+
+    if (previousText) {
+      setSelectByText(selectEl, previousText);
+    }
+  }
+
+  function refreshDayOptions() {
+    const previousDay = getSelectedText(ddSelect);
+    const month = getSelectedText(mmSelect);
+    const maxDay = month === "02"
+      ? 29
+      : ["04", "06", "09", "11"].includes(month) ? 30 : 31;
+
+    const days = Array.from(
+      { length: maxDay },
+      (_, i) => String(i + 1).padStart(2, "0")
+    );
+
+    populateSelect(ddSelect, days, previousDay);
+  }
+
+  function restoreVisibleFieldsFromDob() {
+    const match = (dobEl.value || "").match(
+      /^(\d{4})-(\d{2})-(\d{2})$/
+    );
+    if (!match) return;
+
+    const [, yyyy, mm, dd] = match;
+    setSelectByText(mmSelect, mm);
+    refreshDayOptions();
+    setSelectByText(ddSelect, dd);
+    setSelectByText(yyyySelect, yyyy);
+  }
+
+  function updateBirthdateField() {
+    const mm = getSelectedText(mmSelect);
+    const dd = getSelectedText(ddSelect);
+    const yyyy = getSelectedText(yyyySelect);
+
+    // Avoid creating an invalid date from incomplete selections.
+    dobEl.value = mm && dd && yyyy ? `${yyyy}-${mm}-${dd}` : "";
+
+    dobEl.dispatchEvent(new Event("input", { bubbles: true }));
+    dobEl.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+
+  const currentYear = new Date().getFullYear();
+  const years = Array.from(
+    { length: 100 },
+    (_, i) => String(currentYear - i)
+  );
+
+  populateSelect(yyyySelect, years, getSelectedText(yyyySelect));
+  refreshDayOptions();
+  restoreVisibleFieldsFromDob();
+
+  mmSelect.addEventListener("change", function () {
+    refreshDayOptions();
+    updateBirthdateField();
+  });
+  ddSelect.addEventListener("change", updateBirthdateField);
+  yyyySelect.addEventListener("change", updateBirthdateField);
+});
+</script>

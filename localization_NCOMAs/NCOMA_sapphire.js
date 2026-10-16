@@ -64,7 +64,7 @@ window.addEventListener("load", function() {
 		employer.innerHTML = "Employer";
 		facility.innerHTML = "Facility";
 		jobTitle.innerHTML = "Job Title";
-		employerNote.innerHTML = `<p>Note: This form is ONLY for workers at Sapphire Gracelen Terrace or Cedar Crossings. If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
+		employerNote.innerHTML = `<p>Note: This form is ONLY for workers at Sapphire Rose City or Gresham Post Acute. If you work somewhere else and want to sign a union membership form, <strong><a href="https://seiu503signup.org">you can do that here.</a></strong></p>`;
 		address.innerHTML = "Address";
 		addressNote.innerHTML = "Please enter your physical street address here, not a P.O. box.";
 		city.innerHTML = "City";
@@ -108,7 +108,7 @@ window.addEventListener("load", function() {
 		facility.innerHTML = "Instalación";
 		jobTitle.innerHTML = "Clasificación";
 		facilityPlaceholder.innerHTML = "Seleccione..."
-		employerNote.innerHTML = `<p>Nota: Este formulario es SOLO para trabajadores de Sapphire Gracelen Terrace o Cedar Crossings. Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`;
+		employerNote.innerHTML = `<p>Nota: Este formulario es SOLO para trabajadores de Sapphire Rose City o Gresham Post Acute. Si trabaja en otro lugar y desea hacerse miembro/a de la unión, <strong><a href="https://seiu503signup.org">puede hacerlo aquí.</a></strong></p>`;
 		address.innerHTML = "Calle particular";
 		addressNote.innerHTML = "Ingrese su dirección física aquí, no un apartado postal (P.O. Box).";
 		city.innerHTML = "Ciudad";
@@ -130,19 +130,61 @@ window.addEventListener("load", function() {
 		signature.innerHTML = "Su nombre legal completo";
 		signatureNote.innerHTML = "Ingrese su nombre legal completo. Esto servirá como su firma.";
 		}
-	//
+	// Vietnamese:
+	else if (getLang.startsWith("vi")) {
+		console.log("Processing vi-VN");
+		//
+		document.title = "Đơn đăng ký thành viên SEIU 503";
+		valueFormTitle.innerHTML = "Đơn đăng ký thành viên SEIU 503";
+		valueSubmitButton.defaultValue = "Gửi";
+		//
+		firstName.innerHTML = "Tên";
+		lastName.innerHTML = "Họ";
+		birthDate.innerHTML = `Ngày sinh`;
+		birthDate.classList.add("reqMark");
+		birthDate.style.cssText += 'font-size:inherit!important;font-style:inherit!important;';
+		mmPlaceholder.innerHTML = "Tháng";
+		ddPlaceholder.innerHTML = "Ngày";
+		yyyyPlaceholder.innerHTML = "Năm";
+		preferredLanguage.innerHTML = "Ngôn ngữ ưu tiên";
+		employer.innerHTML = "Chủ lao động";
+		facility.innerHTML = "Cơ sở";
+		jobTitle.innerHTML = "Chức danh công việc";
+		facilityPlaceholder.innerHTML = "Chọn..."
+		employerNote.innerHTML = `<p>Lưu ý: Biểu mẫu này CHỈ dành cho người lao động tại Sapphire Rose City hoặc Gresham Post Acute. Nếu quý vị làm việc ở nơi khác và muốn ký đơn gia nhập công đoàn, <strong><a href="https://seiu503signup.org">quý vị có thể thực hiện tại đây.</a></strong></p>`;
+		address.innerHTML = "Địa chỉ";
+		addressNote.innerHTML = "Vui lòng nhập địa chỉ đường phố nơi quý vị cư trú, không nhập hộp thư bưu điện (P.O. Box).";
+		city.innerHTML = "Thành phố";
+		state.innerHTML = "Tiểu bang";
+		zip.innerHTML = "Mã ZIP";
+		email.innerHTML = "Email cá nhân";
+		emailNote.innerHTML = "Vui lòng sử dụng email cá nhân nếu quý vị có, vì một số chủ lao động hạn chế việc liên lạc của công đoàn qua email công việc. Nếu quý vị không có email cá nhân, quý vị có thể sử dụng email công việc. Nếu quý vị không có địa chỉ email, hãy gọi cho chúng tôi theo số 1.844.503.7348 để đăng ký qua điện thoại.";
+		phone.innerHTML = "Số điện thoại";
+		phoneNote.innerHTML = "† Khi cung cấp số điện thoại của mình, tôi hiểu rằng Service Employees International Union (SEIU), các công đoàn địa phương và các tổ chức liên kết của SEIU có thể sử dụng công nghệ gọi tự động và/hoặc định kỳ gửi tin nhắn văn bản đến điện thoại di động của tôi. SEIU sẽ không bao giờ tính phí cho các cảnh báo bằng tin nhắn văn bản. Phí tin nhắn và dữ liệu của nhà mạng có thể được áp dụng. Trả lời STOP để ngừng nhận tin nhắn; trả lời HELP để biết thêm thông tin.";
+		smsOptOut.innerHTML = "Không nhận cảnh báo trên điện thoại di động";
+		smsOptOutCheckbox.innerHTML = "Không tham gia";
+		membershipAuth.innerHTML = "Ủy quyền tư cách thành viên";
+		membershipAuthCheckbox.innerHTML = "Tôi yêu cầu và tự nguyện chấp nhận tư cách thành viên của SEIU Local 503 và các tổ chức kế nhiệm hoặc bên được chuyển nhượng của tổ chức này (gọi chung là “Local 503”). Điều này có nghĩa là tôi sẽ nhận được các quyền lợi và tuân thủ các nghĩa vụ của tư cách thành viên được quy định trong Hiến pháp và Điều lệ của cả Local 503 và Service Employees International Union. Tôi ủy quyền cho Local 503 đại diện cho tôi trong thương lượng tập thể với chủ lao động về tiền lương, phúc lợi và các điều khoản/điều kiện làm việc khác, đồng thời làm đại diện độc quyền của tôi khi pháp luật cho phép. Tư cách thành viên của tôi sẽ được duy trì liên tục, trừ khi tôi từ chức bằng cách gửi thông báo cho Local 503 qua đường bưu điện Hoa Kỳ (hoặc bằng phương thức khác nếu chính sách của Local 503 cho phép). Tôi hiểu rằng việc tham gia công đoàn là tự nguyện và không phải là điều kiện để được tuyển dụng, và tôi có thể từ chối tham gia mà không bị trả đũa.";
+		duesAuth.innerHTML = "Ủy quyền khấu trừ/thu đoàn phí";
+		duesAuthCheckbox.innerHTML = "Tôi yêu cầu và tự nguyện cho phép chủ lao động khấu trừ từ thu nhập của tôi và thanh toán cho Local 503 và các tổ chức kế nhiệm hoặc bên được chuyển nhượng của tổ chức này (gọi chung là “Local 503”) một khoản tiền tương đương với đoàn phí thông thường của Local 503 cùng các khoản phí hoặc khoản thu khác được áp dụng đồng đều cho các thành viên Local 503. Việc ủy quyền khấu trừ đoàn phí này sẽ tiếp tục có hiệu lực trừ khi tôi hủy bỏ bằng cách gửi thông báo cho Local 503 qua đường bưu điện Hoa Kỳ (hoặc bằng phương thức khác nếu chính sách của Local 503 cho phép) trong vòng 15 ngày trước hoặc sau (1) ngày kỷ niệm hằng năm của thỏa thuận này hoặc (2) ngày chấm dứt thỏa ước lao động tập thể hiện hành giữa chủ lao động của tôi và công đoàn (“thời gian hủy bỏ của tôi”). Việc ủy quyền này sẽ tự động được gia hạn từ năm này sang năm khác ngay cả khi tôi đã từ bỏ tư cách thành viên, trừ khi tôi hủy bỏ trong một trong các thời gian hủy bỏ của mình và theo yêu cầu của chính sách Local 503. Việc ủy quyền này là tự nguyện và không phải là điều kiện để được tuyển dụng, và tôi có thể từ chối đồng ý mà không bị trả đũa. Tôi hiểu rằng tất cả các thành viên đều được hưởng lợi từ cam kết của mọi người vì những cam kết đó giúp xây dựng một công đoàn vững mạnh có khả năng lập kế hoạch cho tương lai.";
+		duesNote.innerHTML = "<strong>Lưu ý: Tư cách thành viên của quý vị sẽ chưa có hiệu lực và sẽ không có đoàn phí nào được khấu trừ từ tiền lương của quý vị cho đến khi quý vị thương lượng và bỏ phiếu thông qua hợp đồng công đoàn đầu tiên với chủ lao động.</strong>"
+		polOptOut.innerHTML = "Đánh dấu vào ô bên dưới nếu quý vị muốn phần đoàn phí được sử dụng cho hoạt động chính trị được chuyển sang quỹ học bổng của SEIU 503.";
+		polOptOutCheckbox.innerHTML = "Không tham gia hoạt động chính trị của người lao động";
+		signature.innerHTML = "Họ tên pháp lý đầy đủ của quý vị";
+		signatureNote.innerHTML = "Nhập họ tên pháp lý đầy đủ của quý vị. Nội dung này sẽ được dùng làm chữ ký của quý vị.";
+		}
 	else {
-	console.log("Processing ** unknown **")
-	//
-	// document.title = "** unknown **-language title.";
-	// valueFormTitle.innerHTML = "Form Title: ** unknown **";
-	// valueSubmitButton.defaultValue = "Submit: ** unknown **";
-	// //
-	// textInput_01.innerHTML = "First Name ** unknown ** Test";
-	// textInput_02.innerHTML = "Last Name ** unknown ** Test";
-	// textInput_03.innerHTML = "Email ** unknown ** Test";
-	// textInput_04.innerHTML = "Company ** unknown ** Test";
-	};
+		console.log("Processing ** unknown **")
+		//
+		// document.title = "** unknown **-language title.";
+		// valueFormTitle.innerHTML = "Form Title: ** unknown **";
+		// valueSubmitButton.defaultValue = "Submit: ** unknown **";
+		// //
+		// textInput_01.innerHTML = "First Name ** unknown ** Test";
+		// textInput_02.innerHTML = "Last Name ** unknown ** Test";
+		// textInput_03.innerHTML = "Email ** unknown ** Test";
+		// textInput_04.innerHTML = "Company ** unknown ** Test";
+		};
 
 	// replace error message text
 	formEl.addEventListener('submit', function() {
@@ -165,6 +207,14 @@ window.addEventListener("load", function() {
 			replaceTextInDOM("This does not appear to be a valid date.", "Ingrese una fecha válida.");
 			replaceTextInDOM("Please enter a valid phone number", "Ingrese un número de teléfono válido");
 			replaceTextInDOM("This date must be between", "La fecha debe ser entre");
+		}
+		else if (getLang.startsWith("vi")) {
+			replaceTextInDOM("This field is required.", "Trường này là bắt buộc.");
+			replaceTextInDOM("This does not appear to be a valid email address.", "Địa chỉ email không hợp lệ");
+			replaceTextInDOM("Please enter a valid 5-digit ZIP code", "Vui lòng nhập mã ZIP hợp lệ gồm 5 chữ số");
+			replaceTextInDOM("This does not appear to be a valid date.", "Vui lòng nhập ngày hợp lệ.");
+			replaceTextInDOM("Please enter a valid phone number", "Vui lòng nhập số điện thoại hợp lệ");
+			replaceTextInDOM("This date must be between", "Ngày này phải nằm trong khoảng");
 		}
 
 	})
